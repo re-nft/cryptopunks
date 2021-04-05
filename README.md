@@ -24,6 +24,16 @@
 - (optional) filtering / sorting
 - (optional) next.js implementation for server-side rendering
 
+## Frontend Tabs
+
+- View all punks
+  - filter to see only my punks
+  - filter to see the ones that are being gifted
+  - filter to see the ones that are being gifted to me (also shows in notification center)
+- When clicking on a punk, shows a card. This card has details about the punk. The owner can set
+  the description of the punk. You can also see provenance history of the punk there. You can also
+  see if the punk is being gifted to someone right now
+
 ## Comms
 
 - renft cryptopunk leasing support channel?
