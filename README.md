@@ -1,3 +1,35 @@
+# Cryptopunks Lending & Renting Protocol
+
+## Protocol Spec
+
+- web3 call to og crypto punks. create offer 8 8s and length. Also add protocol version (this one is v0)
+- web3 call to og crypto punks. create bid. 4 1s.
+
+## Frontend Spec
+
+- view your cryptopunks
+- view cryptopunks available for rent
+- view cryptopunks you are renting
+  - view rent end date
+  - little notes section for yourself, to remind you where you have used the cryptopunks
+    this is useful for when the renting period ends to remind you where you need to take it off
+    - (optional) email notification for when the due date is coming up 
+- lend the punk (created the offer to address or plain offer to as per protocol)
+- accept the tenant rights (create bid offer)
+- my dashboard where the user sees any punks that are directed at him
+- view cryptopunks you are lending
+- section about how it works
+- section about responsibilities of the renter and the lender
+- (optional) ability to view lender's address
+- (optional) filtering / sorting
+- (optional) next.js implementation for server-side rendering
+
+## Comms
+
+- renft cryptopunk leasing support channel?
+
+## Next.js
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
