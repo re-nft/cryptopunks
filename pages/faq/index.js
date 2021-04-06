@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 import PageLayout from '../../composed-components/page-layout';
-import FAQ from '../../components/faq';
+import Content from '../../components/content'
 
 export default function Legal() {
   return (
     <PageLayout>
-      <FAQ />
+      <Content />
     </PageLayout>
   );
 }

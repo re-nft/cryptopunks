@@ -123,30 +123,6 @@ export default function Header({ activeTab }) {
                                   </Menu.Item>
                                   <Menu.Item>
                                     <a
-                                      href={`/${ROUTE_NAME.LEGAL.toLowerCase()}`}
-                                      className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
-                                    >
-                                      <svg
-                                        className="flex-shrink-0 h-6 w-6 text-indigo-600"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                      >
-                                        <path
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                          strokeWidth="2"
-                                          d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"
-                                        />
-                                      </svg>
-                                      <span className="ml-3 text-base font-medium text-gray-900">
-                                        {ROUTE_NAME.LEGAL}
-                                      </span>
-                                    </a>
-                                  </Menu.Item>
-                                  <Menu.Item>
-                                    <a
                                       href={`/${ROUTE_NAME.FAQ.toLowerCase()}`}
                                       className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                                     >
@@ -215,24 +191,6 @@ export default function Header({ activeTab }) {
                   <span>
                     <a href={`/${ROUTE_NAME.CRYPTOPUNKS.toLowerCase()}`}>
                       {ROUTE_NAME.CRYPTOPUNKS}
-                    </a>
-                  </span>
-                </button>
-              </div>
-              <div className="relative">
-                {/* Item active: "text-gray-900", Item inactive: "text-gray-500" */}
-                <button
-                  type="button"
-                  className={
-                    activeTab.toLowerCase() === ROUTE_NAME.LEGAL.toLowerCase()
-                      ? activeHeaderText
-                      : defaultHeaderText
-                  }
-                  aria-expanded="false"
-                >
-                  <span>
-                    <a href={`/${ROUTE_NAME.LEGAL.toLowerCase()}`}>
-                      {ROUTE_NAME.LEGAL}
                     </a>
                   </span>
                 </button>
