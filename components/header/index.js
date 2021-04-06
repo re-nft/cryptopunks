@@ -17,7 +17,7 @@ export default function Header() {
                 />
               </a>
             </div>
-            <div className="-mr-2 -my-2 md:hidden">
+            <div className="-mr-2 -my-2 md:hidden z-10">
               <Menu>
                 {({ open }) => (
                   <div>
