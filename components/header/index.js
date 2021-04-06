@@ -1,7 +1,9 @@
 import React from 'react';
 import { Menu, Transition } from '@headlessui/react';
 
-export default function Header() {
+import { ROUTE_NAME } from '../../utils/consts'
+
+export default function Header({ activeTab }) {
   return (
     <>
       <div className="relative bg-white">
@@ -43,8 +45,6 @@ export default function Header() {
                         />
                       </svg>
                     </Menu.Button>
-
-                    {/* Use the Transition + open render prop argument to add transitions. */}
                     <Transition
                       show={open}
                       enter="duration-200 ease-out"
@@ -98,7 +98,25 @@ export default function Header() {
                                 <nav className="grid gap-y-8">
                                   <Menu.Item>
                                     <a
-                                      href="#"
+                                      href={`/${ROUTE_NAME.CRYPTOPUNKS.toLowerCase()}`}
+                                      className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
+                                    >
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="flex-shrink-0 h-6 w-6 text-indigo-600"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                      >
+                                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                                      </svg>
+                                      <span className="ml-3 text-base font-medium text-gray-900">
+                                        {ROUTE_NAME.CRYPTOPUNKS}
+                                      </span>
+                                    </a>
+                                  </Menu.Item>
+                                  <Menu.Item>
+                                    <a
+                                      href={`/${ROUTE_NAME.LEGAL.toLowerCase()}`}
                                       className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                                     >
                                       <svg
@@ -116,13 +134,13 @@ export default function Header() {
                                         />
                                       </svg>
                                       <span className="ml-3 text-base font-medium text-gray-900">
-                                        Legal
+                                        {ROUTE_NAME.LEGAL}
                                       </span>
                                     </a>
                                   </Menu.Item>
                                   <Menu.Item>
                                     <a
-                                      href="#"
+                                      href={`/${ROUTE_NAME.FAQ.toLowerCase()}`}
                                       className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                                     >
                                       <svg
@@ -140,7 +158,7 @@ export default function Header() {
                                         />
                                       </svg>
                                       <span className="ml-3 text-base font-medium text-gray-900">
-                                        FAQ
+                                        {ROUTE_NAME.FAQ}
                                       </span>
                                     </a>
                                   </Menu.Item>
@@ -182,7 +200,11 @@ export default function Header() {
                   className="text-4xl text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   aria-expanded="false"
                 >
-                  <span>Cryptopunks</span>
+                  <span>
+                    <a href={`/${ROUTE_NAME.CRYPTOPUNKS.toLowerCase()}`}>
+                      {ROUTE_NAME.CRYPTOPUNKS}
+                    </a>
+                  </span>
                 </button>
               </div>
               <div className="relative">
@@ -192,7 +214,11 @@ export default function Header() {
                   className="text-4xl text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   aria-expanded="false"
                 >
-                  <span>Legal</span>
+                  <span>
+                    <a href={`/${ROUTE_NAME.LEGAL.toLowerCase()}`}>
+                      {ROUTE_NAME.LEGAL}
+                    </a>
+                  </span>
                 </button>
               </div>
               <div className="relative">
@@ -202,7 +228,11 @@ export default function Header() {
                   className="text-4xl text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   aria-expanded="false"
                 >
-                  <span>FAQ</span>
+                  <span>
+                    <a href={`/${ROUTE_NAME.FAQ.toLowerCase()}`}>
+                      {ROUTE_NAME.FAQ}
+                    </a>
+                  </span>
                 </button>
               </div>
             </nav>
@@ -213,18 +243,19 @@ export default function Header() {
               >
                 Sign in
               </a>
-              <a
+              {
+                // TODO: add the sign up without metamask. g's comment about ease of use. gift the NFTs to ID.
+                // TODO: proto v1
+              }
+              {/* <a
                 href="#"
                 className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
               >
                 Sign up
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
-        {
-          // Mobile menu, show/hide based on mobile menu state.
-        }
       </div>
     </>
   );
