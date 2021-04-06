@@ -23,6 +23,7 @@
 - (optional) ability to view lender's address
 - (optional) filtering / sorting
 - (optional) next.js implementation for server-side rendering
+- (optional) highly useful. API to change all / some of your social avatars with the cryptopunk you have just rented out. Likewise, enable unsetting
 
 ## Frontend Tabs
 
