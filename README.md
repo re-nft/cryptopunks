@@ -3,7 +3,7 @@
 ## Protocol Spec
 
 - web3 call to og crypto punks. create offer 8 8s and length. Also add protocol version (this one is v0)
-- web3 call to og crypto punks. create bid. 4 1s.
+- (protocol v1) web3 call to og crypto punks. create bid. 4 1s.
 
 ## Frontend Spec
 
@@ -20,10 +20,12 @@
 - view cryptopunks you are lending
 - section about how it works
 - section about responsibilities of the renter and the lender
+- when clicking on a punk, open the card with the punk and show provenance
 - (optional) ability to view lender's address
 - (optional) filtering / sorting
 - (optional) next.js implementation for server-side rendering
 - (optional) highly useful. API to change all / some of your social avatars with the cryptopunk you have just rented out. Likewise, enable unsetting
+- (optional) only owner can change details about the punk. When clicking on a punk, show the punk's provenance + owners' details. (plural)
 
 ## Frontend Tabs
 
@@ -34,6 +36,12 @@
 - When clicking on a punk, shows a card. This card has details about the punk. The owner can set
   the description of the punk. You can also see provenance history of the punk there. You can also
   see if the punk is being gifted to someone right now
+
+## Services
+
+- subgraph
+  - pull all cryptopunks curently gifted to someone
+- pull all cryptopunks (there is an image). There should be an API, too
 
 ## Comms
 

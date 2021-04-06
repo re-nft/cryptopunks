@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu, Transition } from '@headlessui/react';
+import PropTypes from 'prop-types';
 
 import { ROUTE_NAME } from '../../utils/consts'
 
@@ -19,7 +20,7 @@ export default function Header({ activeTab }) {
                 />
               </a>
             </div>
-            <div className="-mr-2 -my-2 md:hidden z-10">
+            <div className="-mr-2 -my-2 md:hidden z-20">
               <Menu>
                 {({ open }) => (
                   <div>
@@ -259,4 +260,8 @@ export default function Header({ activeTab }) {
       </div>
     </>
   );
+}
+
+Header.propTypes = {
+  activeTab: PropTypes.string.isRequired
 }
