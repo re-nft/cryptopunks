@@ -1,21 +1,14 @@
 import React from 'react';
 
 import PageLayout from '../composed-components/page-layout';
-import Pagination from '../components/pagination';
-import Grid from '../components/grid';
+import Main from '../components/main'
 
 export default function Home() {
   return (
-    <>
+    <div className="h-full">
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-      <PageLayout>
-        <div className="p-8">
-          <Grid />
-        </div>
-        <div className="pb-8">
-          <Pagination />
-        </div>
-      </PageLayout>
-    </>
+      <PageLayout />
+      <Main />
+    </div>
   );
 }

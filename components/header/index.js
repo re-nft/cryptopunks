@@ -1,25 +1,32 @@
 import React from 'react';
 import { Menu, Transition } from '@headlessui/react';
+import PropTypes from 'prop-types';
 
 import { ROUTE_NAME } from '../../utils/consts'
 
 export default function Header({ activeTab }) {
+  const baseHeaderText = 'text-4xl group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500';
+  const defaultHeaderText = baseHeaderText + ' text-gray-500';
+  const activeHeaderText = baseHeaderText + ' text-gray-900';
+
   return (
     <>
       <div className="relative bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
-              <a href="https://claim.renft.io" target="_blank" rel="noreferrer">
-                <span className="sr-only">reNFT</span>
-                <img
-                  className="h-8 w-auto sm:h-10"
-                  src="renft.png"
-                  alt="reNFT-logo"
-                />
+              <a href="/">
+                <>
+                  <span className="sr-only">reNFT</span>
+                  <img
+                    className="h-8 w-auto sm:h-10"
+                    src="renft.png"
+                    alt="reNFT-logo"
+                  />
+                </>
               </a>
             </div>
-            <div className="-mr-2 -my-2 md:hidden z-10">
+            <div className="-mr-2 -my-2 md:hidden z-20">
               <Menu>
                 {({ open }) => (
                   <div>
@@ -197,7 +204,12 @@ export default function Header({ activeTab }) {
                 {/* Item active: "text-gray-900", Item inactive: "text-gray-500" */}
                 <button
                   type="button"
-                  className="text-4xl text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className={
+                    activeTab.toLowerCase() ===
+                    ROUTE_NAME.CRYPTOPUNKS.toLowerCase()
+                      ? activeHeaderText
+                      : defaultHeaderText
+                  }
                   aria-expanded="false"
                 >
                   <span>
@@ -211,7 +223,11 @@ export default function Header({ activeTab }) {
                 {/* Item active: "text-gray-900", Item inactive: "text-gray-500" */}
                 <button
                   type="button"
-                  className="text-4xl text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className={
+                    activeTab.toLowerCase() === ROUTE_NAME.LEGAL.toLowerCase()
+                      ? activeHeaderText
+                      : defaultHeaderText
+                  }
                   aria-expanded="false"
                 >
                   <span>
@@ -225,7 +241,11 @@ export default function Header({ activeTab }) {
                 {/* Item active: "text-gray-900", Item inactive: "text-gray-500" */}
                 <button
                   type="button"
-                  className="text-4xl text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className={
+                    activeTab.toLowerCase() === ROUTE_NAME.FAQ.toLowerCase()
+                      ? activeHeaderText
+                      : defaultHeaderText
+                  }
                   aria-expanded="false"
                 >
                   <span>
@@ -259,4 +279,8 @@ export default function Header({ activeTab }) {
       </div>
     </>
   );
+}
+
+Header.propTypes = {
+  activeTab: PropTypes.string.isRequired
 }
