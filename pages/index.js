@@ -1,10 +1,11 @@
 // import Head from 'next/head'
-import Nav from '../components/navbar/index'
+import Header from '../components/header/index'
 
 export default function Home() {
   return (
     <>
-      <Nav />
+      <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+      <Header />
     </>
   )
 }
