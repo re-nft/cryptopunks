@@ -13,7 +13,7 @@
   - view rent end date
   - little notes section for yourself, to remind you where you have used the cryptopunks
     this is useful for when the renting period ends to remind you where you need to take it off
-    - (optional) email notification for when the due date is coming up 
+    - (optional) email notification for when the due date is coming up
 - lend the punk (created the offer to address or plain offer to as per protocol)
 - accept the tenant rights (create bid offer)
 - my dashboard where the user sees any punks that are directed at him

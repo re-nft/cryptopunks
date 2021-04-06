@@ -1,0 +1,106 @@
+{
+  "editor.fontSize": 16,
+  "terminal.integrated.fontSize": 12,
+  "terminal.integrated.fontFamily": "MesloLGS NF",
+  "python.linting.enabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.linting.pylintUseMinimalCheckers": false,
+  "python.linting.pylintArgs": [
+    "--disable=E0401,C0111",
+    "--max-line-length=120"
+  ],
+  "sync.gist": "f665090d45fe864595e474e8a007feb8",
+  "terminal.integrated.shell.linux": "/bin/zsh",
+  "editor.suggestSelection": "first",
+  "python.formatting.provider": "black",
+  "editor.fontLigatures": true,
+  "python.globalModuleInstallation": false,
+  "python.testing.autoTestDiscoverOnSaveEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "editor.largeFileOptimizations": false,
+  "terminal.integrated.shell.osx": "/bin/zsh",
+  "editor.fontFamily": "Fira Code, MesloLGS NF, monospace",
+  "editor.minimap.enabled": false,
+  "breadcrumbs.enabled": true,
+  "editor.renderControlCharacters": true,
+  "editor.renderWhitespace": "none",
+  "sync.forceDownload": true,
+  "sync.forceUpload": true,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/*bazel-*": true
+  },
+  "go.formatTool": "goimports",
+  "go.useLanguageServer": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "go.autocompleteUnimportedPackages": true,
+  "go.lintOnSave": "file",
+  "go.liveErrors": {
+    "enabled": true,
+    "delay": 500
+  },
+  "go.useCodeSnippetsOnFunctionSuggest": true,
+  "go.useCodeSnippetsOnFunctionSuggestWithoutType": true,
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
+  },
+  "editor.semanticHighlighting.enabled": true,
+  "vsicons.dontShowNewVersionMessage": true,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "debug.console.fontSize": 16,
+  "debug.console.historySuggestions": true,
+  "debug.console.lineHeight": 20,
+  "python.languageServer": "Pylance",
+  "yseopml.parseAllProjectFilesAtStartup": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.alwaysShowStatus": true,
+  "workbench.colorTheme": "Chinolor Light",
+  "tabnine.experimentalAutoImports": true,
+  "material-ui-snippets.showNotesOnStartup": false,
+  "editor.cursorStyle": "block-outline",
+  "jupyter.askForKernelRestart": false,
+  "workbench.editorAssociations": [
+    {
+      "viewType": "jupyter.notebook.ipynb",
+      "filenamePattern": "*.ipynb"
+    }
+  ],
+  "workbench.iconTheme": "vscode-icons",
+  "diffEditor.maxComputationTime": 0,
+  "go.toolsManagement.autoUpdate": true
+}

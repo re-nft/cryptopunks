@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: prettier-check
-        run: yarn prettier-check
+        run: yarn check
 
       # Runs a single command using the runners shell
       - name: build

@@ -1,11 +1,14 @@
 {
-  "name": "cryptopunks",
+  "name": "renft-cryptopunks",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "format": "yarn prettier --write components pages",
+    "check": "yarn prettier --check components pages"
   },
   "dependencies": {
     "@headlessui/react": "^0.3.2",
@@ -15,7 +18,14 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.2.5",
+    "eslint": "^7.23.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-react": "^7.23.1",
     "postcss": "^8.2.9",
+    "prettier": "2.2.1",
     "tailwindcss": "^2.1.0"
   }
 }
