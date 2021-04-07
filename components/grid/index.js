@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import Punk from '../punk-item'
+import Punk from '../punk-item';
 
 export default function Grid({ punksData }) {
   const [activePunk, setActivePunk] = useState();
@@ -28,5 +28,5 @@ export default function Grid({ punksData }) {
 // punksData, gives all the punk data, we then filter this data
 Grid.propTypes = {
   handleClick: PropTypes.func,
-  punksData: PropTypes.object
+  punksData: PropTypes.object,
 };
