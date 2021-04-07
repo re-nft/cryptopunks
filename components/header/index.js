@@ -2,10 +2,11 @@ import React from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import PropTypes from 'prop-types';
 
-import { ROUTE_NAME } from '../../utils/consts'
+import { ROUTE_NAME } from '../../utils/consts';
 
 export default function Header({ activeTab }) {
-  const baseHeaderText = 'text-4xl group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500';
+  const baseHeaderText =
+    'text-4xl group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500';
   const defaultHeaderText = baseHeaderText + ' text-gray-500';
   const activeHeaderText = baseHeaderText + ' text-gray-900';
 
@@ -33,7 +34,7 @@ export default function Header({ activeTab }) {
                     <Menu.Button
                       type="button"
                       aria-expanded="false"
-                      className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                      className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500"
                     >
                       <span className="sr-only">Open menu</span>
                       <svg
@@ -67,17 +68,19 @@ export default function Header({ activeTab }) {
                             <div className="pt-5 pb-6 px-5">
                               <div className="flex items-center justify-between">
                                 <div>
-                                  <img
-                                    className="h-8 w-auto"
-                                    src="renft.png"
-                                    alt="reNFT"
-                                  />
+                                  <a href="/">
+                                    <img
+                                      className="h-8 w-auto"
+                                      src="renft.png"
+                                      alt="reNFT"
+                                    />
+                                  </a>
                                 </div>
                                 <div className="-mr-2">
                                   <Menu.Item>
                                     <button
                                       type="button"
-                                      className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                                      className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500"
                                     >
                                       <span className="sr-only">
                                         Close menu
@@ -110,7 +113,7 @@ export default function Header({ activeTab }) {
                                     >
                                       <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        className="flex-shrink-0 h-6 w-6 text-indigo-600"
+                                        className="flex-shrink-0 h-6 w-6 text-purple-600"
                                         viewBox="0 0 20 20"
                                         fill="currentColor"
                                       >
@@ -128,7 +131,7 @@ export default function Header({ activeTab }) {
                                     >
                                       <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        className="flex-shrink-0 h-6 w-6 text-indigo-600"
+                                        className="flex-shrink-0 h-6 w-6 text-purple-600"
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         stroke="currentColor"
@@ -150,17 +153,10 @@ export default function Header({ activeTab }) {
                             </div>
                             <div className="py-6 px-5 space-y-6">
                               <div>
-                                <a
-                                  href="#"
-                                  className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-                                >
-                                  Sign up
-                                </a>
                                 <p className="mt-6 text-center text-base font-medium text-gray-500">
-                                  Existing customer?&nbsp;
                                   <a
                                     href="#"
-                                    className="text-indigo-600 hover:text-indigo-500"
+                                    className="text-purple-600 hover:text-purple-500"
                                   >
                                     Sign in
                                   </a>
@@ -177,7 +173,6 @@ export default function Header({ activeTab }) {
             </div>
             <nav className="hidden md:flex space-x-10">
               <div className="relative">
-                {/* Item active: "text-gray-900", Item inactive: "text-gray-500" */}
                 <button
                   type="button"
                   className={
@@ -196,7 +191,6 @@ export default function Header({ activeTab }) {
                 </button>
               </div>
               <div className="relative">
-                {/* Item active: "text-gray-900", Item inactive: "text-gray-500" */}
                 <button
                   type="button"
                   className={
@@ -225,12 +219,6 @@ export default function Header({ activeTab }) {
                 // TODO: add the sign up without metamask. g's comment about ease of use. gift the NFTs to ID.
                 // TODO: proto v1
               }
-              {/* <a
-                href="#"
-                className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-              >
-                Sign up
-              </a> */}
             </div>
           </div>
         </div>
@@ -241,4 +229,4 @@ export default function Header({ activeTab }) {
 
 Header.propTypes = {
   activeTab: PropTypes.string.isRequired
-}
+};

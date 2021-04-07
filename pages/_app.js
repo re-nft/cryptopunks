@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
 
 MyApp.propTypes = {
   Component: PropTypes.node.isRequired,
-  pageProps: PropTypes.object
-}
+  pageProps: PropTypes.object,
+};
 
 export default MyApp;

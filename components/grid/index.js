@@ -7,9 +7,9 @@ export default function Grid() {
         role="list"
         className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
       >
-        {/* Current: "ring-2 ring-offset-2 ring-indigo-500", Default: "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500" */}
+        {/* Current: "ring-2 ring-offset-2 ring-purple-500", Default: "focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500" */}
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/1138.PNG"
               alt="punk #1138"
@@ -33,7 +33,7 @@ export default function Grid() {
           </p>
         </li>
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/1357.PNG"
               alt="punk #1357"
@@ -54,7 +54,7 @@ export default function Grid() {
           </p>
         </li>
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/2009.PNG"
               alt="punk #2009"
@@ -69,7 +69,7 @@ export default function Grid() {
           </p>
         </li>
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/1701.PNG"
               alt="punk #1701"
@@ -84,7 +84,7 @@ export default function Grid() {
           </p>
         </li>
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/2214.PNG"
               alt="punk #2214"
@@ -99,7 +99,7 @@ export default function Grid() {
           </p>
         </li>
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/2345.PNG"
               alt="punk #2345"
@@ -114,7 +114,7 @@ export default function Grid() {
           </p>
         </li>
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/2468.PNG"
               alt="punk #2468"
@@ -129,7 +129,7 @@ export default function Grid() {
           </p>
         </li>
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/2499.PNG"
               alt="punk #2499"
@@ -144,7 +144,7 @@ export default function Grid() {
           </p>
         </li>
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/1138.PNG"
               alt="punk #1138"
@@ -168,7 +168,7 @@ export default function Grid() {
           </p>
         </li>
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/1357.PNG"
               alt="punk #1357"
@@ -189,7 +189,7 @@ export default function Grid() {
           </p>
         </li>
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/2009.PNG"
               alt="punk #2009"
@@ -204,7 +204,7 @@ export default function Grid() {
           </p>
         </li>
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/1701.PNG"
               alt="punk #1701"
@@ -219,7 +219,7 @@ export default function Grid() {
           </p>
         </li>
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/2214.PNG"
               alt="punk #2214"
@@ -235,7 +235,7 @@ export default function Grid() {
           </p>
         </li>
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/2345.PNG"
               alt="punk #2345"
@@ -250,7 +250,7 @@ export default function Grid() {
           </p>
         </li>
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/2468.PNG"
               alt="punk #2468"
@@ -265,7 +265,7 @@ export default function Grid() {
           </p>
         </li>
         <li className="relative">
-          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
+          <div className="focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500 group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden">
             <img
               src="punks/2499.PNG"
               alt="punk #2499"

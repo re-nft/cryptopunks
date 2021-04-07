@@ -7,7 +7,7 @@ export default function Legal() {
         <div className="max-w-max lg:max-w-7xl mx-auto">
           <div className="relative z-10 mb-8 md:mb-2 md:px-6">
             <div className="text-base max-w-prose lg:max-w-none">
-              <h2 className="leading-6 text-indigo-600 font-semibold tracking-wide uppercase">
+              <h2 className="leading-6 text-purple-600 font-semibold tracking-wide uppercase">
                 Transactions
               </h2>
               <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
@@ -84,7 +84,7 @@ export default function Legal() {
             </svg>
             <div className="relative md:bg-white md:p-6">
               <div className="lg:grid lg:grid-cols-2 lg:gap-6">
-                <div className="prose prose-indigo prose-lg text-gray-500 lg:max-w-none">
+                <div className="prose prose-purple prose-lg text-gray-500 lg:max-w-none">
                   <p>
                     Ultrices ultricies a in odio consequat egestas rutrum. Ut
                     vitae aliquam in ipsum. Duis nullam placerat cursus risus
@@ -115,7 +115,7 @@ export default function Legal() {
                     ac ultricies congue.
                   </p>
                 </div>
-                <div className="mt-6 prose prose-indigo prose-lg text-gray-500 lg:mt-0">
+                <div className="mt-6 prose prose-purple prose-lg text-gray-500 lg:mt-0">
                   <p>
                     Erat pellentesque dictumst ligula porttitor risus eget et
                     eget. Ultricies tellus felis id dignissim eget. Est augue
@@ -142,7 +142,7 @@ export default function Legal() {
               <div className="mt-8 inline-flex rounded-md shadow">
                 <a
                   href="#"
-                  className="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                  className="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700"
                 >
                   Contact sales
                 </a>

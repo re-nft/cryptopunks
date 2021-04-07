@@ -22,19 +22,19 @@ require('@tailwindcss/forms'),
       <div className="lg:grid lg:grid-cols-12 lg:gap-x-5">
         <aside className="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3">
           <nav className="space-y-1">
-            {/* Current: "bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white", Default: "text-gray-900 hover:text-gray-900 hover:bg-gray-50" */}
+            {/* Current: "bg-gray-50 text-purple-700 hover:text-purple-700 hover:bg-white", Default: "text-gray-900 hover:text-gray-900 hover:bg-gray-50" */}
             <a
               href="#"
-              className="bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white group rounded-md px-3 py-2 flex items-center text-sm font-medium"
+              className="bg-gray-50 text-purple-700 hover:text-purple-700 hover:bg-white group rounded-md px-3 py-2 flex items-center text-sm font-medium"
               aria-current="page"
             >
               {/*
     Heroicon name: outline/user-circle
 
-    Current: "text-indigo-500 group-hover:text-indigo-500", Default: "text-gray-400 group-hover:text-gray-500"
+    Current: "text-purple-500 group-hover:text-purple-500", Default: "text-gray-400 group-hover:text-gray-500"
   */}
               <svg
-                className="text-indigo-500 group-hover:text-indigo-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                className="text-purple-500 group-hover:text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -170,7 +170,7 @@ require('@tailwindcss/forms'),
                         name="username"
                         id="username"
                         autoComplete="username"
-                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
+                        className="focus:ring-purple-500 focus:border-purple-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
                       />
                     </div>
                   </div>
@@ -186,7 +186,7 @@ require('@tailwindcss/forms'),
                         id="about"
                         name="about"
                         rows={3}
-                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+                        className="shadow-sm focus:ring-purple-500 focus:border-purple-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
                         placeholder="you@example.com"
                         defaultValue={''}
                       />
@@ -211,7 +211,7 @@ require('@tailwindcss/forms'),
                       </span>
                       <button
                         type="button"
-                        className="ml-5 bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="ml-5 bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                       >
                         Change
                       </button>
@@ -240,7 +240,7 @@ require('@tailwindcss/forms'),
                         <div className="flex text-sm text-gray-600">
                           <label
                             htmlFor="file-upload"
-                            className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                            className="relative cursor-pointer bg-white rounded-md font-medium text-purple-600 hover:text-purple-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-purple-500"
                           >
                             <span>Upload a file</span>
                             <input
@@ -263,7 +263,7 @@ require('@tailwindcss/forms'),
               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <button
                   type="submit"
-                  className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="bg-purple-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                 >
                   Save
                 </button>
@@ -294,7 +294,7 @@ require('@tailwindcss/forms'),
                       name="first_name"
                       id="first_name"
                       autoComplete="given-name"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
                     />
                   </div>
                   <div className="col-span-6 sm:col-span-3">
@@ -309,7 +309,7 @@ require('@tailwindcss/forms'),
                       name="last_name"
                       id="last_name"
                       autoComplete="family-name"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
                     />
                   </div>
                   <div className="col-span-6 sm:col-span-4">
@@ -324,7 +324,7 @@ require('@tailwindcss/forms'),
                       name="email_address"
                       id="email_address"
                       autoComplete="email"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
                     />
                   </div>
                   <div className="col-span-6 sm:col-span-3">
@@ -338,7 +338,7 @@ require('@tailwindcss/forms'),
                       id="country"
                       name="country"
                       autoComplete="country"
-                      className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
                     >
                       <option>United States</option>
                       <option>Canada</option>
@@ -357,7 +357,7 @@ require('@tailwindcss/forms'),
                       name="street_address"
                       id="street_address"
                       autoComplete="street-address"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
                     />
                   </div>
                   <div className="col-span-6 sm:col-span-6 lg:col-span-2">
@@ -371,7 +371,7 @@ require('@tailwindcss/forms'),
                       type="text"
                       name="city"
                       id="city"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
                     />
                   </div>
                   <div className="col-span-6 sm:col-span-3 lg:col-span-2">
@@ -385,7 +385,7 @@ require('@tailwindcss/forms'),
                       type="text"
                       name="state"
                       id="state"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
                     />
                   </div>
                   <div className="col-span-6 sm:col-span-3 lg:col-span-2">
@@ -400,7 +400,7 @@ require('@tailwindcss/forms'),
                       name="postal_code"
                       id="postal_code"
                       autoComplete="postal-code"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
                     />
                   </div>
                 </div>
@@ -408,7 +408,7 @@ require('@tailwindcss/forms'),
               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <button
                   type="submit"
-                  className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="bg-purple-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                 >
                   Save
                 </button>
@@ -438,7 +438,7 @@ require('@tailwindcss/forms'),
                           id="comments"
                           name="comments"
                           type="checkbox"
-                          className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                          className="focus:ring-purple-500 h-4 w-4 text-purple-600 border-gray-300 rounded"
                         />
                       </div>
                       <div className="ml-3 text-sm">
@@ -461,7 +461,7 @@ require('@tailwindcss/forms'),
                             id="candidates"
                             name="candidates"
                             type="checkbox"
-                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                            className="focus:ring-purple-500 h-4 w-4 text-purple-600 border-gray-300 rounded"
                           />
                         </div>
                         <div className="ml-3 text-sm">
@@ -484,7 +484,7 @@ require('@tailwindcss/forms'),
                             id="offers"
                             name="offers"
                             type="checkbox"
-                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                            className="focus:ring-purple-500 h-4 w-4 text-purple-600 border-gray-300 rounded"
                           />
                         </div>
                         <div className="ml-3 text-sm">
@@ -516,7 +516,7 @@ require('@tailwindcss/forms'),
                         id="push_everything"
                         name="push_notifications"
                         type="radio"
-                        className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                        className="focus:ring-purple-500 h-4 w-4 text-purple-600 border-gray-300"
                       />
                       <label htmlFor="push_everything" className="ml-3">
                         <span className="block text-sm font-medium text-gray-700">
@@ -529,7 +529,7 @@ require('@tailwindcss/forms'),
                         id="push_email"
                         name="push_notifications"
                         type="radio"
-                        className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                        className="focus:ring-purple-500 h-4 w-4 text-purple-600 border-gray-300"
                       />
                       <label htmlFor="push_email" className="ml-3">
                         <span className="block text-sm font-medium text-gray-700">
@@ -542,7 +542,7 @@ require('@tailwindcss/forms'),
                         id="push_nothing"
                         name="push_notifications"
                         type="radio"
-                        className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                        className="focus:ring-purple-500 h-4 w-4 text-purple-600 border-gray-300"
                       />
                       <label htmlFor="push_nothing" className="ml-3">
                         <span className="block text-sm font-medium text-gray-700">
@@ -556,7 +556,7 @@ require('@tailwindcss/forms'),
               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <button
                   type="submit"
-                  className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+                  className="bg-purple-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-600"
                 >
                   Save
                 </button>
