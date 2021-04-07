@@ -1,25 +1,25 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { useRouter } from 'next/router'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 
-import { ROUTE_NAME } from '../../utils/consts'
-import Header from '../../components/header'
-import Layout from '../../components/layout'
+import { ROUTE_NAME } from '../../utils/consts';
+import Header from '../../components/header';
+import Layout from '../../components/layout';
 
 export default function PageLayout(props) {
   const router = useRouter();
   let activeTab = ROUTE_NAME.HOME;
 
-  console.log(router.pathname)
+  console.log(router.pathname);
 
   switch (router.pathname.toLowerCase().slice(1)) {
-    case (ROUTE_NAME.CRYPTOPUNKS.toLowerCase()):
+    case ROUTE_NAME.CRYPTOPUNKS.toLowerCase():
       activeTab = ROUTE_NAME.CRYPTOPUNKS;
       break;
-    case (ROUTE_NAME.LEGAL.toLowerCase()):
+    case ROUTE_NAME.LEGAL.toLowerCase():
       activeTab = ROUTE_NAME.LEGAL;
       break;
-    case (ROUTE_NAME.FAQ.toLowerCase()):
+    case ROUTE_NAME.FAQ.toLowerCase():
       activeTab = ROUTE_NAME.FAQ;
       break;
     default:
@@ -29,13 +29,11 @@ export default function PageLayout(props) {
   return (
     <>
       <Header activeTab={activeTab} />
-      <Layout>
-        {props.children}
-      </Layout>
+      <Layout>{props.children}</Layout>
     </>
-  )
-};
+  );
+}
 
 PageLayout.propTypes = {
-  children: PropTypes.node
-}
+  children: PropTypes.node,
+};

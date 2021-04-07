@@ -228,5 +228,5 @@ export default function Header({ activeTab }) {
 }
 
 Header.propTypes = {
-  activeTab: PropTypes.string.isRequired
+  activeTab: PropTypes.string.isRequired,
 };
