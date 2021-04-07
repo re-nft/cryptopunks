@@ -4,7 +4,7 @@ import PageLayout from '../../composed-components/page-layout';
 import Pagination from '../../components/pagination';
 import PunksGrid from '../../composed-components/grid-punks';
 
-export default function Legal() {
+export default function Punks() {
   return (
     <PageLayout>
       <div className="p-8">
