@@ -23,6 +23,8 @@ https://tailwindui.com/components
 
 Then, drop all the required components in the issue you are working in and I will share the HTML code snippet with you. 
 
+When submitting a PR, ensure all checks pass. Only PRs that are fully checked out can be merged.
+
 ## Spec
 
 ### Protocol Spec
