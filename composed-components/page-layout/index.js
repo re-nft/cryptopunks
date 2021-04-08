@@ -17,9 +17,6 @@ export default function PageLayout(props) {
     case ROUTE_NAME.CRYPTOPUNKS.toLowerCase():
       activeTab = ROUTE_NAME.CRYPTOPUNKS;
       break;
-    case ROUTE_NAME.LEGAL.toLowerCase():
-      activeTab = ROUTE_NAME.LEGAL;
-      break;
     case ROUTE_NAME.FAQ.toLowerCase():
       activeTab = ROUTE_NAME.FAQ;
       break;
