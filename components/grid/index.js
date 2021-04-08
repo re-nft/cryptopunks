@@ -39,7 +39,11 @@ export default function Grid({ setModalOpen }) {
     <>
       <div className="mb-4">
         <label for='cryptopunks-filter'>View all cryptopunks&nbsp;</label>
-        <select id='cryptopunks-filter' onChange={handleFilterChanged}>
+        <select
+          id='cryptopunks-filter'
+          onChange={handleFilterChanged}
+          className='inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-2 py-1 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500'
+        >
           <option value={PUNKS_FILTER.gifted}>gifted</option>
           <option value={PUNKS_FILTER.i_gifted}>I gifted</option>
           <option value={PUNKS_FILTER.gifted_to_me}>gifted to me</option>
