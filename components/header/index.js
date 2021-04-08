@@ -160,13 +160,11 @@ export default function Header({ activeTab }) {
                             </div>
                             <div className="py-6 px-5 space-y-6">
                               <div>
+                                {
+                                  // this will open up a web3modal
+                                }
                                 <p className="mt-6 text-center text-base font-medium text-gray-500">
-                                  <Link
-                                    href="/signin"
-                                    className="text-purple-600 hover:text-purple-500"
-                                  >
-                                    <a>Sign in</a>
-                                  </Link>
+                                    Sign in
                                 </p>
                               </div>
                             </div>
