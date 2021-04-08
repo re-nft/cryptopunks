@@ -1,32 +1,50 @@
 # Cryptopunks Lending & Renting Protocol
 
-## Spec
+With utmost respect,
 
----
+![reNFT-logo](https://user-images.githubusercontent.com/13678461/111640139-cd885a00-87f3-11eb-89dd-4373e4de378d.png)
+
+## Contributions
+
+Our issues are split into xxx categories
+
+- 🎨 denotes predominantly works pertaining to front-end spec below
+- 🧠 denotes predominantly works pertaining to protocol spec / subgraph
+
+Issue format is the following
+
+`{emoji} - {if front: endpoint} - {description}`
+
+To contribute, create a branch with the id of the issue you are tackling. **One PR per one issue only, please!**
+
+We are using Tailwindcss for our front-end for 10x development. If you are working on a front-end task, have a look here to pick which components you need
+
+https://tailwindui.com/components
+
+Then, drop all the required components in the issue you are working in and I will share the HTML code snippet with you. 
+
+## Spec
 
 ### Protocol Spec
 
 - web3 call to og crypto punks. create offer 8 8s and length. Also add protocol version (this one is v0)
-- (protocol v1) web3 call to og crypto punks. create bid. 4 1s.
 
 ### Frontend Spec
 
 - Filtering in Cryptopunks
-  - *requires filters*
-  - view your cryptopunks
-  - view cryptopunks available for rent
-  - view cryptopunks offered to me as a gift
-  - view cryptopunks you are renting
-  - view cryptopunks you are lending
-  - view rent end date
+  - **requires filters**
+  - view all cryptopunks gifted (superset of the below)
+  - view cryptopunks gifted to me (subset of the above)
+  - view cryptopunks I gifted (subset of all, by definition lol)
+  - under each punk view extra info (current owner, current tenant, tenancy dates)
 - Click on a punk, modal window opens
-  - *requires subgraph*
-  - details on punk
+  - **requires subgraph**
+  - details on a punk
   - owner
   - tenant
-  - lease end date
+  - tenancy dates
   - provenance history
-  - if owner: lend the punk (created the offer to address or plain offer to as per protocol)
+  - *if owner*: lend the punk (created the offer to address or plain offer to as per protocol)
 - FAQ
   - section about how it works
   - section about responsibilities of the renter and the lender
@@ -41,7 +59,8 @@
   - only owner can change details about the punk. When clicking on a punk, show the punk's provenance + owners' details. (plural)
 
 - Future
-  - accept the tenant rights (create bid offer)
+  - view cryptopunks available for rent
+  - web3 call to og crypto punks. create bid. 4 1s. This will accept tenancy rights.
 
 ### Services
 
@@ -54,8 +73,6 @@
 - renft cryptopunk leasing support channel?
 
 ## Tech
-
----
 
 ### Next.js
 
