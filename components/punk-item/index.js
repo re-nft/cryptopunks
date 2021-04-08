@@ -1,14 +1,9 @@
-import React, { useEffect, useState, createRef } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import PropTypes from 'prop-types';
-
-// TODO: rename this
-import ModalPunkCard from '../modal-card'
-import { _handleClickOutside } from '../../utils'
 
 // TODO: handleClick should be taken from context instead
 export default function Punk({ punkData, isSelected, handleClick }) {
-  const [localIsSelected, setLocalIsSelected] = useState(true);
-  const punkRef = createRef();
+  const [_isSelected, setIsSelected] = useState(false);
 
   const baseClassName =
     'group block w-full aspect-w-10 aspect-h-12 rounded-lg overflow-hidden';
@@ -17,29 +12,27 @@ export default function Punk({ punkData, isSelected, handleClick }) {
     baseClassName;
   const activeClassName =
     'ring-2 ring-offset-2 ring-purple-500 cursor-not-allowed ' + baseClassName;
-
-  const handleClickOutside = (e) => {
-    _handleClickOutside(e, punkRef, () => {
-      setLocalIsSelected(false);
-    });
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  });
-
-  if (isSelected && localIsSelected) {
-    return <ModalPunkCard />
-  }
+  // detects click outside of this component (to close the modal)
+  // // TODO: this is a general func that may be used elsewhere, extract it from here
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     console.log('event.target')
+  //     console.log(event.target);
+  //     console.log('punkCardRef')
+  //     console.log(punkCardRef.current);
+  //     if (event.target !== punkCardRef.current) {
+  //       setIsSelected(false);
+  //     }
+  //   };
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => document.removeEventListener('mousedown', handleClickOutside);
+  // });
 
   return (
     <div>
       <div
-        ref={punkRef}
-        className={
-          isSelected && localIsSelected ? activeClassName : defaultClassName
-        }
+        onClick={() => setIsSelected(true)}
+        className={isSelected ? activeClassName : defaultClassName}
       >
         <img
           src="punks/1138.PNG"
@@ -61,9 +54,9 @@ export default function Punk({ punkData, isSelected, handleClick }) {
       </p>
     </div>
   );
-};
+}
 
 // TODO: punkData is required too
 Punk.propTypes = {
-  isSelected: PropTypes.bool.isRequired
+  isSelected: PropTypes.bool.isRequired,
 };

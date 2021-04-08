@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { ROUTE_NAME } from '../../utils/consts';
 import Header from '../../components/header';
 import Layout from '../../components/layout';
+import Footer from '../../components/footer';
 
 export default function PageLayout(props) {
   const router = useRouter();
@@ -30,6 +31,7 @@ export default function PageLayout(props) {
     <>
       <Header activeTab={activeTab} />
       <Layout>{props.children}</Layout>
+      <Footer />
     </>
   );
 }
