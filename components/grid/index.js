@@ -1,8 +1,9 @@
-import React, { useContext, useCallback, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Punk from '../punk-item';
 import PunkContext from '../../contexts/punk';
+import Select from '../Select';
 
 const ListItemPunk = ({ punk, setModalOpen }) => {
   return (
@@ -20,45 +21,43 @@ ListItemPunk.propTypes = {
 const PUNKS_FILTER = {
   i_gifted: 0,
   gifted_to_me: 1,
-  gifted: 2
-}
+  gifted: 2,
+};
 
 export default function Grid({ setModalOpen }) {
-  const { iGiftedPunks, giftedToMePunks, giftedPunks } = useContext(PunkContext);
+  const { iGiftedPunks, giftedToMePunks, giftedPunks } = useContext(
+    PunkContext
+  );
 
-  const punksModeList = [iGiftedPunks, giftedToMePunks, giftedPunks]
+  const punksModeList = [iGiftedPunks, giftedToMePunks, giftedPunks];
 
-  const [punksFilter, setPunksFilter] = useState(PUNKS_FILTER.gifted)
+  const [punksFilter, setPunksFilter] = useState(PUNKS_FILTER.gifted);
 
-  const handleFilterChanged = useCallback(e => {
-    setPunksFilter(e.target.value)
-  }, [])
+  // const handleFilterChanged = useCallback((e) => {
+  //   setPunksFilter(e.target.value);
+  // }, []);
 
   // TODO: limit number of punks per page
   return (
     <>
-      <div className="mb-4">
-        <label for='cryptopunks-filter'>View all cryptopunks&nbsp;</label>
-        <select
-          id='cryptopunks-filter'
-          onChange={handleFilterChanged}
-          className='inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-2 py-1 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500'
-        >
-          <option value={PUNKS_FILTER.gifted}>gifted</option>
-          <option value={PUNKS_FILTER.i_gifted}>I gifted</option>
-          <option value={PUNKS_FILTER.gifted_to_me}>gifted to me</option>
-        </select>
+      <div className="mb-4 w-full md:w-1/3">
+        <Select
+          label="View all Cryptopunks"
+          options={{
+            [PUNKS_FILTER.gifted]: 'Gifted',
+            [PUNKS_FILTER.i_gifted]: 'I gifted',
+            [PUNKS_FILTER.gifted_to_me]: 'Gifted to me',
+          }}
+          value={punksFilter}
+          onChange={(val) => setPunksFilter(val)}
+        />
       </div>
       <ul
         role="list"
         className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
       >
         {punksModeList[punksFilter].map((punk) => (
-          <ListItemPunk
-            key={punk.id}
-            punk={punk}
-            setModalOpen={setModalOpen}
-          />
+          <ListItemPunk key={punk.id} punk={punk} setModalOpen={setModalOpen} />
         ))}
       </ul>
     </>
