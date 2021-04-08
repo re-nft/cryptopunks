@@ -6,8 +6,9 @@ import ModalPunkCard from '../../components/modal-card';
 export default function PunksGrid() {
   return (
     <>
-      <ModalPunkCard />
-      <Grid />
+      <ModalPunkCard>
+        {(setModalOpen) => <Grid setModalOpen={setModalOpen} />}
+      </ModalPunkCard>
     </>
   );
 }

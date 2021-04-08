@@ -14,6 +14,7 @@ module.exports = {
   plugins: ['react'],
   rules: {
     semi: 'off',
-    'space-before-function-paren': 'off'
+    'space-before-function-paren': 'off',
+    'comma-dangle': 'off'
   }
 };
