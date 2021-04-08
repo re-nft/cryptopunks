@@ -214,12 +214,7 @@ export default function Header({ activeTab }) {
               </div>
             </nav>
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-              <Link
-                href="/signin"
-                className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
-              >
-                <a>Sign in</a>
-              </Link>
+                Sign in
               {
                 // TODO: add the sign up without metamask. g's comment about ease of use. gift the NFTs to ID.
                 // TODO: proto v1
