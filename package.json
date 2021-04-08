@@ -7,8 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "format": "yarn prettier --write components composed-components pages",
-    "check": "yarn prettier --check components composed-components pages"
+    "format": "yarn prettier --write contexts components composed-components pages",
+    "check": "yarn prettier --check contexts components composed-components pages"
   },
   "dependencies": {
     "@headlessui/react": "^0.3.2",

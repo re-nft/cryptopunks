@@ -2,8 +2,14 @@ import React from 'react';
 import 'tailwindcss/tailwind.css';
 import PropTypes from 'prop-types';
 
+import { PunkProvider } from '../contexts/punk';
+
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <PunkProvider>
+      <Component {...pageProps} />
+    </PunkProvider>
+  );
 }
 
 MyApp.propTypes = {
