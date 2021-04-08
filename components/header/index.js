@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link'
 import { Menu, Transition } from '@headlessui/react';
 import PropTypes from 'prop-types';
 
@@ -16,16 +17,16 @@ export default function Header({ activeTab }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
-              <a href="/">
-                <>
+              <Link href="/">
+                <a>
                   <span className="sr-only">reNFT</span>
                   <img
                     className="h-8 w-auto sm:h-10"
                     src="renft.png"
                     alt="reNFT-logo"
                   />
-                </>
-              </a>
+                </a>
+              </Link>
             </div>
             <div className="-mr-2 -my-2 md:hidden z-20">
               <Menu>
@@ -68,13 +69,15 @@ export default function Header({ activeTab }) {
                             <div className="pt-5 pb-6 px-5">
                               <div className="flex items-center justify-between">
                                 <div>
-                                  <a href="/">
-                                    <img
-                                      className="h-8 w-auto"
-                                      src="renft.png"
-                                      alt="reNFT"
-                                    />
-                                  </a>
+                                  <Link href="/">
+                                    <a>
+                                      <img
+                                        className="h-8 w-auto"
+                                        src="renft.png"
+                                        alt="reNFT"
+                                      />
+                                    </a>
+                                  </Link>
                                 </div>
                                 <div className="-mr-2">
                                   <Menu.Item>
@@ -107,46 +110,50 @@ export default function Header({ activeTab }) {
                               <div className="mt-6">
                                 <nav className="grid gap-y-8">
                                   <Menu.Item>
-                                    <a
+                                    <Link
                                       href={`/${ROUTE_NAME.CRYPTOPUNKS.toLowerCase()}`}
                                       className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                                     >
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="flex-shrink-0 h-6 w-6 text-purple-600"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                      >
-                                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                                      </svg>
-                                      <span className="ml-3 text-base font-medium text-gray-900">
-                                        {ROUTE_NAME.CRYPTOPUNKS}
-                                      </span>
-                                    </a>
+                                      <a>
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          className="flex-shrink-0 h-6 w-6 text-purple-600"
+                                          viewBox="0 0 20 20"
+                                          fill="currentColor"
+                                        >
+                                          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                                        </svg>
+                                        <span className="ml-3 text-base font-medium text-gray-900">
+                                          {ROUTE_NAME.CRYPTOPUNKS}
+                                        </span>
+                                      </a>
+                                    </Link>
                                   </Menu.Item>
                                   <Menu.Item>
-                                    <a
+                                    <Link
                                       href={`/${ROUTE_NAME.FAQ.toLowerCase()}`}
                                       className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                                     >
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="flex-shrink-0 h-6 w-6 text-purple-600"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                      >
-                                        <path
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                          strokeWidth="2"
-                                          d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"
-                                        />
-                                      </svg>
-                                      <span className="ml-3 text-base font-medium text-gray-900">
-                                        {ROUTE_NAME.FAQ}
-                                      </span>
-                                    </a>
+                                      <a>
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          className="flex-shrink-0 h-6 w-6 text-purple-600"
+                                          fill="none"
+                                          viewBox="0 0 24 24"
+                                          stroke="currentColor"
+                                        >
+                                          <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"
+                                          />
+                                        </svg>
+                                        <span className="ml-3 text-base font-medium text-gray-900">
+                                          {ROUTE_NAME.FAQ}
+                                        </span>
+                                      </a>
+                                    </Link>
                                   </Menu.Item>
                                 </nav>
                               </div>
@@ -154,12 +161,12 @@ export default function Header({ activeTab }) {
                             <div className="py-6 px-5 space-y-6">
                               <div>
                                 <p className="mt-6 text-center text-base font-medium text-gray-500">
-                                  <a
-                                    href="#"
+                                  <Link
+                                    href="/signin"
                                     className="text-purple-600 hover:text-purple-500"
                                   >
-                                    Sign in
-                                  </a>
+                                    <a>Sign in</a>
+                                  </Link>
                                 </p>
                               </div>
                             </div>
@@ -184,9 +191,9 @@ export default function Header({ activeTab }) {
                   aria-expanded="false"
                 >
                   <span>
-                    <a href={`/${ROUTE_NAME.CRYPTOPUNKS.toLowerCase()}`}>
-                      {ROUTE_NAME.CRYPTOPUNKS}
-                    </a>
+                    <Link href={`/${ROUTE_NAME.CRYPTOPUNKS.toLowerCase()}`}>
+                      <a>{ROUTE_NAME.CRYPTOPUNKS}</a>
+                    </Link>
                   </span>
                 </button>
               </div>
@@ -201,20 +208,20 @@ export default function Header({ activeTab }) {
                   aria-expanded="false"
                 >
                   <span>
-                    <a href={`/${ROUTE_NAME.FAQ.toLowerCase()}`}>
-                      {ROUTE_NAME.FAQ}
-                    </a>
+                    <Link href={`/${ROUTE_NAME.FAQ.toLowerCase()}`}>
+                      <a>{ROUTE_NAME.FAQ}</a>
+                    </Link>
                   </span>
                 </button>
               </div>
             </nav>
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-              <a
-                href="#"
+              <Link
+                href="/signin"
                 className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
               >
-                Sign in
-              </a>
+                <a>Sign in</a>
+              </Link>
               {
                 // TODO: add the sign up without metamask. g's comment about ease of use. gift the NFTs to ID.
                 // TODO: proto v1
