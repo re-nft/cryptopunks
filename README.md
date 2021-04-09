@@ -30,7 +30,22 @@ When submitting a PR, ensure all checks pass. Only PRs that are fully checked ou
 
 ### Protocol Spec
 
-- web3 call to og crypto punks. create offer 8 8s and length. Also add protocol version (this one is v0)
+We propose to construct the `minSalePriceInWei` argument in the `offerPunkForSaleToAddress` and `offerPunkForSale` in a particular way to be able to achieve the `v0` cryptopunk gifting feature. Find below the explanation
+
+![protocol-spec](https://cdn.discordapp.com/attachments/750048504377770104/830171125836414999/photo_2021-04-09_21-00-37.jpg)
+
+1. `ff` is to ensure noone can accept the bid. These two hex characters at the front ensure that the number we end up with is at least:
+`115339776388732929035197660848497720713218148788040405586178452820382218977280`
+that is how much someone would have to pay to accept the offer
+you can verify this here
+https://www.rapidtables.com/convert/number/hex-to-decimal.html
+by inputting
+`0xff00000000000000000000000000000000000000000000000000000000000000`
+2. `8e` is the checksum. This is to ensure that during the price transmission no data was lost in a message. Standard computer science trick
+https://en.wikipedia.org/wiki/Checksum#:~:text=A%20checksum%20is%20a%20small,upon%20to%20verify%20data%20authenticity.
+3. `00` is the protocol version. This will help people correctly parse the messages we send. It is conceivable that extension of the gifting protocol will require new data to be specified. Such as the rent price. This new data, will be packed into all or some of the remaining `54` hexbytes we have left. Therefore, developers will be able to say: "oh, this is version `00` so I know I have to parse it as per the spec here"
+this will be incremented `+1` on each new version release, obviously
+4. `000e` is the lease length. e in hexadecimal is `14`, denoting days
 
 ### Frontend Spec
 
