@@ -1,9 +1,9 @@
-type Address {
+type Address @entity {
   "simply the address"
   id: ID!
 }
 
-type TenancyDates {
+type TenancyDates @entity {
   "event.transaction.hash.toHex() + '-' + event.logIndex.toString()"
   id: ID!
   "timestamp as seconds since unix epoch"
@@ -12,17 +12,19 @@ type TenancyDates {
   end: BigInt!
 }
 
-type Provenance {
+type Provenance @entity {
   "cryptopunk id"
   id: ID!
+  "same as above. graph does not allow to derive from id in Cryptopunk, thus redundancy."
+  cryptopunk: Cryptopunk!
   tenant: Address!
   tenancyDates: TenancyDates!
 }
 
-type Cryptopunk {
+type Cryptopunk @entity {
   "cryptopunk og id"
   id: ID!
   owner: Address!
   tenant: Address
-  provenance: [Provenance!] @derivedFrom(field: "id")
+  provenance: [Provenance!] @derivedFrom(field: "cryptopunk")
 }

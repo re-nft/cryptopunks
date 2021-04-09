@@ -1,0 +1,26 @@
+specVersion: 0.0.2
+description: CryptopunkRent
+repository: https://github.com/re-nft/cryptopunks
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: CryptopunkRent
+    network: mainnet
+    source:
+      address: "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb"
+      abi: Cryptopunks
+      startBlock: 3900000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - CryptopunkRent
+      abis:
+        - name: Cryptopunks
+          file: ./contract/Cryptopunks.json
+      eventHandlers:
+        - event: PunkOffered(indexed uint256,uint256,indexed address)
+          handler: handlePunkOffered
+      file: ./mappings/core.ts

@@ -19,6 +19,8 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.20.0",
+    "@graphprotocol/graph-ts": "^0.20.0",
     "autoprefixer": "^10.2.5",
     "eslint": "^7.23.0",
     "eslint-config-standard": "^16.0.2",
