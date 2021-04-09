@@ -3,14 +3,20 @@ type Address {
   id: ID!
 }
 
-type Provenance {
+type TenancyDates {
+  "event.transaction.hash.toHex() + '-' + event.logIndex.toString()"
   id: ID!
-  cryptopunk: Cryptopunk!
+  "timestamp as seconds since unix epoch"
+  start: BigInt!
+  "timestamp as seconds since unix epoch"
+  end: BigInt!
+}
+
+type Provenance {
+  "cryptopunk id"
+  id: ID!
   tenant: Address!
-  tenancyDates: {
-    start: BigInt!
-    end: BigInt!
-  }
+  tenancyDates: TenancyDates!
 }
 
 type Cryptopunk {
@@ -18,9 +24,5 @@ type Cryptopunk {
   id: ID!
   owner: Address!
   tenant: Address
-  tenancyDates: {
-    start: BigInt
-    end: BigInt
-  }
-  provenance: [Provenance!] @derivedFrom(field: "cryptopunk")
+  provenance: [Provenance!] @derivedFrom(field: "id")
 }
