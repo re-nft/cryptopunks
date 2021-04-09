@@ -17,10 +17,10 @@ type Cryptopunk {
   "cryptopunk og id"
   id: ID!
   owner: Address!
-  tenant: Address!
+  tenant: Address
   tenancyDates: {
-    start: BigInt!
-    end: BigInt!
+    start: BigInt
+    end: BigInt
   }
   provenance: [Provenance!] @derivedFrom(field: "cryptopunk")
 }
