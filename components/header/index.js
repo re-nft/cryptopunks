@@ -110,11 +110,8 @@ export default function Header({ activeTab }) {
                               <div className="mt-6">
                                 <nav className="grid gap-y-8">
                                   <Menu.Item>
-                                    <Link
-                                      href={`/${ROUTE_NAME.CRYPTOPUNKS.toLowerCase()}`}
-                                      className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
-                                    >
-                                      <a>
+                                    <Link href={`/${ROUTE_NAME.CRYPTOPUNKS.toLowerCase()}`}>
+                                      <a className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
                                         <svg
                                           xmlns="http://www.w3.org/2000/svg"
                                           className="flex-shrink-0 h-6 w-6 text-purple-600"
@@ -130,11 +127,8 @@ export default function Header({ activeTab }) {
                                     </Link>
                                   </Menu.Item>
                                   <Menu.Item>
-                                    <Link
-                                      href={`/${ROUTE_NAME.FAQ.toLowerCase()}`}
-                                      className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
-                                    >
-                                      <a>
+                                    <Link href={`/${ROUTE_NAME.FAQ.toLowerCase()}`} >
+                                      <a className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
                                         <svg
                                           xmlns="http://www.w3.org/2000/svg"
                                           className="flex-shrink-0 h-6 w-6 text-purple-600"
