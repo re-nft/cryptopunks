@@ -38,7 +38,7 @@ export default function Grid({ setModalOpen }) {
   return (
     <>
       <div className="mb-4">
-        <label for='cryptopunks-filter'>View all cryptopunks&nbsp;</label>
+        <label htmlFor='cryptopunks-filter'>View all cryptopunks&nbsp;</label>
         <select
           id='cryptopunks-filter'
           onChange={handleFilterChanged}
