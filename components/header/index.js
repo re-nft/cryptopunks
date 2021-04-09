@@ -7,21 +7,21 @@ import { ROUTE_NAME } from '../../utils/consts';
 
 export default function Header({ activeTab }) {
   const baseHeaderText =
-    'text-4xl group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500';
+    'text-3xl group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500';
   const defaultHeaderText = baseHeaderText + ' text-gray-500';
   const activeHeaderText = baseHeaderText + ' text-gray-900';
 
   return (
     <>
       <div className="relative bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="max-w-7xl px-4">
           <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <Link href="/">
                 <a>
                   <span className="sr-only">reNFT</span>
                   <img
-                    className="h-8 w-auto sm:h-10"
+                    className="w-auto h-10"
                     src="renft.png"
                     alt="reNFT-logo"
                   />
@@ -158,7 +158,12 @@ export default function Header({ activeTab }) {
                                   // this will open up a web3modal
                                 }
                                 <p className="mt-6 text-center text-base font-medium text-gray-500">
+                                  <a
+                                    href="#"
+                                    className="text-purple-600 hover:text-purple-500"
+                                  >
                                     Sign in
+                                  </a>
                                 </p>
                               </div>
                             </div>
@@ -208,7 +213,12 @@ export default function Header({ activeTab }) {
               </div>
             </nav>
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+              <a
+                href="#"
+                className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+              >
                 Sign in
+              </a>
               {
                 // TODO: add the sign up without metamask. g's comment about ease of use. gift the NFTs to ID.
                 // TODO: proto v1
