@@ -40,7 +40,7 @@ export default function Grid({ setModalOpen }) {
   // TODO: limit number of punks per page
   return (
     <>
-      <div className="mb-4 w-full md:w-1/3">
+      <div className="mb-4 w-full">
         <Select
           label="View all Cryptopunks"
           options={{
