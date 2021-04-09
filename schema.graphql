@@ -1,0 +1,26 @@
+type Address {
+  "simply the address"
+  id: ID!
+}
+
+type Provenance {
+  id: ID!
+  cryptopunk: Cryptopunk!
+  tenant: Address!
+  tenancyDates: {
+    start: BigInt!
+    end: BigInt!
+  }
+}
+
+type Cryptopunk {
+  "cryptopunk og id"
+  id: ID!
+  owner: Address!
+  tenant: Address!
+  tenancyDates: {
+    start: BigInt!
+    end: BigInt!
+  }
+  provenance: [Provenance!] @derivedFrom(field: "cryptopunk")
+}
