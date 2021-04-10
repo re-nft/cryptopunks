@@ -23,4 +23,8 @@ dataSources:
       eventHandlers:
         - event: PunkOffered(indexed uint256,uint256,indexed address)
           handler: handlePunkOffered
+        - event: PunkBought(indexed uint256,uint256,indexed address,indexed address)
+          handler: handlePunkBought
+        - event: PunkTransfer(indexed address,indexed address,uint256)
+          handler: handlePunkTransfer
       file: ./mappings/core.ts

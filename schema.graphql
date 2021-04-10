@@ -25,6 +25,5 @@ type Cryptopunk @entity {
   "cryptopunk og id"
   id: ID!
   owner: Address!
-  tenant: Address
   provenance: [Provenance!] @derivedFrom(field: "cryptopunk")
 }
