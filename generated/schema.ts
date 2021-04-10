@@ -189,23 +189,6 @@ export class Cryptopunk extends Entity {
     this.set("owner", Value.fromString(value));
   }
 
-  get tenant(): string | null {
-    let value = this.get("tenant");
-    if (value === null || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set tenant(value: string | null) {
-    if (value === null) {
-      this.unset("tenant");
-    } else {
-      this.set("tenant", Value.fromString(value as string));
-    }
-  }
-
   get provenance(): Array<string> | null {
     let value = this.get("provenance");
     if (value === null || value.kind == ValueKind.NULL) {

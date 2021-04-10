@@ -1,4 +1,4 @@
-import { Bytes, BigInt, Address, ethereum } from "@graphprotocol/graph-ts";
+import { Bytes, BigInt, Address, ethereum, crypto, ByteArray } from "@graphprotocol/graph-ts";
 
 import {
   PunkOffered,
@@ -11,11 +11,36 @@ import {
   TenancyDates,
   Cryptopunk
 } from "../generated/schema";
-const getAddressID = (userAddress: Address): string => {
+
+const PROTOCOL_PLACEHOLDER_MIN_VALUE = 0xff00000000000000000000000000000000000000000000000000000000000000;
+const CHECKSUM_MASK = 0xff00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff;
+const MAX_RENT_LENGTH = 99;
+
+function computeChecksum(minSalePriceInWei: BigInt): string {
+  let checksumThis = BigInt.fromI32(CHECKSUM_MASK && minSalePriceInWei.toI32());
+  let k256 = crypto.keccak256(ByteArray.fromHexString(checksumThis.toHexString()));
+  return k256.toHex().slice(2, 4);
+}
+
+function verifyRentEvent(minSalePriceInWei: BigInt): bool {
+  let hexPacked = minSalePriceInWei.toHex();
+  let placeholder = hexPacked.slice(2, 4);
+  if (placeholder != "ff") {
+    return false;
+  }
+  let checksum = hexPacked.slice(4, 6);
+  let computedChecksum = computeChecksum(minSalePriceInWei);
+  if (checksum != computedChecksum) {
+    return false;
+  }
+  return true;
+}
+
+function getAddressID(userAddress: Address): string {
   return userAddress.toHex();
 }
 
-const fetchAddress = (userAddress: string): UserAddress => {
+function fetchAddress(userAddress: string): UserAddress {
   let address = UserAddress.load(userAddress);
   if (address == null) {
     address = new UserAddress(userAddress);
@@ -23,11 +48,11 @@ const fetchAddress = (userAddress: string): UserAddress => {
   return <UserAddress>address;
 }
 
-const getTenancyDatesID = (transaction: ethereum.Transaction): string => {
+function getTenancyDatesID(transaction: ethereum.Transaction): string {
   return transaction.hash.toHex() + "::" + transaction.index.toString();
 }
 
-const fetchTenancyDates = (tenancyDatesID: string): TenancyDates => {
+function fetchTenancyDates(tenancyDatesID: string): TenancyDates {
   let tenancyDates = TenancyDates.load(tenancyDatesID);
   if (tenancyDates == null) {
     tenancyDates = new TenancyDates(tenancyDatesID);
@@ -35,11 +60,11 @@ const fetchTenancyDates = (tenancyDatesID: string): TenancyDates => {
   return <TenancyDates>tenancyDates;
 }
 
-const getCryptopunkID = (cryptopunkID: BigInt): string => {
+function getCryptopunkID(cryptopunkID: BigInt): string {
   return cryptopunkID.toString();
 }
 
-const fetchCryptopunk = (cryptopunkID: string): Cryptopunk => {
+function fetchCryptopunk(cryptopunkID: string): Cryptopunk {
   let cryptopunk = Cryptopunk.load(cryptopunkID);
   if (cryptopunk == null) {
     cryptopunk = new Cryptopunk(cryptopunkID);
@@ -47,11 +72,11 @@ const fetchCryptopunk = (cryptopunkID: string): Cryptopunk => {
   return <Cryptopunk>cryptopunk;
 }
 
-const getProvenanceID = (cryptopunkID: BigInt): string => {
+function getProvenanceID(cryptopunkID: BigInt): string {
   return getCryptopunkID(cryptopunkID);
 }
 
-const fetchProvenance = (provenanceID: string): Provenance => {
+function fetchProvenance(provenanceID: string): Provenance {
   let provenance = Provenance.load(provenanceID);
   if (provenance == null) {
     provenance = new Provenance(provenanceID);
@@ -59,16 +84,21 @@ const fetchProvenance = (provenanceID: string): Provenance => {
   return <Provenance>provenance;
 }
 
-const unpackRentLength = (packedRentData: BigInt): BigInt => {
-  let hexRentData = packedRentData.toHex();
-  return BigInt.fromI32(Bytes.fromHexString(hexRentData.slice(8, 12)).toI32());
+function unpackRentLength(hexPackedRentData: string): BigInt {
+  return BigInt.fromI32(Bytes.fromHexString('0x' + hexPackedRentData.slice(8, 12)).toI32());
 }
 
-export const handlePunkOffered = (e: PunkOffered): void => {
+export function handlePunkOffered(e: PunkOffered): void {
+  let validRentEvent = verifyRentEvent(e.params.minValue);
+  if (!validRentEvent) return;
+
   let from = e.transaction.from;
   let cryptopunkID = e.params.punkIndex;
   let newTenant = e.params.toAddress;
-  let rentLength = unpackRentLength(e.params.minValue);
+  let hexPackedRentData = e.params.minValue.toHex();
+
+  let rentLength = unpackRentLength(hexPackedRentData);
+  if (rentLength > BigInt.fromI32(MAX_RENT_LENGTH)) return;
 
   let owner = fetchAddress(getAddressID(from));
   let tenant = fetchAddress(getAddressID(newTenant));
@@ -93,7 +123,7 @@ export const handlePunkOffered = (e: PunkOffered): void => {
 }
 
 // event PunkBought(uint indexed punkIndex, uint value, address indexed fromAddress, address indexed toAddress);
-export const handlePunkBought = (e: PunkBought): void => {
+export function handlePunkBought(e: PunkBought): void {
   let owner = fetchAddress(getAddressID(e.params.toAddress));
   let cryptopunk = fetchCryptopunk(getCryptopunkID(e.params.punkIndex));
 
@@ -104,7 +134,7 @@ export const handlePunkBought = (e: PunkBought): void => {
 }
 
 // event PunkTransfer(address indexed from, address indexed to, uint256 punkIndex);
-export const handlePunkTransfer = (e: PunkTransfer): void => {
+export function handlePunkTransfer(e: PunkTransfer): void {
   let owner = fetchAddress(getAddressID(e.params.to));
   let cryptopunk = fetchCryptopunk(getCryptopunkID(e.params.punkIndex));
 
