@@ -1,4 +1,4 @@
-import { Bytes, BigInt, Address, ethereum, crypto, ByteArray } from "@graphprotocol/graph-ts";
+import { Bytes, BigInt, Address, ethereum, crypto, ByteArray, log } from "@graphprotocol/graph-ts";
 
 import {
   PunkOffered,
@@ -17,19 +17,30 @@ const CHECKSUM_MASK = 0xff00ffffffffffffffffffffffffffffffffffffffffffffffffffff
 const MAX_RENT_LENGTH = 99;
 
 function computeChecksum(minSalePriceInWei: BigInt): string {
-  let checksumThis = BigInt.fromI32(CHECKSUM_MASK && minSalePriceInWei.toI32());
-  let k256 = crypto.keccak256(ByteArray.fromHexString(checksumThis.toHexString()));
+  let minSalePriceInWeiInI32 = minSalePriceInWei.toI32();
+  log.info('minSalePriceInWeiInI32 = {}', [<string>minSalePriceInWeiInI32]);
+  let checksumThisInI32 = CHECKSUM_MASK & minSalePriceInWeiInI32;
+  let checksumThis = BigInt.fromI32(checksumThisInI32);
+  let checksumThisHex = checksumThis.toHex();
+  log.info('checksumThisHex = {}', [checksumThisHex]);
+  let checksumByteArray = ByteArray.fromHexString(checksumThisHex);
+  let k256 = crypto.keccak256(checksumByteArray);
+  log.info('k256 = {}', [k256.toHex()]);
   return k256.toHex().slice(2, 4);
 }
 
 function verifyRentEvent(minSalePriceInWei: BigInt): bool {
   let hexPacked = minSalePriceInWei.toHex();
+  log.info('hexPacked (minSalePriceInWei) = {}', [hexPacked]);
   let placeholder = hexPacked.slice(2, 4);
+  log.info('placeholder = {}', [placeholder]);
   if (placeholder != "ff") {
     return false;
   }
   let checksum = hexPacked.slice(4, 6);
+  log.info('checksum = {}', [checksum])
   let computedChecksum = computeChecksum(minSalePriceInWei);
+  log.info('computed checksum = {}', [computedChecksum])
   if (checksum != computedChecksum) {
     return false;
   }
