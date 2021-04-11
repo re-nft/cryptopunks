@@ -12,35 +12,31 @@ import {
   Cryptopunk
 } from "../generated/schema";
 
-const PROTOCOL_PLACEHOLDER_MIN_VALUE = 0xff00000000000000000000000000000000000000000000000000000000000000;
-const CHECKSUM_MASK = 0xff00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff;
+let CHECKSUM_MASK = BigInt.fromI32(0xff00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff);
 const MAX_RENT_LENGTH = 99;
 
 function computeChecksum(minSalePriceInWei: BigInt): string {
-  let minSalePriceInWeiInI32 = minSalePriceInWei.toI32();
-  log.info('minSalePriceInWeiInI32 = {}', [<string>minSalePriceInWeiInI32]);
-  let checksumThisInI32 = CHECKSUM_MASK & minSalePriceInWeiInI32;
-  let checksumThis = BigInt.fromI32(checksumThisInI32);
+  let checksumThis = CHECKSUM_MASK.bitAnd(minSalePriceInWei);
   let checksumThisHex = checksumThis.toHex();
-  log.info('checksumThisHex = {}', [checksumThisHex]);
+  log.info('[computeChecksum] checksumThisHex = {}', [checksumThisHex]);
   let checksumByteArray = ByteArray.fromHexString(checksumThisHex);
   let k256 = crypto.keccak256(checksumByteArray);
-  log.info('k256 = {}', [k256.toHex()]);
+  log.info('[computeChecksum] k256 = {}', [k256.toHex()]);
   return k256.toHex().slice(2, 4);
 }
 
 function verifyRentEvent(minSalePriceInWei: BigInt): bool {
   let hexPacked = minSalePriceInWei.toHex();
-  log.info('hexPacked (minSalePriceInWei) = {}', [hexPacked]);
+  log.info('[verifyRentEvent] hexPacked (minSalePriceInWei) = {}', [hexPacked]);
   let placeholder = hexPacked.slice(2, 4);
-  log.info('placeholder = {}', [placeholder]);
+  log.info('[verifyRentEvent] placeholder = {}', [placeholder]);
   if (placeholder != "ff") {
     return false;
   }
   let checksum = hexPacked.slice(4, 6);
-  log.info('checksum = {}', [checksum])
+  log.info('[verifyRentEvent] checksum = {}', [checksum])
   let computedChecksum = computeChecksum(minSalePriceInWei);
-  log.info('computed checksum = {}', [computedChecksum])
+  log.info('[verifyRentEvent] computed checksum = {}', [computedChecksum])
   if (checksum != computedChecksum) {
     return false;
   }
