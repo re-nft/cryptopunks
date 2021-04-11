@@ -12,7 +12,7 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
-export class Address extends Entity {
+export class UserAddress extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -20,17 +20,17 @@ export class Address extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save Address entity without an ID");
+    assert(id !== null, "Cannot save UserAddress entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save Address entity with non-string ID. " +
+      "Cannot save UserAddress entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("Address", id.toString(), this);
+    store.set("UserAddress", id.toString(), this);
   }
 
-  static load(id: string): Address | null {
-    return store.get("Address", id) as Address | null;
+  static load(id: string): UserAddress | null {
+    return store.get("UserAddress", id) as UserAddress | null;
   }
 
   get id(): string {
@@ -92,6 +92,63 @@ export class TenancyDates extends Entity {
   }
 }
 
+export class Cryptopunk extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Cryptopunk entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Cryptopunk entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Cryptopunk", id.toString(), this);
+  }
+
+  static load(id: string): Cryptopunk | null {
+    return store.get("Cryptopunk", id) as Cryptopunk | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get owner(): string {
+    let value = this.get("owner");
+    return value.toString();
+  }
+
+  set owner(value: string) {
+    this.set("owner", Value.fromString(value));
+  }
+
+  get provenance(): Array<string> | null {
+    let value = this.get("provenance");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set provenance(value: Array<string> | null) {
+    if (value === null) {
+      this.unset("provenance");
+    } else {
+      this.set("provenance", Value.fromStringArray(value as Array<string>));
+    }
+  }
+}
+
 export class Provenance extends Entity {
   constructor(id: string) {
     super();
@@ -147,62 +204,5 @@ export class Provenance extends Entity {
 
   set tenancyDates(value: string) {
     this.set("tenancyDates", Value.fromString(value));
-  }
-}
-
-export class Cryptopunk extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id !== null, "Cannot save Cryptopunk entity without an ID");
-    assert(
-      id.kind == ValueKind.STRING,
-      "Cannot save Cryptopunk entity with non-string ID. " +
-        'Considering using .toHex() to convert the "id" to a string.'
-    );
-    store.set("Cryptopunk", id.toString(), this);
-  }
-
-  static load(id: string): Cryptopunk | null {
-    return store.get("Cryptopunk", id) as Cryptopunk | null;
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    return value.toString();
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get owner(): string {
-    let value = this.get("owner");
-    return value.toString();
-  }
-
-  set owner(value: string) {
-    this.set("owner", Value.fromString(value));
-  }
-
-  get provenance(): Array<string> | null {
-    let value = this.get("provenance");
-    if (value === null || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toStringArray();
-    }
-  }
-
-  set provenance(value: Array<string> | null) {
-    if (value === null) {
-      this.unset("provenance");
-    } else {
-      this.set("provenance", Value.fromStringArray(value as Array<string>));
-    }
   }
 }
