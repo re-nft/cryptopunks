@@ -172,3 +172,5 @@ yarn-error.log*
 .vercel
 
 .vscode
+
+playground
