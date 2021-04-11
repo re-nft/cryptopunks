@@ -25,5 +25,7 @@ type Provenance @entity {
   "same as above. graph does not allow to derive from id in Cryptopunk, thus redundancy."
   cryptopunk: Cryptopunk!
   tenant: UserAddress!
+  "impossible to make graph compute keccak256, so this here is for manual check on the client side."
+  minSalePriceInWei: BigInt!
   tenancyDates: TenancyDates!
 }

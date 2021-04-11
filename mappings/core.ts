@@ -1,4 +1,3 @@
-/* tslint:disable */
 import { Bytes, BigInt, Address, ethereum, crypto, ByteArray, log } from "@graphprotocol/graph-ts";
 
 import {
@@ -15,39 +14,49 @@ import {
 
 let ADDRESS_ZERO = '0x0000000000000000000000000000000000000000';
 let TIMESTAMP_BIG_BANG = BigInt.fromI32(0);
-let CHECKSUM_MASK = BigInt.fromI32(0xff00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff);
-let MAX_RENT_LENGTH = BigInt.fromI32(99);
+// let CHECKSUM_MASK = BigInt.fromI32(0xff00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff);
+let RENT_MAX_LENGTH = BigInt.fromI32(99);
 
 createUserAddress(ADDRESS_ZERO);
 
 // --- Packed Rent Data Verifiers ---
-function computeChecksum(minSalePriceInWei: BigInt): string {
-  let checksumThis = CHECKSUM_MASK.bitAnd(minSalePriceInWei);
-  let checksumThisHex = checksumThis.toHex();
-  log.info('[computeChecksum] checksumThisHex = {}', [checksumThisHex]);
-  let checksumByteArray = ByteArray.fromHexString(checksumThisHex);
-  let k256 = crypto.keccak256(checksumByteArray);
-  log.info('[computeChecksum] k256 = {}', [k256.toHex()]);
-  return k256.toHex().slice(2, 4);
-}
+// TODO: shoot myself
+// function computeChecksum(minSalePriceInWei: BigInt): string {
+//   let checksumThis = CHECKSUM_MASK.bitAnd(minSalePriceInWei);
+//   // let checksumThisHex = checksumThis.toHex();
+//   // log.debug('[computeChecksum] checksumThisHex = {}', [checksumThisHex]);
+//   // let checksumByteArray = ByteArray.fromHexString(checksumThisHex.slice(2, checksumThisHex.length));
+//   let k256 = crypto.keccak256(ByteArray.fromHexString(checksumThis.toHexString()));
+//   log.debug('[computeChecksum] computedChecksum = {}', [k256.toHex()]);
+//   return k256.toHex();
+//   // log.info('[checksumThis] {}',  [checksumThis.toHex().slice(2, 4)]);
+//   // return checksumThis.toHex().slice(2, 4);
+// }
 
 function verifyRentEvent(minSalePriceInWei: BigInt): boolean {
   let hexPacked = minSalePriceInWei.toHex();
-  log.info('[verifyRentEvent] hexPacked (minSalePriceInWei) = {}', [hexPacked]);
+  hexPacked = hexPacked + '0'.repeat(66 - hexPacked.length);
+  log.debug('[verifyRentEvent] minSalePriceInWei = {}', [hexPacked]);
   let placeholder = hexPacked.slice(2, 4);
-  log.info('[verifyRentEvent] placeholder = {}', [placeholder]);
-  // if (placeholder != "ff") {
-  //   return false;
-  // }
-  let checksum = hexPacked.slice(4, 6);
-  log.info('[verifyRentEvent] checksum = {}', [checksum]);
-  return true;
+  log.debug('[verifyRentEvent] placeholder = {}', [placeholder]);
+  if (placeholder != "ff") {
+    log.info('[verifyRentEvent] not a rent event. incorrect placeholder.', []);
+    return false;
+  }
+  let rentLength = unpackRentLength(hexPacked);
+  if (rentLength.gt(RENT_MAX_LENGTH)) {
+    log.info('[verifyRentEvent] not a rent event. rent length exceeds max.', []);
+    return false;
+  }
+  // let checksum = hexPacked.slice(4, 6);
+  // log.info('[verifyRentEvent] checksum = {}', [checksum]);
   // let computedChecksum = computeChecksum(minSalePriceInWei);
-  // log.info('[verifyRentEvent] computed checksum = {}', [computedChecksum])
+  // log.info('[verifyRentEvent] computed checksum = {}', [computedChecksum]);
   // if (checksum != computedChecksum) {
+  //   log.info('[verifyRentEvent] not a rent event. incorrect checksum.', []);
   //   return false;
   // }
-  // return true;
+  return true;
 }
 // --- * ---
 
@@ -115,9 +124,10 @@ function unpackRentLength(hexPackedRentData: string): BigInt {
   return BigInt.fromI32(Bytes.fromHexString('0x' + hexPackedRentData.slice(8, 12)).toI32());
 }
 
+// --- Handlers ---
 export function handlePunkOffered(e: PunkOffered): void {
-  // let validRentEvent = verifyRentEvent(e.params.minValue);
-  // if (!validRentEvent) return;
+  let validRentEvent = verifyRentEvent(e.params.minValue);
+  if (validRentEvent == false) return;
 
   let from = e.transaction.from;
   let newTenant = e.params.toAddress;
@@ -180,3 +190,4 @@ export function handlePunkTransfer(e: PunkTransfer): void {
   cryptopunk.owner = owner.id;
   cryptopunk.save();
 }
+// --- * ---
