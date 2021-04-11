@@ -11,8 +11,6 @@ export default function PageLayout(props) {
   const router = useRouter();
   let activeTab = ROUTE_NAME.HOME;
 
-  console.log(router.pathname);
-
   switch (router.pathname.toLowerCase().slice(1)) {
     case ROUTE_NAME.CRYPTOPUNKS.toLowerCase():
       activeTab = ROUTE_NAME.CRYPTOPUNKS;

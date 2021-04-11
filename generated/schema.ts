@@ -197,6 +197,15 @@ export class Provenance extends Entity {
     this.set("tenant", Value.fromString(value));
   }
 
+  get minSalePriceInWei(): BigInt {
+    let value = this.get("minSalePriceInWei");
+    return value.toBigInt();
+  }
+
+  set minSalePriceInWei(value: BigInt) {
+    this.set("minSalePriceInWei", Value.fromBigInt(value));
+  }
+
   get tenancyDates(): string {
     let value = this.get("tenancyDates");
     return value.toString();
