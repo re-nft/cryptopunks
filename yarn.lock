@@ -1797,10 +1797,10 @@ etag@1.8.1:
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
 
-ethereum-blockies-updated@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/ethereum-blockies-updated/-/ethereum-blockies-updated-1.0.1.tgz#0ddca2d4ae39a92f5eecf51361c183dcac3a8f6a"
-  integrity sha1-Ddyi1K45qS9e7PUTYcGD3Kw6j2o=
+ethereum-blockies@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/ethereum-blockies/-/ethereum-blockies-0.1.1.tgz#879fe959deef492a7a92b43dc34ae8dc2ee591fc"
+  integrity sha1-h5/pWd7vSSp6krQ9w0ro3C7lkfw=
 
 event-target-shim@^5.0.0:
   version "5.0.1"

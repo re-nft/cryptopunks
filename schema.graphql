@@ -8,7 +8,7 @@ type TenancyDates @entity {
   id: ID!
   "timestamp as seconds since unix epoch."
   start: Int!
-  "timestamp as seconds since unix epoch. end > start."
+  "TODO: not computed right now. see GitHub. timestamp as seconds since unix epoch. end > start."
   end: Int!
 }
 
