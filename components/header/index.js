@@ -1,3 +1,4 @@
+import NextLink from 'next/link';
 import React, { useContext } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import PropTypes from 'prop-types';
@@ -35,16 +36,16 @@ export default function Header({ activeTab }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
-              <a href="/">
-                <>
+              <NextLink href="/">
+                <a>
                   <span className="sr-only">reNFT</span>
                   <img
                     className="h-8 w-auto sm:h-10"
                     src="renft.png"
                     alt="reNFT-logo"
                   />
-                </>
-              </a>
+                </a>
+              </NextLink>
             </div>
             <div className="-mr-2 -my-2 md:hidden z-20">
               <Menu>
@@ -87,13 +88,15 @@ export default function Header({ activeTab }) {
                             <div className="pt-5 pb-6 px-5">
                               <div className="flex items-center justify-between">
                                 <div>
-                                  <a href="/">
-                                    <img
-                                      className="h-8 w-auto"
-                                      src="renft.png"
-                                      alt="reNFT"
-                                    />
-                                  </a>
+                                  <NextLink href="/">
+                                    <a>
+                                      <img
+                                        className="h-8 w-auto"
+                                        src="renft.png"
+                                        alt="reNFT"
+                                      />
+                                    </a>
+                                  </NextLink>
                                 </div>
                                 <div className="-mr-2">
                                   <Menu.Item>
@@ -126,22 +129,23 @@ export default function Header({ activeTab }) {
                               <div className="mt-6">
                                 <nav className="grid gap-y-8">
                                   <Menu.Item>
-                                    <a
+                                    <NextLink
                                       href={`/${ROUTE_NAME.CRYPTOPUNKS.toLowerCase()}`}
-                                      className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                                     >
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="flex-shrink-0 h-6 w-6 text-purple-600"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                      >
-                                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                                      </svg>
-                                      <span className="ml-3 text-base font-medium text-gray-900">
-                                        {ROUTE_NAME.CRYPTOPUNKS}
-                                      </span>
-                                    </a>
+                                      <a className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          className="flex-shrink-0 h-6 w-6 text-purple-600"
+                                          viewBox="0 0 20 20"
+                                          fill="currentColor"
+                                        >
+                                          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                                        </svg>
+                                        <span className="ml-3 text-base font-medium text-gray-900">
+                                          {ROUTE_NAME.CRYPTOPUNKS}
+                                        </span>
+                                      </a>
+                                    </NextLink>
                                   </Menu.Item>
                                   {/* <Menu.Item>
                                     <a
@@ -172,17 +176,23 @@ export default function Header({ activeTab }) {
                             </div>
                             <div className="py-6 px-5 space-y-6">
                               <div>
-                              {!address && (<p className="mt-6 text-center text-base font-medium text-gray-500">
-                                  <a
-                                    href="#"
-                                    className="text-purple-600 hover:text-purple-500"
-                                    onClick={() => connect()}
-                                  >
-                                    Sign in
-                                  </a>
-                                </p>)}
+                                {!address && (
+                                  <p className="mt-6 text-center text-base font-medium text-gray-500">
+                                    <span
+                                      className="cursor-pointer text-purple-600 hover:text-purple-500"
+                                      onClick={() => connect()}
+                                    >
+                                      Sign in
+                                    </span>
+                                  </p>
+                                )}
                                 <div className="text-center">
-                                  {address && <><div>{short(address)}</div> &nbsp; <img className="m-auto" src={icon} /></>}
+                                  {address && (
+                                    <>
+                                      <div>{short(address)}</div> &nbsp;{' '}
+                                      <img className="m-auto" src={icon} />
+                                    </>
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -207,9 +217,9 @@ export default function Header({ activeTab }) {
                   aria-expanded="false"
                 >
                   <span>
-                    <a href={`/${ROUTE_NAME.CRYPTOPUNKS.toLowerCase()}`}>
-                      {ROUTE_NAME.CRYPTOPUNKS}
-                    </a>
+                    <NextLink href={`/${ROUTE_NAME.CRYPTOPUNKS.toLowerCase()}`}>
+                      <a>{ROUTE_NAME.CRYPTOPUNKS}</a>
+                    </NextLink>
                   </span>
                 </button>
               </div>
@@ -224,22 +234,30 @@ export default function Header({ activeTab }) {
                   aria-expanded="false"
                 >
                   <span>
-                    <a href={`/${ROUTE_NAME.FAQ.toLowerCase()}`}>
+                  <NextLink href={`/${ROUTE_NAME.FAQ.toLowerCase()}`}>
+                    <a >
                       {ROUTE_NAME.FAQ}
                     </a>
+                    </NextLink>
                   </span>
                 </button>
               </div> */}
             </nav>
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-              {!address && (<a
-                href="#"
-                className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
-                onClick={() => connect()}
-              >
-                Sign in
-              </a>)}
-              {address && <>{short(address)} &nbsp; <img src={icon} /></>}
+              {!address && (
+                <span
+                  // style={{ cursor: 'pointer' }}
+                  className="cursor-pointer whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+                  onClick={() => connect()}
+                >
+                  Sign in
+                </span>
+              )}
+              {address && (
+                <>
+                  {short(address)} &nbsp; <img src={icon} />
+                </>
+              )}
               {
                 // TODO: add the sign up without metamask. g's comment about ease of use. gift the NFTs to ID.
                 // TODO: proto v1
