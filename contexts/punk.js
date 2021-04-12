@@ -1,5 +1,11 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { blockies } from 'ethereum-blockies';
+import axios from 'axios';
+import { request } from 'graphql-request';
+
+import { parsePackedRentData } from '../utils';
+import { queryAllGiftedPunks } from './queries';
 
 const PunkContext = createContext({
   giftedPunks: [],
@@ -35,6 +41,31 @@ const ALGO_TWO = '0x00000444e5a1a667663b0ADfD853E8Efa0470698';
 // tenant: current tenant of the punk
 // tenancyDates: tenancy dates for the current tenant
 // provenance: historical tenants of the punk
+
+const ENDPOINT = 'https://api.thegraph.com/subgraphs/id/QmanEVMeFXE8v2NgUHg9kYCpB4xJr1opYsojmdhohYZDTg'
+
+class Provenance {
+  constructor(punkID, tenant, start, minSalePriceInWei) {
+    this.punkID = punkID;
+    this.tenant = tenant;
+    this.tenantIcon = blockies
+      .create({
+        seed: tenant,
+        color: '#dfe',
+        bgcolor: '#aaa',
+        size: 15,
+        scale: 3,
+        spotcolor: '#000',
+      })
+      .toDataURL();
+    this.start = start;
+    const { rentLength } = parsePackedRentData(minSalePriceInWei);
+    this.end = this.start + rentLength;
+    this.src = axios.get(
+      `https://www.larvalabs.com/cryptopunks/cryptopunk${this.punkID}.png`
+    );
+  }
+}
 
 const mockAllGiftedPunks = [
   {
@@ -118,7 +149,7 @@ const mockGiftedToMePunks = mockAllGiftedPunks.filter(
 );
 
 export function PunkProvider({ children }) {
-  const [giftedPunks] = useState(mockAllGiftedPunks);
+  const [giftedPunks, setGiftedPunks] = useState(mockAllGiftedPunks);
   const [iGiftedPunks] = useState(mockIGiftedPunks);
   const [giftedToMePunks] = useState(mockGiftedToMePunks);
 
@@ -127,6 +158,29 @@ export function PunkProvider({ children }) {
   const setActivePunk = (punk) => {
     _setActivePunk(punk);
   };
+
+  useEffect(() => {
+    console.error(
+      'SUBGRAPH_ENDPOINT_URL',
+      process.env.REACT_SUBGRAPH_ENDPOINT_URI
+    );
+
+    // TODO: only pulls this once. add a poller
+    request(ENDPOINT, queryAllGiftedPunks)
+      .then((d) => {
+        const { provenances } = d;
+        const parsedProvenances = [];
+        provenances.map((p) => parsedProvenances.push(new Provenance(p.cryptopunk.id, p.tenant, p.tenancyDates.start, p.minSalePriceInWei)))
+
+        console.log('giftedPunks', d);
+        setGiftedPunks(provenances);
+      })
+      .catch((e) => {
+        console.warn('issue pulling gifted punks');
+        console.warn(e);
+        setGiftedPunks([]);
+      });
+  }, []);
 
   return (
     <PunkContext.Provider
