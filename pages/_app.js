@@ -4,7 +4,7 @@ import 'tailwindcss/tailwind.css';
 import { PunkProvider } from '../contexts/punk';
 import { FiltersProvider } from '../contexts/filters';
 import { UserProvider } from '../contexts/user';
-import { InputsProvider } from '../contexts/inputs'
+import { InputsProvider } from '../contexts/inputs';
 
 /* eslint-disable */
 function MyApp({ Component, pageProps }) {
@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
       <FiltersProvider>
         <UserProvider>
           <InputsProvider>
-          <Component {...pageProps} />
+            <Component {...pageProps} />
           </InputsProvider>
         </UserProvider>
       </FiltersProvider>

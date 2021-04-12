@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
-import InputsContext from '../../contexts/inputs'
-import { checksum, toBN } from '../../utils'
+import InputsContext from '../../contexts/inputs';
+import { checksum, toBN } from '../../utils';
 
 export default function Steps() {
   const { giftingRentLength, transaction } = useContext(InputsContext);
@@ -39,7 +39,11 @@ export default function Steps() {
               <span className="text-sm font-medium">
                 Ensures integrity of the transaction data
               </span>
-              {transaction && (<span className="text-lg font-bold">{checksum(toBN(transaction))}</span>)}
+              {transaction && (
+                <span className="text-lg font-bold">
+                  {checksum(toBN(transaction))}
+                </span>
+              )}
             </a>
           </li>
           <li className="md:flex-1">
@@ -52,7 +56,11 @@ export default function Steps() {
                 Rent Length
               </span>
               <span className="text-sm font-medium">Gifted Rent Length</span>
-              {giftingRentLength && (<span className="text-lg font-bold">{giftingRentLength} days</span>)}
+              {giftingRentLength && (
+                <span className="text-lg font-bold">
+                  {giftingRentLength} days
+                </span>
+              )}
             </a>
           </li>
         </ol>

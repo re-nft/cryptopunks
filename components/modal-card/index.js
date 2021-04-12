@@ -213,13 +213,12 @@ export default function ModalCard({ children }) {
                       <Steps />
                     </div>
                     <div className="mb-4 text-center">
-                    <>
-
-    {/* <span className="bg-white text-lg font-medium text-gray-900 no-wrap">
+                      <>
+                        {/* <span className="bg-white text-lg font-medium text-gray-900 no-wrap">
     </span> */}
-    <span>{transaction}</span>
-</>
-                      </div>
+                        <span>{transaction}</span>
+                      </>
+                    </div>
                     <div className="sm:grid grid-cols-3 sm:grid-flow-row-dense">
                       <div className="col-span-1 col-start-2">
                         <Input />

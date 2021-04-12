@@ -1,14 +1,17 @@
 import React, { useContext, useCallback } from 'react';
 
-import InputContext from '../../contexts/inputs'
+import InputContext from '../../contexts/inputs';
 
 export default function Input() {
   const { giftintRentLength, setGiftingRentLength } = useContext(InputContext);
 
-  const handleChange = useCallback((e) => {
-    // TODO: no validation whatsoever
-    setGiftingRentLength(e.target.value);
-  }, [giftintRentLength, setGiftingRentLength]);
+  const handleChange = useCallback(
+    (e) => {
+      // TODO: no validation whatsoever
+      setGiftingRentLength(e.target.value);
+    },
+    [giftintRentLength, setGiftingRentLength]
+  );
 
   return (
     <>
