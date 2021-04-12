@@ -96,10 +96,10 @@ export default function ModalCard({ children }) {
 
   return (
     <>
-      <div>
+      <div className="">
         {isComponentVisible && (
           <div
-            className="fixed z-10 inset-0 overflow-y-auto"
+            className="bg-gray-500 bg-opacity-75 fixed z-10 inset-0 overflow-y-auto"
             aria-labelledby="modal-title"
             role="dialog"
             aria-modal="true"
