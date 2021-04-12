@@ -195,13 +195,15 @@ export default function ModalCard({ children }) {
                     </div>
                   </>
                   {/* TODO: only show if owner */}
-                  <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense">
-                    <button
-                      type="button"
-                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
-                    >
-                      Gift Tenant Rights
-                    </button>
+                  <div className="mt-5 sm:mt-6 sm:grid grid-cols-3 sm:grid-flow-row-dense">
+                    <div className="cols-span-1">
+                      <button
+                        type="button"
+                        className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                      >
+                        Gift Tenant Rights
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

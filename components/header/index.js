@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import PropTypes from 'prop-types';
+import blockies from 'ethereum-blockies';
 
 import { ROUTE_NAME } from '../../utils/consts';
+import UserContext from '../../contexts/user';
+import { short } from '../../utils';
 
 export default function Header({ activeTab }) {
+  const { connect, address } = useContext(UserContext);
+  let icon = '';
+
+  if (address) {
+    icon = blockies
+      .create({
+        seed: address,
+        color: '#dfe', // to manually specify the icon color, default: random
+        bgcolor: '#aaa', // choose a different background color, default: random
+        size: 15, // width/height of the icon in blocks, default: 8
+        scale: 3, // width/height of each block in pixels, default: 4
+        spotcolor: '#000',
+      })
+      .toDataURL();
+  }
+
   const baseHeaderText =
     'text-4xl group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500';
   const defaultHeaderText = baseHeaderText + ' text-gray-500';
@@ -153,14 +172,18 @@ export default function Header({ activeTab }) {
                             </div>
                             <div className="py-6 px-5 space-y-6">
                               <div>
-                                <p className="mt-6 text-center text-base font-medium text-gray-500">
+                              {!address && (<p className="mt-6 text-center text-base font-medium text-gray-500">
                                   <a
                                     href="#"
                                     className="text-purple-600 hover:text-purple-500"
+                                    onClick={() => connect()}
                                   >
                                     Sign in
                                   </a>
-                                </p>
+                                </p>)}
+                                <div className="text-center">
+                                  {address && <><div>{short(address)}</div> &nbsp; <img className="m-auto" src={icon} /></>}
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -209,12 +232,14 @@ export default function Header({ activeTab }) {
               </div> */}
             </nav>
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-              <a
+              {!address && (<a
                 href="#"
                 className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+                onClick={() => connect()}
               >
                 Sign in
-              </a>
+              </a>)}
+              {address && <>{short(address)} &nbsp; <img src={icon} /></>}
               {
                 // TODO: add the sign up without metamask. g's comment about ease of use. gift the NFTs to ID.
                 // TODO: proto v1
