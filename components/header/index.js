@@ -124,7 +124,7 @@ export default function Header({ activeTab }) {
                                       </span>
                                     </a>
                                   </Menu.Item>
-                                  <Menu.Item>
+                                  {/* <Menu.Item>
                                     <a
                                       href={`/${ROUTE_NAME.FAQ.toLowerCase()}`}
                                       className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
@@ -147,7 +147,7 @@ export default function Header({ activeTab }) {
                                         {ROUTE_NAME.FAQ}
                                       </span>
                                     </a>
-                                  </Menu.Item>
+                                  </Menu.Item> */}
                                 </nav>
                               </div>
                             </div>
@@ -190,7 +190,7 @@ export default function Header({ activeTab }) {
                   </span>
                 </button>
               </div>
-              <div className="relative">
+              {/* <div className="relative">
                 <button
                   type="button"
                   className={
@@ -206,7 +206,7 @@ export default function Header({ activeTab }) {
                     </a>
                   </span>
                 </button>
-              </div>
+              </div> */}
             </nav>
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
               <a

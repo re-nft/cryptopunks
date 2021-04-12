@@ -16,3 +16,20 @@ export const queryAllGiftedPunks = `{
     }
   }
 }`;
+
+export const queryProvenancyOfPunk = (punkID) => `{
+  provenances(where: {id: ${punkID.toLowerCase()}}) {
+    cryptopunk {
+      owner {
+        id
+      }
+    }
+    tenant {
+      id
+    }
+    minSalePriceInWei
+    tenancyDates {
+      start
+    }
+  }
+}`;

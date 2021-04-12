@@ -1,20 +1,18 @@
 import React from 'react';
 import 'tailwindcss/tailwind.css';
-import PropTypes from 'prop-types';
 
 import { PunkProvider } from '../contexts/punk';
+import { FiltersProvider } from '../contexts/filters';
 
+/* eslint-disable */
 function MyApp({ Component, pageProps }) {
   return (
     <PunkProvider>
-      <Component {...pageProps} />
+      <FiltersProvider>
+        <Component {...pageProps} />
+      </FiltersProvider>
     </PunkProvider>
   );
 }
-
-MyApp.propTypes = {
-  Component: PropTypes.node.isRequired,
-  pageProps: PropTypes.object,
-};
 
 export default MyApp;

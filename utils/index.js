@@ -25,3 +25,7 @@ export const parsePackedRentData = (packedHexData) => {
 
   return { placeholder, checksum, protoVersion, rentLength };
 }
+
+export const short = (txt) => {
+  return txt.slice(0, 5) + '...' + txt.slice(txt.length - 3, txt.length);
+}

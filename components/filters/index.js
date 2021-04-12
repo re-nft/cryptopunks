@@ -1,13 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 
-export const FILTERS = {
-  ALL_EVER_GIFTED: 'ALL_EVER_GIFTED',
-  I_GIFTED_TENANT_RIGHTS: 'I_GIFTED_TENANT_RIGHTS',
-  GIFTED_TO_ME: 'GIFTED_TO_ME',
-};
+import FilterContext, { FILTERS } from '../../contexts/filters';
 
-export default function Filters({ filter }) {
+export default function Filters() {
+  const { activeFilter, setActiveFilter } = useContext(FilterContext);
   const baseClassName = 'border-transparent';
   const defaultClassName =
     'text-gray-500 hover:text-gray-700 hover:border-gray-300' + baseClassName;
@@ -16,40 +12,66 @@ export default function Filters({ filter }) {
   return (
     <>
       <div>
-        <div className="sm:hidden">
+        <div className="sm:hidden mb-8">
           <label htmlFor="tabs" className="sr-only">
-            Select a tab
+            Select a filter
           </label>
           <select
             id="tabs"
             name="tabs"
             className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
           >
-            <option>All Ever Gifted</option>
-            <option>I Gifted Tenant Rights</option>
-            <option selected>Gifted To Me</option>
+            <option
+              onClick={() => setActiveFilter(FILTERS.ALL_EVER_GIFTED)}
+              defaultValue
+            >
+              All Ever Gifted
+            </option>
+            <option onClick={() => setActiveFilter(FILTERS.GIFTED_TO_ME)}>
+              Gifted To Me
+            </option>
+            <option
+              onClick={() => setActiveFilter(FILTERS.I_GIFTED_TENANT_RIGHTS)}
+            >
+              I Gifted
+            </option>
           </select>
         </div>
         <div className="hidden sm:block">
-          <div className="border-b border-gray-200">
+          <div className="border-b border-gray-200 mb-8 pb-4">
             <nav className="-mb-px flex space-x-8" aria-label="Tabs">
               <a
                 href="#"
-                className={filter === FILTERS.ALL_EVER_GIFTED ? activeClassName : defaultClassName}
+                className={
+                  activeFilter === FILTERS.ALL_EVER_GIFTED
+                    ? activeClassName
+                    : defaultClassName
+                }
+                onClick={() => setActiveFilter(FILTERS.ALL_EVER_GIFTED)}
               >
                 All Ever Gifted
               </a>
               <a
                 href="#"
-                className={filter === FILTERS.I_GIFTED_TENANT_RIGHTS ? activeClassName : defaultClassName}
+                className={
+                  activeFilter === FILTERS.GIFTED_TO_ME
+                    ? activeClassName
+                    : defaultClassName
+                }
+                onClick={() => setActiveFilter(FILTERS.GIFTED_TO_ME)}
               >
-                I Gifted Tenant Rights
+                Gifted To Me
               </a>
               <a
                 href="#"
-                className={filter === FILTERS.GIFTED_TO_ME ? activeClassName : defaultClassName}
+                className={
+                  activeFilter === FILTERS.I_GIFTED_TENANT_RIGHTS
+                    ? activeClassName
+                    : defaultClassName
+                }
+                onClick={() => setActiveFilter(FILTERS.I_GIFTED_TENANT_RIGHTS)}
               >
-                Gifted To Me
+                I Gifted
               </a>
             </nav>
           </div>
@@ -57,8 +79,4 @@ export default function Filters({ filter }) {
       </div>
     </>
   );
-}
-
-Filters.propTypes = {
-  filter: PropTypes.string.isRequired
 }

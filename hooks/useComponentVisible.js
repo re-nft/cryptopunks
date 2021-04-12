@@ -13,11 +13,6 @@ export default function useComponentVisible(initialIsVisible) {
   };
 
   const handleClickOutside = (event) => {
-    console.log('ref.current');
-    console.log(ref.current);
-    console.log('event.target');
-    console.log(event.target);
-
     if (ref.current && !ref.current.contains(event.target)) {
       setIsComponentVisible(false);
     }
