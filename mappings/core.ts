@@ -1,4 +1,4 @@
-import { Bytes, BigInt, Address, ethereum, crypto, ByteArray, log } from "@graphprotocol/graph-ts";
+import { BigInt, Address, ethereum, log } from "@graphprotocol/graph-ts";
 
 import {
   PunkOffered,
@@ -13,11 +13,14 @@ import {
 } from "../generated/schema";
 
 let ADDRESS_ZERO = '0x0000000000000000000000000000000000000000';
-let TIMESTAMP_BIG_BANG = BigInt.fromI32(0);
+let TIMESTAMP_BIG_BANG = 0;
 // let CHECKSUM_MASK = BigInt.fromI32(0xff00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff);
 let RENT_MAX_LENGTH = 99;
 
 createUserAddress(ADDRESS_ZERO);
+
+// TODO: 1. compute the keccak256. the below does not work
+// TODO: 2. compute tenancyDates end date. webassembly studio works, but not the below...
 
 // --- Packed Rent Data Verifiers ---
 // TODO: shoot myself
@@ -123,7 +126,14 @@ function createProvenance(provenanceID: string, cryptopunkID: string, tenancyID:
 // --- * ---
 
 function unpackRentLength(hexPackedRentData: string): i32 {
-  return <i32>Number.parseInt('0x' + hexPackedRentData.slice(8, 12), 16);
+  let rentLengthString = '0x' + hexPackedRentData.slice(8, 12);
+  log.info('[unpackRentLength] rentLengthString = {}', [rentLengthString]);
+  // TODO: does not work in graph runtime. I tested in webassembly studio and works correctly...
+  // TODO: tested here https://webassembly.studio/
+  // TODO: solution for now: compute rentLength on the front-end
+  let rentLength = <i32>Number.parseInt(rentLengthString, 16);
+  log.info('[unpackRentLength] rentLength = {}', [<string>rentLength]);
+  return rentLength;
 }
 
 // --- Handlers ---
@@ -154,8 +164,10 @@ export function handlePunkOffered(e: PunkOffered): void {
   cryptopunk.save();
 
   let tenancyDates = TenancyDates.load(tenancyDatesID);
-  tenancyDates.start = e.block.timestamp;
-  tenancyDates.end = e.block.timestamp.plus(BigInt.fromI32(rentLength).times(BigInt.fromI32(86400)));
+  let start = e.block.timestamp.toI32();
+  let end = e.block.timestamp.toI32() + (<i32>rentLength * 86400);
+  tenancyDates.start = start;
+  tenancyDates.end = end;
   tenancyDates.save();
 
   let provenance = Provenance.load(provenanceID);

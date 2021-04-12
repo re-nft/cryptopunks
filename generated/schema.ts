@@ -73,22 +73,22 @@ export class TenancyDates extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get start(): BigInt {
+  get start(): i32 {
     let value = this.get("start");
-    return value.toBigInt();
+    return value.toI32();
   }
 
-  set start(value: BigInt) {
-    this.set("start", Value.fromBigInt(value));
+  set start(value: i32) {
+    this.set("start", Value.fromI32(value));
   }
 
-  get end(): BigInt {
+  get end(): i32 {
     let value = this.get("end");
-    return value.toBigInt();
+    return value.toI32();
   }
 
-  set end(value: BigInt) {
-    this.set("end", Value.fromBigInt(value));
+  set end(value: i32) {
+    this.set("end", Value.fromI32(value));
   }
 }
 

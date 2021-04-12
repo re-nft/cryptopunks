@@ -7,9 +7,9 @@ type TenancyDates @entity {
   "getCryptopunkID(cryptopunkIDInBigInt) + '::' + event.transaction.hash.toHex() + '::' + event.logIndex.toHex()"
   id: ID!
   "timestamp as seconds since unix epoch."
-  start: BigInt!
+  start: Int!
   "timestamp as seconds since unix epoch. end > start."
-  end: BigInt!
+  end: Int!
 }
 
 type Cryptopunk @entity {
