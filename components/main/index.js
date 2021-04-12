@@ -21,13 +21,17 @@ export default function Main() {
                       style={{ mixBlendMode: 'multiply' }}
                     />
                   </div>
-                  <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
-                    <h1 className="text-center text-10xl font-extrabold tracking-tight sm:text-5xl lg:text-8xl">
-                      <span className="block text-purple-200">Cryptopunks</span>
-                      <span className="block text-white lg:py-32">
-                        Tenant Rights Gifting Protocol
-                      </span>
-                    </h1>
+                  <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8 cursor-pointer">
+                    <a href="/cryptopunks">
+                      <h1 className="text-center text-10xl font-extrabold tracking-tight sm:text-5xl lg:text-8xl">
+                        <span className="block text-purple-200">
+                          Cryptopunks
+                        </span>
+                        <span className="block text-white lg:py-32">
+                          Tenant Rights Gifting Protocol
+                        </span>
+                      </h1>
+                    </a>
                   </div>
                 </div>
               </div>
