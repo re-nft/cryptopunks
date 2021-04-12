@@ -26,6 +26,6 @@ type Provenance @entity {
   cryptopunk: Cryptopunk!
   tenant: UserAddress!
   "impossible to make graph compute keccak256, so this here is for manual check on the client side."
-  minSalePriceInWei: BigInt!
+  minSalePriceInWei: String!
   tenancyDates: TenancyDates!
 }

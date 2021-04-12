@@ -15,7 +15,7 @@ import {
 let ADDRESS_ZERO = '0x0000000000000000000000000000000000000000';
 let TIMESTAMP_BIG_BANG = BigInt.fromI32(0);
 // let CHECKSUM_MASK = BigInt.fromI32(0xff00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff);
-let RENT_MAX_LENGTH = BigInt.fromI32(99);
+let RENT_MAX_LENGTH = 99;
 
 createUserAddress(ADDRESS_ZERO);
 
@@ -43,8 +43,9 @@ function verifyRentEvent(minSalePriceInWei: BigInt): boolean {
     log.info('[verifyRentEvent] not a rent event. incorrect placeholder.', []);
     return false;
   }
+  // slice(8, 12); -> 000e
   let rentLength = unpackRentLength(hexPacked);
-  if (rentLength.gt(RENT_MAX_LENGTH)) {
+  if (rentLength > RENT_MAX_LENGTH) {
     log.info('[verifyRentEvent] not a rent event. rent length exceeds max.', []);
     return false;
   }
@@ -115,13 +116,14 @@ function createProvenance(provenanceID: string, cryptopunkID: string, tenancyID:
     provenance.tenant = UserAddress.load(ADDRESS_ZERO).id;
     provenance.cryptopunk = Cryptopunk.load(cryptopunkID).id;
     provenance.tenancyDates = TenancyDates.load(tenancyID).id;
+    provenance.minSalePriceInWei = '';
     provenance.save();
   }
 }
 // --- * ---
 
-function unpackRentLength(hexPackedRentData: string): BigInt {
-  return BigInt.fromI32(Bytes.fromHexString('0x' + hexPackedRentData.slice(8, 12)).toI32());
+function unpackRentLength(hexPackedRentData: string): i32 {
+  return <i32>Number.parseInt('0x' + hexPackedRentData.slice(8, 12), 16);
 }
 
 // --- Handlers ---
@@ -153,13 +155,14 @@ export function handlePunkOffered(e: PunkOffered): void {
 
   let tenancyDates = TenancyDates.load(tenancyDatesID);
   tenancyDates.start = e.block.timestamp;
-  tenancyDates.end = e.block.timestamp.plus(rentLength.times(BigInt.fromI32(86400)));
+  tenancyDates.end = e.block.timestamp.plus(BigInt.fromI32(rentLength).times(BigInt.fromI32(86400)));
   tenancyDates.save();
 
   let provenance = Provenance.load(provenanceID);
   provenance.cryptopunk = cryptopunk.id;
   provenance.tenant = UserAddress.load(newTenantID).id;
   provenance.tenancyDates = tenancyDates.id;
+  provenance.minSalePriceInWei = hexPackedRentData;
   provenance.save();
 }
 

@@ -9,6 +9,7 @@ import { getTenant } from '../../utils';
 
 const TableRow = ({ address, start, end }) => {
   const isActive = Math.round(Date.now() / 1000) < end;
+  const icon = blockies.create({ seed: address });
   return (
     <tr>
       <td className="px-6 py-4 whitespace-nowrap">
@@ -16,8 +17,8 @@ const TableRow = ({ address, start, end }) => {
           <div className="flex-shrink-0 h-10 w-10">
             <img
               className="h-10 w-10 rounded-full"
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=rTddenoJ81&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
-              alt="girl"
+              src={icon}
+              alt="address's blockies icon"
             />
           </div>
           <div className="ml-4">
