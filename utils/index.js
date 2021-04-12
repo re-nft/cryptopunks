@@ -1,3 +1,5 @@
+import { BigNumber, utils } from 'ethers';
+
 // will not work right now, because there is an issue with the graphprotocol
 // see: https://github.com/re-nft/cryptopunks/issues/21
 // for that reason there is a function below: parsePackedRentData to extract
@@ -28,4 +30,27 @@ export const parsePackedRentData = (packedHexData) => {
 
 export const short = (txt) => {
   return txt.slice(0, 5) + '...' + txt.slice(txt.length - 3, txt.length);
+}
+
+export const toBN = (val) => {
+  if (typeof val === 'number' || typeof val === 'string') {
+    return BigNumber.from(val);
+  }
+  return val;
+};
+
+export const bytes = (n) => n * 8;
+
+export const checksumMask = toBN('0xff00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
+
+export const keccak256 = (val) => {
+  const hash = utils.keccak256(toBN(val).toHexString());
+  return toBN(hash);
+};
+
+export const checksum = (hash) => {
+  // const checksum = hash.shr(bytes(30)).mask(bytes(1));
+  const masked = hash.and(checksumMask);
+  const computed = keccak256(masked).mask(8);
+  return computed.toHexString();
 }
