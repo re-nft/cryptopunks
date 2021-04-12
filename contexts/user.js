@@ -27,7 +27,6 @@ export const UserProvider = ({ children }) => {
   const connect = async () => {
     const provider = await getWeb3ModalProvider();
     const web3provider = new ethers.providers.Web3Provider(provider);
-    console.log('web3Provider', web3provider);
     const _signer = await web3provider.getSigner();
     setSigner(_signer);
     setAddress(await _signer.getAddress());
