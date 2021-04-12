@@ -41,10 +41,8 @@ const mockAllGiftedPunks = [
     id: 1138,
     src: 'punks/1138.PNG',
     owner: ALGO_TWO,
-    tenant: ALGO_TWO,
-    tenancyDates: { start: 1600638555, end: 1601919546 },
     provenance: [
-      { tenant: G, tenancyDates: { start: 1578674879, end: 1592080693 } },
+      { tenant: G, tenancyDates: { start: 1584104176, end: 1628169538 } },
       { tenant: NICK, tenancyDates: { start: 1578674879, end: 1584104076 } },
     ],
   },
@@ -52,10 +50,8 @@ const mockAllGiftedPunks = [
     id: 1357,
     src: 'punks/1357.PNG',
     owner: ALGO_TWO,
-    tenant: ALGO_TWO,
-    tenancyDates: { start: 1600638555, end: 1601919546 },
     provenance: [
-      { tenant: G, tenancyDates: { start: 1592287626, end: 1599053719 } },
+      { tenant: G, tenancyDates: { start: 1592287627, end: 1599053719 } },
       { tenant: ME, tenancyDates: { start: 1590979751, end: 1592287626 } },
     ],
   },
@@ -63,10 +59,8 @@ const mockAllGiftedPunks = [
     id: 1701,
     src: 'punks/1701.PNG',
     owner: ALGO_TWO,
-    tenant: ME,
-    tenancyDates: { start: 1600638555, end: 1601919546 },
     provenance: [
-      { tenant: G, tenancyDates: { start: 1600638555, end: 1601919546 } },
+      { tenant: G, tenancyDates: { start: 1600638555, end: 1638169538 } },
       { tenant: ME, tenancyDates: { start: 1590979751, end: 1592287626 } },
     ],
   },
@@ -74,8 +68,6 @@ const mockAllGiftedPunks = [
     id: 2009,
     src: 'punks/2009.PNG',
     owner: ME,
-    tenant: NICK,
-    tenancyDates: { start: 1600638555, end: 1601919546 },
     provenance: [
       { tenant: G, tenancyDates: { start: 1600638555, end: 1601919546 } },
       { tenant: ME, tenancyDates: { start: 1590979751, end: 1592287626 } },
@@ -86,8 +78,6 @@ const mockAllGiftedPunks = [
     id: 2214,
     src: 'punks/2214.PNG',
     owner: NICK,
-    tenant: ME,
-    tenancyDates: { start: 1600638555, end: 1601919546 },
     provenance: [
       { tenant: G, tenancyDates: { start: 1600638555, end: 1601919546 } },
       { tenant: NICK, tenancyDates: { start: 1600638555, end: 1601919546 } },
@@ -97,8 +87,6 @@ const mockAllGiftedPunks = [
     id: 2345,
     src: 'punks/2345.PNG',
     owner: ME,
-    tenant: ME,
-    tenancyDates: { start: 1600638555, end: 1601919546 },
     provenance: [
       { tenant: G, tenancyDates: { start: 1600638555, end: 1601919546 } },
       { tenant: NICK, tenancyDates: { start: 1600638555, end: 1601919546 } },
@@ -108,8 +96,6 @@ const mockAllGiftedPunks = [
     id: 2468,
     src: 'punks/2468.PNG',
     owner: ME,
-    tenant: G,
-    tenancyDates: { start: 1600638555, end: 1601919546 },
     provenance: [
       { tenant: G, tenancyDates: { start: 1600638555, end: 1601919546 } },
       { tenant: NICK, tenancyDates: { start: 1600638555, end: 1601919546 } },
@@ -119,8 +105,6 @@ const mockAllGiftedPunks = [
     id: 2499,
     src: 'punks/2499.PNG',
     owner: ME,
-    tenant: G,
-    tenancyDates: { start: 1600638555, end: 1601919546 },
     provenance: [
       { tenant: G, tenancyDates: { start: 1600638555, end: 1601919546 } },
       { tenant: NICK, tenancyDates: { start: 1600638555, end: 1601919546 } },

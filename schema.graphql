@@ -1,0 +1,31 @@
+type UserAddress @entity {
+  "simply the address"
+  id: ID!
+}
+
+type TenancyDates @entity {
+  "getCryptopunkID(cryptopunkIDInBigInt) + '::' + event.transaction.hash.toHex() + '::' + event.logIndex.toHex()"
+  id: ID!
+  "timestamp as seconds since unix epoch."
+  start: Int!
+  "TODO: not computed right now. see GitHub. timestamp as seconds since unix epoch. end > start."
+  end: Int!
+}
+
+type Cryptopunk @entity {
+  "cryptopunk og id"
+  id: ID!
+  owner: UserAddress!
+  provenance: [Provenance!] @derivedFrom(field: "cryptopunk")
+}
+
+type Provenance @entity {
+  "cryptopunk id"
+  id: ID!
+  "same as above. graph does not allow to derive from id in Cryptopunk, thus redundancy."
+  cryptopunk: Cryptopunk!
+  tenant: UserAddress!
+  "impossible to make graph compute keccak256, so this here is for manual check on the client side."
+  minSalePriceInWei: String!
+  tenancyDates: TenancyDates!
+}
