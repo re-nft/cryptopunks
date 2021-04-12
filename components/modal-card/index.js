@@ -122,7 +122,7 @@ export default function ModalCard({ children }) {
                         </h3>
                       </div>
                       <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
-                        <dl className="sm:divide-y sm:divide-gray-200">
+                        <dl className="sm:divide-y sm:divide-gray-200 overflow-auto">
                           <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">
                               Current Owner
