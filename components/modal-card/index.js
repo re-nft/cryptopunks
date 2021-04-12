@@ -1,26 +1,27 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import blockies from 'ethereum-blockies';
 
 import PunkContext from '../../contexts/punk';
 import useComponentVisible from '../../hooks/useComponentVisible';
-import { getTenant } from '../../utils';
+import { short } from '../../utils/';
 
 // import { Transition } from '@headlessui/react';
 
 const TableRow = ({ address, start, end }) => {
   const isActive = Math.round(Date.now() / 1000) < end;
-  const icon = blockies.create({
-    seed: address,
-    color: '#dfe', // to manually specify the icon color, default: random
-    bgcolor: '#aaa', // choose a different background color, default: random
-    size: 15, // width/height of the icon in blocks, default: 8
-    scale: 3, // width/height of each block in pixels, default: 4
-    spotcolor: '#000'
-  }).toDataURL(); // each pixel has a 13% chance of being of a third color,
-    // default: random. Set to -1 to disable it. These "spots" create structures
-    // that look like eyes, mouths and noses.  });
-  // console.log('icon')
+  const icon = blockies
+    .create({
+      seed: address,
+      color: '#dfe', // to manually specify the icon color, default: random
+      bgcolor: '#aaa', // choose a different background color, default: random
+      size: 15, // width/height of the icon in blocks, default: 8
+      scale: 3, // width/height of each block in pixels, default: 4
+      spotcolor: '#000',
+    })
+    .toDataURL(); // each pixel has a 13% chance of being of a third color,
+  // default: random. Set to -1 to disable it. These "spots" create structures
+  // that look like eyes, mouths and noses.  });
   return (
     <tr>
       <td className="px-6 py-4 whitespace-nowrap">
@@ -33,7 +34,7 @@ const TableRow = ({ address, start, end }) => {
             />
           </div>
           <div className="ml-4">
-            <div className="text-sm text-gray-500">{address}</div>
+            <div className="text-sm text-gray-500">{short(address)}</div>
           </div>
         </div>
       </td>
@@ -56,25 +57,36 @@ const TableRow = ({ address, start, end }) => {
       </td>
     </tr>
   );
-}
+};
 
 TableRow.propTypes = {
   address: PropTypes.string.isRequired,
   start: PropTypes.number.isRequired,
-  end: PropTypes.number.isRequired
-}
+  end: PropTypes.number.isRequired,
+};
 
 export default function ModalCard({ children }) {
-  const { activePunk, setActivePunk } = useContext(PunkContext);
+  const { activePunk, setActivePunk, provenanceOfPunk } = useContext(
+    PunkContext
+  );
+  const [punkProvenance, setPunkProvenance] = useState([]);
+
+  useEffect(() => {
+    if (!activePunk) return;
+    provenanceOfPunk(activePunk)
+      .then((_punkProvenance) => {
+        setPunkProvenance(_punkProvenance);
+      })
+      .catch((e) => {
+        console.warn('could not fetch punk provenance');
+      });
+  }, [provenanceOfPunk, activePunk]);
+
   const {
     ref,
     isComponentVisible,
     setIsComponentVisible,
   } = useComponentVisible(false);
-
-  if (activePunk) {
-    console.log(getTenant(activePunk));
-  }
 
   useEffect(() => {
     if (!isComponentVisible) {
@@ -106,7 +118,7 @@ export default function ModalCard({ children }) {
                     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
                       <div className="px-4 py-5 sm:px-6">
                         <h3 className="text-lg leading-6 font-medium text-gray-900">
-                          Punk #{activePunk.id}
+                          Punk #{activePunk.punkID}
                         </h3>
                       </div>
                       <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
@@ -124,9 +136,7 @@ export default function ModalCard({ children }) {
                               Tenant
                             </dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                              {activePunk
-                                ? getTenant(activePunk).tenant
-                                : 'none'}
+                              {activePunk.tenant}
                             </dd>
                           </div>
                           <div className="py-4 sm:py-5 sm:grid sm:grid-rows-4 sm:px-6">
@@ -163,17 +173,14 @@ export default function ModalCard({ children }) {
                                             </tr>
                                           </thead>
                                           <tbody className="bg-white divide-y divide-gray-200">
-                                            {activePunk &&
-                                              activePunk.provenance.length !==
-                                                0 &&
-                                              activePunk.provenance.map((p) => (
-                                                <TableRow
-                                                  key={`${p.tenant}::${p.tenancyDates.start}::${p.tenancyDates.end}`}
-                                                  address={p.tenant}
-                                                  start={p.tenancyDates.start}
-                                                  end={p.tenancyDates.end}
-                                                />
-                                              ))}
+                                            {punkProvenance.map((p) => (
+                                              <TableRow
+                                                key={`${p.tenant}::${p.start}::${p.end}`}
+                                                address={p.tenant}
+                                                start={p.start}
+                                                end={p.end}
+                                              />
+                                            ))}
                                           </tbody>
                                         </table>
                                       </div>
