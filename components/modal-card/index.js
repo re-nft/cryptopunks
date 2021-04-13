@@ -8,7 +8,7 @@ import Steps from '../steps';
 import Input from '../input';
 
 import InputContext from '../../contexts/inputs';
-import UserContext from '../../contexts/user';
+// import UserContext from '../../contexts/user';
 import PunkContext from '../../contexts/punk';
 import useComponentVisible from '../../hooks/useComponentVisible';
 import { short } from '../../utils/';
@@ -81,7 +81,7 @@ export default function ModalCard({ children }) {
   );
   const [punkProvenance, setPunkProvenance] = useState([]);
   // TODO
-  const { address } = useContext(UserContext);
+  // const { address } = useContext(UserContext);
   const { transaction } = useContext(InputContext);
 
   useEffect(() => {
@@ -212,7 +212,7 @@ export default function ModalCard({ children }) {
                     <div className="mb-4">
                       <Steps />
                     </div>
-                    <div className="mb-4 text-center">
+                    <div className="mb-4 text-center truncate md:w-50">
                       <>
                         {/* <span className="bg-white text-lg font-medium text-gray-900 no-wrap">
     </span> */}

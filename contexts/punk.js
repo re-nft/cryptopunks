@@ -165,7 +165,7 @@ export function PunkProvider({ children }) {
       });
 
     // todo: for current address. so owner is the current address
-    request(ENDPOINT, queryCryptopunksOfOwner(currentAddress)).then(
+    request(ENDPOINT, provenanceOwnerQuery).then(
       ({ userAddresses }) => {
         const { cryptopunks } = userAddresses[0];
         const punks = [];
@@ -177,7 +177,6 @@ export function PunkProvider({ children }) {
             punks.push(new Cryptopunk(punk.id, currentAddress, '', '', ''));
           }
         });
-        console.log(punks);
         setOwnedPunks(punks);
       }
     );
