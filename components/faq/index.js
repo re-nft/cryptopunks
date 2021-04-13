@@ -98,8 +98,14 @@ export default function FAQ() {
                     probably see the instant appeal here. Now extrapolate from
                     there. For many people a Cryptopunk is too expensive to
                     justify owning one, with their current finances. Would they
-                    not feel honored to have one temporarily ?
+                    not feel honored to have one temporarily?
                   </dd>
+                </div>
+                <div>
+                  <dt className="text-lg leading-6 font-medium text-gray-900">
+                    Are you associated with Larva Labs?
+                  </dt>
+                  <dd className="mt-2 text-base text-gray-500">No.</dd>
                 </div>
                 <div>
                   <dt className="text-lg leading-6 font-medium text-gray-900">

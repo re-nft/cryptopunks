@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import blockies from 'ethereum-blockies';
 import { request } from 'graphql-request';
@@ -9,6 +9,7 @@ import {
   queryProvenancyOfPunk,
   queryCryptopunksOfOwner,
 } from './utils/queries';
+import UserContext from '../contexts/user';
 
 const PunkContext = createContext({
   giftedPunks: [],
@@ -21,26 +22,30 @@ const PunkContext = createContext({
   },
 });
 
+// 'https://api.thegraph.com/subgraphs/id/QmYf71puLa7q67Kztmpxv6ZxmahAgbm7PLiiRePNwhGXdW';
+
 const ENDPOINT =
-  'https://api.thegraph.com/subgraphs/id/QmYf71puLa7q67Kztmpxv6ZxmahAgbm7PLiiRePNwhGXdW';
+  'https://api.thegraph.com/subgraphs/id/QmVUpW3EEa6mkPJWdEGxe24ZvvS8cxfhZqfn3iccX4TSTP';
 
 class Cryptopunk {
   constructor(punkID, owner, tenant, start, minSalePriceInWei) {
     this.punkID = punkID;
     this.owner = owner;
     this.tenant = tenant;
+    /* eslint-disable */
     this.tenantIcon = tenant
       ? blockies
-        .create({
-          seed: tenant,
-          color: '#dfe',
-          bgcolor: '#aaa',
-          size: 15,
-          scale: 3,
-          spotcolor: '#000',
-        })
-        .toDataURL()
+          .create({
+            seed: tenant,
+            color: '#dfe',
+            bgcolor: '#aaa',
+            size: 15,
+            scale: 3,
+            spotcolor: '#000',
+          })
+          .toDataURL()
       : '';
+    /* eslint-enable */
     this.provenance = [];
     this.start = start || '';
 
@@ -76,8 +81,7 @@ export function PunkProvider({ children }) {
   // const [giftedPunks, setGiftedPunks] = useState(mockAllGiftedPunks);
   // const [iGiftedPunks] = useState(mockIGiftedPunks);
   // const [giftedToMePunks] = useState(mockGiftedToMePunks);
-  // todo
-  const currentAddress = '';
+  const { currentAddress } = useContext(UserContext);
   const [giftedPunks, setGiftedPunks] = useState([]);
   const [iGiftedPunks, setIGiftedPunks] = useState([]);
   const [giftedToMePunks, setGiftedToMePunks] = useState([]);
@@ -135,29 +139,30 @@ export function PunkProvider({ children }) {
       );
 
   useEffect(() => {
-    const provenanceOwnerQuery = queryCryptopunksOfOwner(currentAddress);
     // TODO: only pulls this once. add a poller
     request(ENDPOINT, queryAllGiftedPunks)
       .then((d) => {
         const { provenances } = d;
         const parsedProvenances = parseProvenances(provenances || []);
 
+        /* eslint-disable */
         setGiftedPunks(parsedProvenances);
         setIGiftedPunks(
           currentAddress
             ? parsedProvenances.filter(
-              (pp) => pp.cryptopunk.owner.toLowerCase() === currentAddress
-            )
+                (pp) => pp.cryptopunk.owner.toLowerCase() === currentAddress
+              )
             : []
         );
         setGiftedToMePunks(
           currentAddress
             ? parsedProvenances.filter(
-              (pp) => pp.tenant.toLowerCase() === currentAddress
-            )
+                (pp) => pp.tenant.toLowerCase() === currentAddress
+              )
             : []
         );
       })
+      /* eslint-enable */
       .catch((e) => {
         console.warn('issue pulling gifted punks');
         console.warn(e);
@@ -165,16 +170,37 @@ export function PunkProvider({ children }) {
       });
 
     // todo: for current address. so owner is the current address
-    request(ENDPOINT, provenanceOwnerQuery).then(
+    request(ENDPOINT, queryCryptopunksOfOwner(currentAddress || '')).then(
       ({ userAddresses }) => {
+        if (!userAddresses.length) return;
         const { cryptopunks } = userAddresses[0];
         const punks = [];
         cryptopunks.forEach((punk) => {
           if (!punk.provenance) {
-            punks.push(new Cryptopunk(punk.id, currentAddress, '', '', ''));
+            punks.push(
+              new Cryptopunk(
+                punk.id,
+                currentAddress ? currentAddress.toLowerCase() : '',
+                '',
+                '',
+                ''
+              )
+            );
           } else {
             // TODO: provenance should be an array!
-            punks.push(new Cryptopunk(punk.id, currentAddress, '', '', ''));
+            punks.push(
+              new Cryptopunk(
+                punk.id,
+                currentAddress ? currentAddress.toLowerCase() : '',
+                punk.provenance.tenant ? punk.provenance.tenant.id : '',
+                punk.provenance
+                  ? punk.provenance.tenancyDates
+                    ? punk.provenance.tenancyDates.start
+                    : ''
+                  : '',
+                punk.provenance ? punk.provenance.minSalePriceInWei : ''
+              )
+            );
           }
         });
         setOwnedPunks(punks);

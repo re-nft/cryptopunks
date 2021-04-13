@@ -31,7 +31,7 @@ export default function Punk({ punk, setModalOpen }) {
         }
       >
         <img
-          imageRendering='pixelated'
+          imageRendering="pixelated"
           src={punk.src}
           alt={`Punk #${punk.punkID}`}
           className="group-hover:opacity-75 object-cover pointer-events-none"

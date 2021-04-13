@@ -9,6 +9,7 @@ const PROTOCOL_VERSION = '00';
 
 export const InputsProvider = ({ children }) => {
   const [giftingRentLength, _setGiftingRentLength] = useState();
+  const [toAddress, setToAddress] = useState();
   const [transaction, setTransaction] = useState('');
 
   const setGiftingRentLength = useCallback((newRentLength) => {
@@ -32,7 +33,13 @@ export const InputsProvider = ({ children }) => {
 
   return (
     <InputsContext.Provider
-      value={{ giftingRentLength, setGiftingRentLength, transaction }}
+      value={{
+        giftingRentLength,
+        setGiftingRentLength,
+        transaction,
+        toAddress,
+        setToAddress,
+      }}
     >
       {children}
     </InputsContext.Provider>

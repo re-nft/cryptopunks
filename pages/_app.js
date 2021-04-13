@@ -10,15 +10,15 @@ import { InputsProvider } from '../contexts/inputs';
 /* eslint-disable */
 function MyApp({ Component, pageProps }) {
   return (
-    <PunkProvider>
-      <FiltersProvider>
-        <UserProvider>
+    <UserProvider>
+      <PunkProvider>
+        <FiltersProvider>
           <InputsProvider>
             <Component {...pageProps} />
           </InputsProvider>
-        </UserProvider>
-      </FiltersProvider>
-    </PunkProvider>
+        </FiltersProvider>
+      </PunkProvider>
+    </UserProvider>
   );
 }
 

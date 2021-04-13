@@ -3,7 +3,8 @@ import { BigInt, Address, ethereum, log } from "@graphprotocol/graph-ts";
 import {
   PunkOffered,
   PunkBought,
-  PunkTransfer
+  PunkTransfer,
+  Assign
 } from "../generated/CryptopunkRent/Cryptopunks";
 import {
   UserAddress,
@@ -193,6 +194,20 @@ export function handlePunkBought(e: PunkBought): void {
 }
 
 export function handlePunkTransfer(e: PunkTransfer): void {
+  let ownerID = getAddressID(e.params.to);
+  let cryptopunkID = getCryptopunkID(e.params.punkIndex);
+
+  createUserAddress(ownerID);
+  createCryptopunk(cryptopunkID);
+
+  let owner = UserAddress.load(ownerID);
+  let cryptopunk = Cryptopunk.load(cryptopunkID);
+
+  cryptopunk.owner = owner.id;
+  cryptopunk.save();
+}
+
+export function handleAssign(e: Assign): void {
   let ownerID = getAddressID(e.params.to);
   let cryptopunkID = getCryptopunkID(e.params.punkIndex);
 

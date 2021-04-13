@@ -27,4 +27,6 @@ dataSources:
           handler: handlePunkBought
         - event: PunkTransfer(indexed address,indexed address,uint256)
           handler: handlePunkTransfer
+        - event: Assign(indexed address,uint256)
+          handler: handleAssign
       file: ./mappings/core.ts

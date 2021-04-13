@@ -1,15 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import blockies from 'ethereum-blockies';
+import { ethers } from 'ethers';
 
+import CryptopunkAbi from '../../contract/Cryptopunks.json';
 // TODO: bad, read the todo comment below
 import Steps from '../steps';
 // TODO: bad, read the todo comment below
 import Input from '../input';
 
 import InputContext from '../../contexts/inputs';
-// import UserContext from '../../contexts/user';
+import UserContext from '../../contexts/user';
 import PunkContext from '../../contexts/punk';
+import FilterContext, { FILTERS } from '../../contexts/filters';
 import useComponentVisible from '../../hooks/useComponentVisible';
 import { short } from '../../utils/';
 
@@ -76,13 +79,28 @@ TableRow.propTypes = {
 };
 
 export default function ModalCard({ children }) {
+  const { activeFilter } = useContext(FilterContext);
   const { activePunk, setActivePunk, provenanceOfPunk } = useContext(
     PunkContext
   );
   const [punkProvenance, setPunkProvenance] = useState([]);
   // TODO
-  // const { address } = useContext(UserContext);
-  const { transaction } = useContext(InputContext);
+  const { signer } = useContext(UserContext);
+  const { transaction, toAddress } = useContext(InputContext);
+
+  const giftTenantRights = useCallback(async () => {
+    if (!signer) return;
+    const contract = new ethers.Contract(
+      '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb',
+      CryptopunkAbi,
+      signer
+    );
+    await contract.offerPunkForSaleToAddress(
+      activePunk.punkID,
+      transaction,
+      toAddress
+    );
+  }, []);
 
   useEffect(() => {
     if (!activePunk) return;
@@ -207,34 +225,36 @@ export default function ModalCard({ children }) {
                       </div>
                     </div>
                   </>
-                  {/* TODO: only show if owner */}
-                  <div className="mt-8 p-8">
-                    <div className="mb-4">
-                      <Steps />
-                    </div>
-                    <div className="mb-4 text-center truncate md:w-50">
-                      <>
-                        {/* <span className="bg-white text-lg font-medium text-gray-900 no-wrap">
-    </span> */}
-                        <span>{transaction}</span>
-                      </>
-                    </div>
-                    <div className="sm:grid grid-cols-3 sm:grid-flow-row-dense">
-                      <div className="col-span-1 col-start-2">
-                        <Input />
+                  {activeFilter.toLowerCase() === FILTERS.OWNED_BY_ME && (
+                    <div className="mt-8 p-8">
+                      <div className="mt-8 p-8">
+                        <div className="mb-4">
+                          <Steps />
+                        </div>
+                        <div className="mb-4 text-center truncate md:w-50">
+                          <>
+                            <span>{transaction}</span>
+                          </>
+                        </div>
+                        <div className="sm:grid grid-cols-3 sm:grid-flow-row-dense">
+                          <div className="col-span-1 col-start-2">
+                            <Input />
+                          </div>
+                        </div>
+                        <div className="mt-5 sm:mt-6 sm:grid grid-cols-3 sm:grid-flow-row-dense">
+                          <div className="col-span-1 col-start-2">
+                            <button
+                              onClick={() => giftTenantRights()}
+                              type="button"
+                              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                            >
+                              Gift Tenant Rights
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div className="mt-5 sm:mt-6 sm:grid grid-cols-3 sm:grid-flow-row-dense">
-                      <div className="col-span-1 col-start-2">
-                        <button
-                          type="button"
-                          className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
-                        >
-                          Gift Tenant Rights
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
