@@ -41,6 +41,23 @@ export class UserAddress extends Entity {
   set id(value: string) {
     this.set("id", Value.fromString(value));
   }
+
+  get cryptopunks(): Array<string> | null {
+    let value = this.get("cryptopunks");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set cryptopunks(value: Array<string> | null) {
+    if (value === null) {
+      this.unset("cryptopunks");
+    } else {
+      this.set("cryptopunks", Value.fromStringArray(value as Array<string>));
+    }
+  }
 }
 
 export class TenancyDates extends Entity {

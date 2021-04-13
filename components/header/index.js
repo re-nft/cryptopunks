@@ -147,7 +147,7 @@ export default function Header({ activeTab }) {
                                       </a>
                                     </NextLink>
                                   </Menu.Item>
-                                  {/* <Menu.Item>
+                                  <Menu.Item>
                                     <a
                                       href={`/${ROUTE_NAME.FAQ.toLowerCase()}`}
                                       className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
@@ -170,7 +170,7 @@ export default function Header({ activeTab }) {
                                         {ROUTE_NAME.FAQ}
                                       </span>
                                     </a>
-                                  </Menu.Item> */}
+                                  </Menu.Item>
                                 </nav>
                               </div>
                             </div>
@@ -190,7 +190,10 @@ export default function Header({ activeTab }) {
                                   {address && (
                                     <>
                                       <div>{short(address)}</div> &nbsp;{' '}
-                                      <img className="m-auto" src={icon} />
+                                      <img
+                                        className="m-auto"
+                                        src={icon}
+                                      />
                                     </>
                                   )}
                                 </div>
@@ -223,7 +226,7 @@ export default function Header({ activeTab }) {
                   </span>
                 </button>
               </div>
-              {/* <div className="relative">
+              <div className="relative">
                 <button
                   type="button"
                   className={
@@ -234,19 +237,16 @@ export default function Header({ activeTab }) {
                   aria-expanded="false"
                 >
                   <span>
-                  <NextLink href={`/${ROUTE_NAME.FAQ.toLowerCase()}`}>
-                    <a >
-                      {ROUTE_NAME.FAQ}
-                    </a>
+                    <NextLink href={`/${ROUTE_NAME.FAQ.toLowerCase()}`}>
+                      <a>{ROUTE_NAME.FAQ}</a>
                     </NextLink>
                   </span>
                 </button>
-              </div> */}
+              </div>
             </nav>
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
               {!address && (
                 <span
-                  // style={{ cursor: 'pointer' }}
                   className="cursor-pointer whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
                   onClick={() => connect()}
                 >

@@ -19,7 +19,7 @@ ListItemPunk.propTypes = {
 };
 
 export default function Grid({ setModalOpen }) {
-  const { giftedPunks, iGiftedPunks, giftedToMePunks } = useContext(
+  const { giftedPunks, iGiftedPunks, giftedToMePunks, ownedPunks } = useContext(
     PunkContext
   );
   const { activeFilter } = useContext(FiltersContext);
@@ -32,11 +32,13 @@ export default function Grid({ setModalOpen }) {
         return giftedPunks;
       case FILTERS.GIFTED_TO_ME:
         return giftedToMePunks;
+      case FILTERS.OWNED_BY_ME:
+        return ownedPunks;
       default:
         console.warn('unknown filter, not returning any punks');
         return [];
     }
-  }, [giftedPunks, iGiftedPunks, giftedToMePunks, activeFilter]);
+  }, [giftedPunks, iGiftedPunks, giftedToMePunks, ownedPunks, activeFilter]);
 
   // TODO: limit number of punks per page
   return (

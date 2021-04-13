@@ -1,6 +1,7 @@
 import React from 'react';
 import 'tailwindcss/tailwind.css';
 
+import '../public/styles/index.scss';
 import { PunkProvider } from '../contexts/punk';
 import { FiltersProvider } from '../contexts/filters';
 import { UserProvider } from '../contexts/user';
