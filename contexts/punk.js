@@ -31,15 +31,15 @@ class Cryptopunk {
     this.tenant = tenant;
     this.tenantIcon = tenant
       ? blockies
-          .create({
-            seed: tenant,
-            color: '#dfe',
-            bgcolor: '#aaa',
-            size: 15,
-            scale: 3,
-            spotcolor: '#000',
-          })
-          .toDataURL()
+        .create({
+          seed: tenant,
+          color: '#dfe',
+          bgcolor: '#aaa',
+          size: 15,
+          scale: 3,
+          spotcolor: '#000',
+        })
+        .toDataURL()
       : '';
     this.provenance = [];
     this.start = start || '';
@@ -52,7 +52,23 @@ class Cryptopunk {
       this.end = '';
       this.rentLengthInDays = '';
     }
-    this.src = `https://www.larvalabs.com/cryptopunks/cryptopunk${this.punkID}.png`;
+    this.src = `punks/punk${this.getPunkID(this.punkID)}.png`;
+  }
+
+  // TODO: complete retardedness. Rename those downloaded files to follow the same naming pattern
+  getPunkID(punkID) {
+    const intID = parseInt(punkID);
+    if (intID > 1000) {
+      return punkID;
+    } else {
+      if (intID < 10) {
+        return '00' + punkID;
+      } else if (intID < 100) {
+        return '0' + punkID;
+      } else {
+        return punkID;
+      }
+    }
   }
 }
 
@@ -130,15 +146,15 @@ export function PunkProvider({ children }) {
         setIGiftedPunks(
           currentAddress
             ? parsedProvenances.filter(
-                (pp) => pp.cryptopunk.owner.toLowerCase() === currentAddress
-              )
+              (pp) => pp.cryptopunk.owner.toLowerCase() === currentAddress
+            )
             : []
         );
         setGiftedToMePunks(
           currentAddress
             ? parsedProvenances.filter(
-                (pp) => pp.tenant.toLowerCase() === currentAddress
-              )
+              (pp) => pp.tenant.toLowerCase() === currentAddress
+            )
             : []
         );
       })

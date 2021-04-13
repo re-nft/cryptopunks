@@ -24,7 +24,7 @@ export const queryAllGiftedPunks = `
 export const queryCryptopunksOfOwner = (ownerAddress) => `
   {
     userAddresses(
-      where: { id: "0xc352b534e8b987e036a93539fd6897f53488e56a" }
+      where: { id: "0x7583534d2f2c3699b1acd11b9f2fac9c35acc45c" }
     ) {
       cryptopunks {
         id

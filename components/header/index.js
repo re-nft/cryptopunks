@@ -40,7 +40,6 @@ export default function Header({ activeTab }) {
                 <a>
                   <span className="sr-only">reNFT</span>
                   <img
-                    loading="lazy"
                     className="h-8 w-auto sm:h-10"
                     src="renft.png"
                     alt="reNFT-logo"
@@ -92,7 +91,6 @@ export default function Header({ activeTab }) {
                                   <NextLink href="/">
                                     <a>
                                       <img
-                                        loading="lazy"
                                         className="h-8 w-auto"
                                         src="renft.png"
                                         alt="reNFT"
@@ -193,7 +191,6 @@ export default function Header({ activeTab }) {
                                     <>
                                       <div>{short(address)}</div> &nbsp;{' '}
                                       <img
-                                        loading="lazy"
                                         className="m-auto"
                                         src={icon}
                                       />
@@ -259,7 +256,7 @@ export default function Header({ activeTab }) {
               )}
               {address && (
                 <>
-                  {short(address)} &nbsp; <img loading="lazy" src={icon} />
+                  {short(address)} &nbsp; <img src={icon} />
                 </>
               )}
               {

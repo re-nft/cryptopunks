@@ -31,7 +31,6 @@ export default function Punk({ punk, setModalOpen }) {
         }
       >
         <img
-          loading="lazy"
           src={punk.src}
           alt={`Punk #${punk.punkID}`}
           className="group-hover:opacity-75 object-cover pointer-events-none"

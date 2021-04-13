@@ -38,7 +38,6 @@ const TableRow = ({ address, start, end }) => {
         <div className="flex items-center">
           <div className="flex-shrink-0 h-10 w-10">
             <img
-              loading="lazy"
               className="h-10 w-10 rounded-full"
               src={icon}
               alt="address's blockies icon"
