@@ -204,10 +204,10 @@ export default function FAQ() {
                     existing tenant rights because a sale violates the agreement
                     of using this protocol. It is possible however that a buyer
                     may purchase a punk under this scenario without knowing the
-                    gift existed. We believe it is in the community&nbsp;s interest
-                    to acknowledge and respect tenant rights, and to inform
-                    perspective buyers if a punk previously gifted is offered
-                    for sale before expiration.
+                    gift existed. We believe it is in the community&nbsp;s
+                    interest to acknowledge and respect tenant rights, and to
+                    inform perspective buyers if a punk previously gifted is
+                    offered for sale before expiration.
                   </dd>
                 </div>
                 {/* More items... */}

@@ -35,9 +35,7 @@ export default function Filters() {
             >
               Gifted By Me
             </option>
-            <option
-              onClick={() => setActiveFilter(FILTERS.OWNED_BY_ME)}
-            >
+            <option onClick={() => setActiveFilter(FILTERS.OWNED_BY_ME)}>
               Owned By Me
             </option>
           </select>
