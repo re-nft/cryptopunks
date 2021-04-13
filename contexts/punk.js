@@ -4,12 +4,17 @@ import blockies from 'ethereum-blockies';
 import { request } from 'graphql-request';
 
 import { parsePackedRentData } from '../utils';
-import { queryAllGiftedPunks, queryProvenancyOfPunk } from './utils/queries';
+import {
+  queryAllGiftedPunks,
+  queryProvenancyOfPunk,
+  queryProvenancyOfOwner,
+} from './utils/queries';
 
 const PunkContext = createContext({
   giftedPunks: [],
   iGiftedPunks: [],
   giftedToMePunks: [],
+  ownedPunks: [],
   activePunk: '',
   setActivePunk: () => {
     throw new Error('must be implemented');
@@ -51,6 +56,7 @@ export function PunkProvider({ children }) {
   const [giftedPunks, setGiftedPunks] = useState([]);
   const [iGiftedPunks, setIGiftedPunks] = useState([]);
   const [giftedToMePunks, setGiftedToMePunks] = useState([]);
+  const [ownedPunks, setOwnedPunks] = useState([]);
 
   const [activePunk, _setActivePunk] = useState(null);
 
@@ -82,30 +88,32 @@ export function PunkProvider({ children }) {
       });
   };
 
+  const parseProvenances = (provenances) =>
+    provenances
+      .filter((p) => {
+        const { rentLength } = parsePackedRentData(p.minSalePriceInWei);
+        const end = p.tenancyDates.start + rentLength * 86400;
+        const now = Math.round(Date.now() / 1000);
+        return end > now;
+      })
+      .map(
+        (p) =>
+          new Provenance(
+            p.cryptopunk.id,
+            p.cryptopunk.owner.id,
+            p.tenant.id,
+            p.tenancyDates.start,
+            p.minSalePriceInWei
+          )
+      );
+
   useEffect(() => {
+    const provenanceOwnerQuery = queryProvenancyOfOwner(currentAddress);
     // TODO: only pulls this once. add a poller
     request(ENDPOINT, queryAllGiftedPunks)
       .then((d) => {
         const { provenances } = d;
-        const parsedProvenances = [];
-
-        for (const p of provenances) {
-          // TODO: not the cleanest code, because this is repeated in constructor
-          const { rentLength } = parsePackedRentData(p.minSalePriceInWei);
-          const end = p.tenancyDates.start + rentLength * 86400;
-          const now = Math.round(Date.now() / 1000);
-          if (end > now) {
-            parsedProvenances.push(
-              new Provenance(
-                p.cryptopunk.id,
-                p.cryptopunk.owner.id,
-                p.tenant.id,
-                p.tenancyDates.start,
-                p.minSalePriceInWei
-              )
-            );
-          }
-        }
+        const parsedProvenances = parseProvenances(provenances || []);
 
         setGiftedPunks(parsedProvenances);
         setIGiftedPunks(
@@ -128,11 +136,22 @@ export function PunkProvider({ children }) {
         console.warn(e);
         setGiftedPunks([]);
       });
+
+    request(ENDPOINT, provenanceOwnerQuery).then(({ cryptopunks }) => {
+      const parsedProvenances = parseProvenances(
+        cryptopunks.reduce((acc, c) => {
+          acc = [...acc, ...c.provenance];
+          return acc;
+        }, [])
+      );
+      setOwnedPunks(parsedProvenances);
+    });
   }, []);
 
   return (
     <PunkContext.Provider
       value={{
+        ownedPunks,
         giftedPunks,
         iGiftedPunks,
         giftedToMePunks,
