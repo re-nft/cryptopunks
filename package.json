@@ -34,10 +34,8 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
     "eslint-plugin-react": "^7.23.1",
-    "filereader": "^0.10.3",
     "postcss": "^8.2.9",
     "prettier": "2.2.1",
-    "tailwindcss": "^2.1.0",
-    "xmlhttprequest": "^1.8.0"
+    "tailwindcss": "^2.1.0"
   }
 }

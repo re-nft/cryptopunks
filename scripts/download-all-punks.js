@@ -1,42 +1,76 @@
 #!/usr/bin/env node
+const missingIds = require('./missingIds.json');
+const { default: axios } = require('axios');
+const { promises: fs } = require('fs');
+const path = require('path');
+const randomUseragent = require('random-useragent');
 
-// Script by the allmighty Sun Guru to fetch all the punks and store them locally
+const punkIds = Array.from({ length: 10001 - 5000 }, (_, i) => i + 5020);
 
-const axios = require('axios');
-const FileReader = require('filereader');
+const BASE_URL = 'https://www.larvalabs.com/cryptopunks';
+const INTERVAL_TIME = 1000;
 
-const punkIndices = Array(1).keys();
+const sleep = (timeMs) => new Promise((resolve) => setTimeout(resolve, timeMs));
 
-function stringToUint(string) {
-  const parsedString = btoa(unescape(encodeURIComponent(string)));
-  const charList = parsedString.split('');
-  const uintArray = [];
-  for (let i = 0; i < charList.length; i++) {
-    uintArray.push(charList[i].charCodeAt(0));
+const storeImage = async (image, punkId) =>
+  fs.writeFile(path.resolve(__dirname, 'images', `punk${punkId}.png`), image);
+
+const fetchPunkIdImage = async (punkId, storeIdOnError = true) => {
+  console.log(`FETCHING IMAGE FOR PUNK ID - ${punkId}`);
+  try {
+    const { data } = await axios.get(`${BASE_URL}/cryptopunk${punkId}.png`, {
+      responseType: 'arraybuffer',
+      headers: {
+        'User-Agent': randomUseragent.getRandom(),
+      },
+    });
+    await storeImage(data, punkId);
+    return true;
+  } catch (err) {
+    if (storeIdOnError) {
+      missingIds.push(punkId);
+      await fs.writeFile(
+        path.resolve(__dirname, 'missingIds.json'),
+        JSON.stringify(missingIds, null)
+      );
+    }
+    console.log(err.response.data);
+    return null;
   }
-  return new Uint8Array(uintArray);
-}
-
-const toDataURLFromBlob = (data) => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onloadend = () =>
-      resolve(Buffer.from(data.data, 'base64').toString());
-    reader.onerror = reject;
-    console.log(Buffer.from(data.data, 'base64').toString());
-    // reader.readAsDataURL(Buffer.from(data.data, 'base64'));
-  });
 };
 
-for (const punkIx of punkIndices) {
-  const dataURL = `https://www.larvalabs.com/cryptopunks/cryptopunk${punkIx}.png`;
-  axios.get(dataURL).then((response) => {
-    const base58 = toDataURLFromBlob(response);
-    console.log(base58);
-  });
-  // sleep(100).then((d) => true);
-}
+(async function () {
+  for (let startCounter = 0; startCounter < punkIds.length; startCounter++) {
+    const res = await fetchPunkIdImage(punkIds[startCounter]);
+    if (!res) {
+      console.log('RATE LIMIT DETECTED. PAUSING FOR 20 SECONDS');
+      await sleep(20000);
+      continue;
+    }
+    console.log('PAUSING FOR ' + INTERVAL_TIME / 1000 + ' SECONDS');
+    await sleep(INTERVAL_TIME);
+  }
 
-const sleep = (ms) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
+  while (missingIds.length > 0) {
+    const msIds = JSON.parse(
+      await fs.readFile(path.resolve(__dirname, 'missingIds.json'), {
+        encoding: 'utf-8',
+      })
+    );
+    const missingId = msIds[msIds.length - 1];
+    const res = await fetchPunkIdImage(missingId, false);
+    if (!res) {
+      console.log('RATE LIMIT DETECTED. PAUSING FOR 20 SECONDS');
+      await sleep(20000);
+      continue;
+    }
+    msIds.pop();
+    missingIds = [...msIds];
+    console.log('PAUSING FOR ' + INTERVAL_TIME / 1000 + ' SECONDS');
+    await sleep(INTERVAL_TIME);
+    await fs.writeFile(
+      path.resolve(__dirname, 'missingIds.json'),
+      JSON.stringify(msIds, null)
+    );
+  }
+})();

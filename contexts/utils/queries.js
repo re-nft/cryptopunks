@@ -29,7 +29,9 @@ export const queryCryptopunksOfOwner = (ownerAddress) => `
       cryptopunks {
         id
         provenance {
-          tenant
+          tenant {
+            id
+          }
           minSalePriceInWei
           tenancyDates {
             start
