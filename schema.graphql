@@ -1,6 +1,7 @@
 type UserAddress @entity {
   "simply the address"
   id: ID!
+  cryptopunks: [Cryptopunk!] @derivedFrom(field: "owner")
 }
 
 type TenancyDates @entity {

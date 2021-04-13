@@ -21,27 +21,19 @@ export const queryAllGiftedPunks = `
   }
 `;
 
-export const queryProvenancyOfOwner = () => `
+export const queryCryptopunksOfOwner = (ownerAddress) => `
   {
-    cryptopunks(
-      where: { owner: "0x7583534d2f2c3699b1acd11b9f2fac9c35acc45c" }
+    userAddresses(
+      where: { id: "0xc352b534e8b987e036a93539fd6897f53488e56a" }
     ) {
-      id
-      provenance {
+      cryptopunks {
         id
-        tenant {
-          id
-        }
-        cryptopunk {
-          id
-          owner {
-            id
+        provenance {
+          tenant
+          minSalePriceInWei
+          tenancyDates {
+            start
           }
-        }
-        minSalePriceInWei
-        tenancyDates {
-          start
-          end
         }
       }
     }

@@ -13,6 +13,7 @@ export default function Main() {
                 <div className="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
                   <div className="absolute inset-0">
                     <img
+                      loading="lazy"
                       className="h-full w-full object-cover"
                       src="take-control-of-punks.PNG"
                       alt="A snippet of Cryptopunks avatars from the official GitHub repo"

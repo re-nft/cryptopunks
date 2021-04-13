@@ -36,7 +36,7 @@ export default function Filters() {
               Gifted By Me
             </option>
             <option
-              onClick={() => setActiveFilter(FILTERS.I_GIFTED_TENANT_RIGHTS)}
+              onClick={() => setActiveFilter(FILTERS.OWNED_BY_ME)}
             >
               Owned By Me
             </option>

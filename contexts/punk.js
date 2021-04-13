@@ -7,7 +7,7 @@ import { parsePackedRentData } from '../utils';
 import {
   queryAllGiftedPunks,
   queryProvenancyOfPunk,
-  queryProvenancyOfOwner,
+  queryCryptopunksOfOwner,
 } from './utils/queries';
 
 const PunkContext = createContext({
@@ -22,27 +22,36 @@ const PunkContext = createContext({
 });
 
 const ENDPOINT =
-  'https://api.thegraph.com/subgraphs/id/QmanEVMeFXE8v2NgUHg9kYCpB4xJr1opYsojmdhohYZDTg';
+  'https://api.thegraph.com/subgraphs/id/QmYf71puLa7q67Kztmpxv6ZxmahAgbm7PLiiRePNwhGXdW';
 
-class Provenance {
+class Cryptopunk {
   constructor(punkID, owner, tenant, start, minSalePriceInWei) {
     this.punkID = punkID;
     this.owner = owner;
     this.tenant = tenant;
-    this.tenantIcon = blockies
-      .create({
-        seed: tenant,
-        color: '#dfe',
-        bgcolor: '#aaa',
-        size: 15,
-        scale: 3,
-        spotcolor: '#000',
-      })
-      .toDataURL();
-    this.start = start;
-    const { rentLength } = parsePackedRentData(minSalePriceInWei);
-    this.end = this.start + rentLength * 86400;
-    this.rentLengthInDays = rentLength;
+    this.tenantIcon = tenant
+      ? blockies
+        .create({
+          seed: tenant,
+          color: '#dfe',
+          bgcolor: '#aaa',
+          size: 15,
+          scale: 3,
+          spotcolor: '#000',
+        })
+        .toDataURL()
+      : '';
+    this.provenance = [];
+    this.start = start || '';
+
+    if (minSalePriceInWei) {
+      const { rentLength } = parsePackedRentData(minSalePriceInWei);
+      this.end = this.start + rentLength * 86400;
+      this.rentLengthInDays = rentLength;
+    } else {
+      this.end = ''
+      this.rentLengthInDays = ''
+    }
     this.src = `https://www.larvalabs.com/cryptopunks/cryptopunk${this.punkID}.png`;
   }
 }
@@ -73,7 +82,7 @@ export function PunkProvider({ children }) {
         const { provenances } = d;
         return provenances.map(
           (p) =>
-            new Provenance(
+            new Cryptopunk(
               p.cryptopunk.id,
               p.cryptopunk.owner.id,
               p.tenant.id,
@@ -88,6 +97,8 @@ export function PunkProvider({ children }) {
       });
   };
 
+  // todo: create punks and then filter. that way we will not perform
+  // todo: the end computation twice
   const parseProvenances = (provenances) =>
     provenances
       .filter((p) => {
@@ -98,7 +109,7 @@ export function PunkProvider({ children }) {
       })
       .map(
         (p) =>
-          new Provenance(
+          new Cryptopunk(
             p.cryptopunk.id,
             p.cryptopunk.owner.id,
             p.tenant.id,
@@ -108,7 +119,7 @@ export function PunkProvider({ children }) {
       );
 
   useEffect(() => {
-    const provenanceOwnerQuery = queryProvenancyOfOwner(currentAddress);
+    const provenanceOwnerQuery = queryCryptopunksOfOwner(currentAddress);
     // TODO: only pulls this once. add a poller
     request(ENDPOINT, queryAllGiftedPunks)
       .then((d) => {
@@ -119,15 +130,15 @@ export function PunkProvider({ children }) {
         setIGiftedPunks(
           currentAddress
             ? parsedProvenances.filter(
-                (pp) => pp.cryptopunk.owner.toLowerCase() === currentAddress
-              )
+              (pp) => pp.cryptopunk.owner.toLowerCase() === currentAddress
+            )
             : []
         );
         setGiftedToMePunks(
           currentAddress
             ? parsedProvenances.filter(
-                (pp) => pp.tenant.toLowerCase() === currentAddress
-              )
+              (pp) => pp.tenant.toLowerCase() === currentAddress
+            )
             : []
         );
       })
@@ -137,14 +148,20 @@ export function PunkProvider({ children }) {
         setGiftedPunks([]);
       });
 
-    request(ENDPOINT, provenanceOwnerQuery).then(({ cryptopunks }) => {
-      const parsedProvenances = parseProvenances(
-        cryptopunks.reduce((acc, c) => {
-          acc = [...acc, ...c.provenance];
-          return acc;
-        }, [])
-      );
-      setOwnedPunks(parsedProvenances);
+    // todo: for current address. so owner is the current address
+    request(ENDPOINT, queryCryptopunksOfOwner(currentAddress)).then(({ userAddresses }) => {
+      const { cryptopunks } = userAddresses[0];
+      const punks = [];
+      cryptopunks.forEach((punk) => {
+        if (!punk.provenance) {
+          punks.push(new Cryptopunk(punk.id, currentAddress, '', '', ''));
+        } else {
+          // TODO: provenance should be an array!
+          punks.push(new Cryptopunk(punk.id, currentAddress, '', '', ''))
+        }
+      })
+      console.log(punks);
+      setOwnedPunks(punks);
     });
   }, []);
 
