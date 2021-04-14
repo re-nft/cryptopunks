@@ -147,20 +147,23 @@ export function PunkProvider({ children }) {
 
         /* eslint-disable */
         setGiftedPunks(parsedProvenances);
-        setIGiftedPunks(
-          currentAddress
-            ? parsedProvenances.filter(
+
+        if (currentAddress) {
+          setIGiftedPunks(
+            currentAddress
+              ? parsedProvenances.filter(
                 (pp) => pp.cryptopunk.owner.toLowerCase() === currentAddress
               )
-            : []
-        );
-        setGiftedToMePunks(
-          currentAddress
-            ? parsedProvenances.filter(
+              : []
+          );
+          setGiftedToMePunks(
+            currentAddress
+              ? parsedProvenances.filter(
                 (pp) => pp.tenant.toLowerCase() === currentAddress
               )
-            : []
-        );
+              : []
+          );
+        }
       })
       /* eslint-enable */
       .catch((e) => {
@@ -169,8 +172,9 @@ export function PunkProvider({ children }) {
         setGiftedPunks([]);
       });
 
-    // todo: for current address. so owner is the current address
-    request(ENDPOINT, queryCryptopunksOfOwner(currentAddress || '')).then(
+    if (!currentAddress) return;
+
+    request(ENDPOINT, queryCryptopunksOfOwner(currentAddress)).then(
       ({ userAddresses }) => {
         if (!userAddresses.length) return;
         const { cryptopunks } = userAddresses[0];
@@ -180,7 +184,7 @@ export function PunkProvider({ children }) {
             punks.push(
               new Cryptopunk(
                 punk.id,
-                currentAddress ? currentAddress.toLowerCase() : '',
+                currentAddress,
                 '',
                 '',
                 ''
@@ -191,14 +195,12 @@ export function PunkProvider({ children }) {
             punks.push(
               new Cryptopunk(
                 punk.id,
-                currentAddress ? currentAddress.toLowerCase() : '',
+                currentAddress,
                 punk.provenance.tenant ? punk.provenance.tenant.id : '',
-                punk.provenance
-                  ? punk.provenance.tenancyDates
-                    ? punk.provenance.tenancyDates.start
-                    : ''
+                punk.provenance.tenancyDates
+                  ? punk.provenance.tenancyDates.start
                   : '',
-                punk.provenance ? punk.provenance.minSalePriceInWei : ''
+                punk.provenance.minSalePriceInWei
               )
             );
           }
@@ -206,7 +208,7 @@ export function PunkProvider({ children }) {
         setOwnedPunks(punks);
       }
     );
-  }, []);
+  }, [currentAddress]);
 
   return (
     <PunkContext.Provider

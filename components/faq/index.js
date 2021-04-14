@@ -86,19 +86,18 @@ export default function FAQ() {
                     Why would someone want to use someone else’s Cryptopunk?
                   </dt>
                   <dd className="mt-2 text-base text-gray-500">
-                    We believe there is an authentic experience of having an NFT
-                    that is different than just looking at it. This extends to
-                    tenant rights. If you have bought any NFTs, you probably
-                    understand this.The most prominent punks probably serve as a
-                    great example:  If Perugia used the protocol to gift you
-                    tenant rights for a month to his alien, would you feel
-                    honored? Keep in mind that for all time the provenance of
-                    this gift is on chain. Would you use it as your Avatar? Punk
-                    owners that have never had a zombie ape or alien should
-                    probably see the instant appeal here. Now extrapolate from
-                    there. For many people a Cryptopunk is too expensive to
-                    justify owning one, with their current finances. Would they
-                    not feel honored to have one temporarily?
+                    There is an authentic experience of having an NFT that is
+                    different than just looking at it. This extends to tenant
+                    rights. If you have bought any NFTs, you understand this.The
+                    most prominent punks serve as a great example: If Perugia
+                    used the protocol to gift you tenant rights for a month to
+                    his alien, you would feel honored. The provenance of this
+                    gift is on chain forever. Would you use it as your Avatar?
+                    Punk owners that have never had a zombie ape or alien should
+                    probably see the instant appeal here. Now extrapolate. For
+                    many people a Cryptopunk is too expensive to justify owning
+                    one, with their current finances. Would they not feel
+                    honored to have one temporarily?
                   </dd>
                 </div>
                 <div>
@@ -112,10 +111,18 @@ export default function FAQ() {
                     Can’t someone simply give me a cryptopunk?
                   </dt>
                   <dd className="mt-2 text-base text-gray-500">
-                    One does not simply give a cryptopunk in 2021. They could.
-                    But It’s a very expensive gift. Tenant rights allow more
-                    people to experience of having a cryptopunk, that may not
-                    otherwise be able to afford one.
+                    There is an authentic experience of having an NFT that is
+                    different than just looking at it. This extends to tenant
+                    rights. If you have bought any NFTs, you understand this.The
+                    most prominent punks serve as a great example: If Perugia
+                    used the protocol to gift you tenant rights for a month to
+                    his alien, you would feel honored. The provenance of this
+                    gift is on chain forever. Would you use it as your Avatar?
+                    Punk owners that have never had a zombie ape or alien should
+                    probably see the instant appeal here. Now extrapolate. For
+                    many people a Cryptopunk is too expensive to justify owning
+                    one, with their current finances. Would they not feel
+                    honored to have one temporarily?
                   </dd>
                 </div>
                 <div>
@@ -123,13 +130,18 @@ export default function FAQ() {
                     Are there any other benefits to tenant rights?
                   </dt>
                   <dd className="mt-2 text-base text-gray-500">
-                    The on chain transaction proves owner intent to use this
-                    protocol and give tenant rights. All transactions become
-                    part of a Cryptopunk’s provenance, the story of its history.
-                    As tenant, your Ethereum address is forever embedded in this
-                    particular cryptopunk’s history, and anyone who understands
-                    this protocol will know that an owner gave your ethereum
-                    address tenant rights for a period of time.
+                    There is an authentic experience of having an NFT that is
+                    different than just looking at it. This extends to tenant
+                    rights. If you have bought any NFTs, you understand this.The
+                    most prominent punks serve as a great example: If Perugia
+                    used the protocol to gift you tenant rights for a month to
+                    his alien, you would feel honored. The provenance of this
+                    gift is on chain forever. Would you use it as your Avatar?
+                    Punk owners that have never had a zombie ape or alien should
+                    probably see the instant appeal here. Now extrapolate. For
+                    many people a Cryptopunk is too expensive to justify owning
+                    one, with their current finances. Would they not feel
+                    honored to have one temporarily?
                   </dd>
                 </div>
                 <div>
@@ -148,7 +160,7 @@ export default function FAQ() {
                   <dd className="mt-2 text-base text-gray-500">
                     You have the physical ability to do this, just as you have
                     the ability to save someone’s picture and use it as your
-                    own. It’s what we call stealing someone’s property.
+                    own. It’s called stealing someone’s property.
                   </dd>
                 </div>
                 <div>
@@ -162,7 +174,7 @@ export default function FAQ() {
                 </div>
                 <div>
                   <dt className="text-lg leading-6 font-medium text-gray-900">
-                    What about timezones?
+                    What about the timezones?
                   </dt>
                   <dd className="mt-2 text-base text-gray-500">
                     One day is short hand for 5760 blocks. At 15 seconds for an
@@ -171,11 +183,12 @@ export default function FAQ() {
                 </div>
                 <div>
                   <dt className="text-lg leading-6 font-medium text-gray-900">
-                    I want to give tenant rights beyond 99 days. Can I do that?
+                    I want to give the tenant rights beyond 99 days. Can I do
+                    that?
                   </dt>
                   <dd className="mt-2 text-base text-gray-500">
                     The best way to accomplish this is to wait for tenant rights
-                    to expire and then giift them for an additional 99 days. The
+                    to expire and then giift them for an additional 99 days. The
                     protocol only reads the first 2 digits following protocol
                     version 0.
                   </dd>
@@ -208,12 +221,12 @@ export default function FAQ() {
                   <dd className="mt-2 text-base text-gray-500">
                     Ideally a prospective buyer would not buy a punk with
                     existing tenant rights because a sale violates the agreement
-                    of using this protocol. It is possible however that a buyer
-                    may purchase a punk under this scenario without knowing the
-                    gift existed. We believe it is in the community&nbsp;s
-                    interest to acknowledge and respect tenant rights, and to
-                    inform perspective buyers if a punk previously gifted is
-                    offered for sale before expiration.
+                    of using this protocol. It is possible, however, that a
+                    buyer may purchase a punk under this scenario without
+                    knowing the gift existed. We believe it is in the
+                    community&apos;s interest to acknowledge and respect tenant
+                    rights, and to inform perspective buyers if a punk
+                    previously gifted is offered for sale before expiration.
                   </dd>
                 </div>
                 {/* More items... */}

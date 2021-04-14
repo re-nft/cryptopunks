@@ -24,7 +24,7 @@ export const queryAllGiftedPunks = `
 export const queryCryptopunksOfOwner = (ownerAddress) => `
   {
     userAddresses(
-      where: { id: "${ownerAddress ? ownerAddress.toLowerCase() : ''}" }
+      where: { id: "${ownerAddress.toLowerCase()}" }
     ) {
       cryptopunks {
         id

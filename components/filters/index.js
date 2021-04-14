@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 
 import FilterContext, { FILTERS } from '../../contexts/filters';
 
@@ -9,6 +9,19 @@ export default function Filters() {
     'text-gray-500 hover:text-gray-700 hover:border-gray-300' + baseClassName;
   const activeClassName = 'border-indigo-500 text-indigo-600' + baseClassName;
 
+  const onChange = useCallback((e) => {
+    switch (e.target.value.toLowerCase()) {
+      case 'all ever gifted':
+        return FILTERS.ALL_EVER_GIFTED
+      case 'gifted to me':
+        return FILTERS.GIFTED_TO_ME
+      case 'gifted by me':
+        return FILTERS.I_GIFTED_TENANT_RIGHTS
+      case 'owned by me':
+        return FILTERS.OWNED_BY_ME
+    }
+  }, []);
+
   return (
     <>
       <div>
@@ -17,25 +30,27 @@ export default function Filters() {
             Select a filter
           </label>
           <select
+            onChange={(e) => { setActiveFilter(onChange(e)) }}
+            onFocus={(e) => { setActiveFilter(onChange(e)) }}
             id="tabs"
             name="tabs"
             className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
           >
             <option
-              onClick={() => setActiveFilter(FILTERS.ALL_EVER_GIFTED)}
               defaultValue
             >
               All Ever Gifted
             </option>
-            <option onClick={() => setActiveFilter(FILTERS.GIFTED_TO_ME)}>
+            <option
+            >
               Gifted To Me
             </option>
             <option
-              onClick={() => setActiveFilter(FILTERS.I_GIFTED_TENANT_RIGHTS)}
             >
               Gifted By Me
             </option>
-            <option onClick={() => setActiveFilter(FILTERS.OWNED_BY_ME)}>
+            <option
+            >
               Owned By Me
             </option>
           </select>
