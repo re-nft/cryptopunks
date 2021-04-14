@@ -152,15 +152,15 @@ export function PunkProvider({ children }) {
           setIGiftedPunks(
             currentAddress
               ? parsedProvenances.filter(
-                (pp) => pp.cryptopunk.owner.toLowerCase() === currentAddress
-              )
+                  (pp) => pp.cryptopunk.owner.toLowerCase() === currentAddress
+                )
               : []
           );
           setGiftedToMePunks(
             currentAddress
               ? parsedProvenances.filter(
-                (pp) => pp.tenant.toLowerCase() === currentAddress
-              )
+                  (pp) => pp.tenant.toLowerCase() === currentAddress
+                )
               : []
           );
         }
@@ -172,40 +172,34 @@ export function PunkProvider({ children }) {
         setGiftedPunks([]);
       });
 
-    request(ENDPOINT, queryCryptopunksOfOwner(currentAddress)).then(
-      ({ userAddresses }) => {
-        if (!userAddresses.length) return;
-        const { cryptopunks } = userAddresses[0];
-        const punks = [];
-        cryptopunks.forEach((punk) => {
-          if (!punk.provenance) {
-            punks.push(
-              new Cryptopunk(
-                punk.id,
-                currentAddress,
-                '',
-                '',
-                ''
-              )
-            );
-          } else {
-            // TODO: provenance should be an array!
-            punks.push(
-              new Cryptopunk(
-                punk.id,
-                currentAddress,
-                punk.provenance.tenant ? punk.provenance.tenant.id : '',
-                punk.provenance.tenancyDates
-                  ? punk.provenance.tenancyDates.start
-                  : '',
-                punk.provenance.minSalePriceInWei
-              )
-            );
-          }
-        });
-        setOwnedPunks(punks);
-      }
-    );
+    if (currentAddress) {
+      request(ENDPOINT, queryCryptopunksOfOwner(currentAddress)).then(
+        ({ userAddresses }) => {
+          if (!userAddresses.length) return;
+          const { cryptopunks } = userAddresses[0];
+          const punks = [];
+          cryptopunks.forEach((punk) => {
+            if (!punk.provenance) {
+              punks.push(new Cryptopunk(punk.id, currentAddress, '', '', ''));
+            } else {
+              // TODO: provenance should be an array!
+              punks.push(
+                new Cryptopunk(
+                  punk.id,
+                  currentAddress,
+                  punk.provenance.tenant ? punk.provenance.tenant.id : '',
+                  punk.provenance.tenancyDates
+                    ? punk.provenance.tenancyDates.start
+                    : '',
+                  punk.provenance.minSalePriceInWei
+                )
+              );
+            }
+          });
+          setOwnedPunks(punks);
+        }
+      );
+    }
   }, [currentAddress]);
 
   return (
