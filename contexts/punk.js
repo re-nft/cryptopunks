@@ -172,8 +172,6 @@ export function PunkProvider({ children }) {
         setGiftedPunks([]);
       });
 
-    if (!currentAddress) return;
-
     request(ENDPOINT, queryCryptopunksOfOwner(currentAddress)).then(
       ({ userAddresses }) => {
         if (!userAddresses.length) return;
