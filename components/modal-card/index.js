@@ -84,8 +84,7 @@ export default function ModalCard({ children }) {
     PunkContext
   );
   const [punkProvenance, setPunkProvenance] = useState([]);
-  // TODO
-  const { signer } = useContext(UserContext);
+  const { signer, address } = useContext(UserContext);
   const { transaction, toAddress } = useContext(InputContext);
 
   const giftTenantRights = useCallback(async () => {
@@ -225,36 +224,38 @@ export default function ModalCard({ children }) {
                       </div>
                     </div>
                   </>
-                  {activeFilter.toLowerCase() === FILTERS.OWNED_BY_ME && (
-                    <div className="mt-8 p-8">
+                  {activeFilter.toLowerCase() ===
+                    FILTERS.OWNED_BY_ME.toLowerCase &&
+                    address === activePunk.owner.toLowerCase() && (
                       <div className="mt-8 p-8">
-                        <div className="mb-4">
-                          <Steps />
-                        </div>
-                        <div className="mb-4 text-center truncate md:w-50">
-                          <>
-                            <span>{transaction}</span>
-                          </>
-                        </div>
-                        <div className="sm:grid grid-cols-3 sm:grid-flow-row-dense">
-                          <div className="col-span-1 col-start-2">
-                            <Input />
+                        <div className="mt-8 p-8">
+                          <div className="mb-4">
+                            <Steps />
                           </div>
-                        </div>
-                        <div className="mt-5 sm:mt-6 sm:grid grid-cols-3 sm:grid-flow-row-dense">
-                          <div className="col-span-1 col-start-2">
-                            <button
-                              onClick={() => giftTenantRights()}
-                              type="button"
-                              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
-                            >
-                              Gift Tenant Rights
-                            </button>
+                          <div className="mb-4 text-center truncate md:w-50">
+                            <>
+                              <span>{transaction}</span>
+                            </>
+                          </div>
+                          <div className="sm:grid grid-cols-3 sm:grid-flow-row-dense">
+                            <div className="col-span-1 col-start-2">
+                              <Input />
+                            </div>
+                          </div>
+                          <div className="mt-5 sm:mt-6 sm:grid grid-cols-3 sm:grid-flow-row-dense">
+                            <div className="col-span-1 col-start-2">
+                              <button
+                                onClick={() => giftTenantRights()}
+                                type="button"
+                                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                              >
+                                Gift Tenant Rights
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const missingIds = require('./missingIds.json');
+let missingIds = require('./missingIds.json');
 const { default: axios } = require('axios');
 const { promises: fs } = require('fs');
 const path = require('path');
@@ -16,7 +16,6 @@ const storeImage = async (image, punkId) =>
   fs.writeFile(path.resolve(__dirname, 'images', `punk${punkId}.png`), image);
 
 const fetchPunkIdImage = async (punkId, storeIdOnError = true) => {
-  console.log(`FETCHING IMAGE FOR PUNK ID - ${punkId}`);
   try {
     const { data } = await axios.get(`${BASE_URL}/cryptopunk${punkId}.png`, {
       responseType: 'arraybuffer',
@@ -34,7 +33,6 @@ const fetchPunkIdImage = async (punkId, storeIdOnError = true) => {
         JSON.stringify(missingIds, null)
       );
     }
-    console.log(err.response.data);
     return null;
   }
 };
@@ -43,11 +41,9 @@ const fetchPunkIdImage = async (punkId, storeIdOnError = true) => {
   for (let startCounter = 0; startCounter < punkIds.length; startCounter++) {
     const res = await fetchPunkIdImage(punkIds[startCounter]);
     if (!res) {
-      console.log('RATE LIMIT DETECTED. PAUSING FOR 20 SECONDS');
       await sleep(20000);
       continue;
     }
-    console.log('PAUSING FOR ' + INTERVAL_TIME / 1000 + ' SECONDS');
     await sleep(INTERVAL_TIME);
   }
 
@@ -60,13 +56,11 @@ const fetchPunkIdImage = async (punkId, storeIdOnError = true) => {
     const missingId = msIds[msIds.length - 1];
     const res = await fetchPunkIdImage(missingId, false);
     if (!res) {
-      console.log('RATE LIMIT DETECTED. PAUSING FOR 20 SECONDS');
       await sleep(20000);
       continue;
     }
     msIds.pop();
     missingIds = [...msIds];
-    console.log('PAUSING FOR ' + INTERVAL_TIME / 1000 + ' SECONDS');
     await sleep(INTERVAL_TIME);
     await fs.writeFile(
       path.resolve(__dirname, 'missingIds.json'),

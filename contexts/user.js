@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 
 const DefaultUser = {
-  currentAddress: '',
+  address: '',
 };
 
 const UserContext = createContext(DefaultUser);
@@ -29,7 +29,7 @@ export const UserProvider = ({ children }) => {
     const web3provider = new ethers.providers.Web3Provider(provider);
     const _signer = await web3provider.getSigner();
     setSigner(_signer);
-    setAddress(await _signer.getAddress());
+    setAddress((await _signer.getAddress()).toLowerCase());
     setProvider(web3provider);
     return Promise.resolve(web3provider);
   };

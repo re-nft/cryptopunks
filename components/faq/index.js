@@ -29,7 +29,7 @@ export default function FAQ() {
                     How does this work?
                   </dt>
                   <dd className="mt-2 text-base text-gray-500">
-                    CrypoPunk owners sign a special transaction. This
+                    CryptoPunk owners sign a special transaction. This
                     transaction follows the tenant rights protocol which gives
                     sole permission to display the cryptopunk as your Avatar for
                     a fixed period of time up to 99 days.
@@ -40,7 +40,7 @@ export default function FAQ() {
                     How does this transaction work, and is it safe?
                   </dt>
                   <dd className="mt-2 text-base text-gray-500">
-                    We leverage the offerpunktoaddress function within the
+                    We leverage the offerPunkToAddress function within the
                     Cryptopunks contract to avoid smart contract risk. The
                     protocol requires a minimum value of Eth that is an order of
                     magnitude more than all Eth in existence which ensures it is
@@ -111,18 +111,10 @@ export default function FAQ() {
                     Can’t someone simply give me a cryptopunk?
                   </dt>
                   <dd className="mt-2 text-base text-gray-500">
-                    There is an authentic experience of having an NFT that is
-                    different than just looking at it. This extends to tenant
-                    rights. If you have bought any NFTs, you understand this.The
-                    most prominent punks serve as a great example: If Perugia
-                    used the protocol to gift you tenant rights for a month to
-                    his alien, you would feel honored. The provenance of this
-                    gift is on chain forever. Would you use it as your Avatar?
-                    Punk owners that have never had a zombie ape or alien should
-                    probably see the instant appeal here. Now extrapolate. For
-                    many people a Cryptopunk is too expensive to justify owning
-                    one, with their current finances. Would they not feel
-                    honored to have one temporarily?
+                    One does not simply give a Cryptopunk in 2021. They could.
+                    But It’s a very expensive gift. Tenant rights allow more
+                    people the experience of a Cryptopunk NFT that they may not
+                    otherwise be able to afford.
                   </dd>
                 </div>
                 <div>
@@ -130,18 +122,13 @@ export default function FAQ() {
                     Are there any other benefits to tenant rights?
                   </dt>
                   <dd className="mt-2 text-base text-gray-500">
-                    There is an authentic experience of having an NFT that is
-                    different than just looking at it. This extends to tenant
-                    rights. If you have bought any NFTs, you understand this.The
-                    most prominent punks serve as a great example: If Perugia
-                    used the protocol to gift you tenant rights for a month to
-                    his alien, you would feel honored. The provenance of this
-                    gift is on chain forever. Would you use it as your Avatar?
-                    Punk owners that have never had a zombie ape or alien should
-                    probably see the instant appeal here. Now extrapolate. For
-                    many people a Cryptopunk is too expensive to justify owning
-                    one, with their current finances. Would they not feel
-                    honored to have one temporarily?
+                    The on chain transaction proves owner intent to use this
+                    protocol and give tenant rights. All transactions become
+                    part of a Cryptopunk’s provenance, the story of its history.
+                    As tenant, your Ethereum address is forever embedded in this
+                    particular cryptopunk’s history, and anyone who understands
+                    this protocol will know that an owner gave your Ethereum
+                    address tenant rights for a period of time.
                   </dd>
                 </div>
                 <div>
@@ -229,7 +216,6 @@ export default function FAQ() {
                     previously gifted is offered for sale before expiration.
                   </dd>
                 </div>
-                {/* More items... */}
               </dl>
             </div>
           </div>

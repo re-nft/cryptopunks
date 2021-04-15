@@ -81,7 +81,7 @@ export function PunkProvider({ children }) {
   // const [giftedPunks, setGiftedPunks] = useState(mockAllGiftedPunks);
   // const [iGiftedPunks] = useState(mockIGiftedPunks);
   // const [giftedToMePunks] = useState(mockGiftedToMePunks);
-  const { currentAddress } = useContext(UserContext);
+  const { address } = useContext(UserContext);
   const [giftedPunks, setGiftedPunks] = useState([]);
   const [iGiftedPunks, setIGiftedPunks] = useState([]);
   const [giftedToMePunks, setGiftedToMePunks] = useState([]);
@@ -148,20 +148,14 @@ export function PunkProvider({ children }) {
         /* eslint-disable */
         setGiftedPunks(parsedProvenances);
 
-        if (currentAddress) {
+        if (address) {
           setIGiftedPunks(
-            currentAddress
-              ? parsedProvenances.filter(
-                  (pp) => pp.cryptopunk.owner.toLowerCase() === currentAddress
-                )
-              : []
+            parsedProvenances.filter((pp) => pp.owner.toLowerCase() === address)
           );
           setGiftedToMePunks(
-            currentAddress
-              ? parsedProvenances.filter(
-                  (pp) => pp.tenant.toLowerCase() === currentAddress
-                )
-              : []
+            parsedProvenances.filter(
+              (pp) => pp.tenant.toLowerCase() === address
+            )
           );
         }
       })
@@ -172,21 +166,21 @@ export function PunkProvider({ children }) {
         setGiftedPunks([]);
       });
 
-    if (currentAddress) {
-      request(ENDPOINT, queryCryptopunksOfOwner(currentAddress)).then(
+    if (address) {
+      request(ENDPOINT, queryCryptopunksOfOwner(address)).then(
         ({ userAddresses }) => {
           if (!userAddresses.length) return;
           const { cryptopunks } = userAddresses[0];
           const punks = [];
           cryptopunks.forEach((punk) => {
             if (!punk.provenance) {
-              punks.push(new Cryptopunk(punk.id, currentAddress, '', '', ''));
+              punks.push(new Cryptopunk(punk.id, address, '', '', ''));
             } else {
               // TODO: provenance should be an array!
               punks.push(
                 new Cryptopunk(
                   punk.id,
-                  currentAddress,
+                  address,
                   punk.provenance.tenant ? punk.provenance.tenant.id : '',
                   punk.provenance.tenancyDates
                     ? punk.provenance.tenancyDates.start
@@ -200,7 +194,7 @@ export function PunkProvider({ children }) {
         }
       );
     }
-  }, [currentAddress]);
+  }, [address]);
 
   return (
     <PunkContext.Provider
