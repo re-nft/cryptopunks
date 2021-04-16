@@ -7,7 +7,7 @@ With utmost respect,
 
 ## Contributions
 
-Our issues are split into xxx categories
+Our issues are split into 2 categories
 
 - 🎨 denotes predominantly works pertaining to front-end spec below
 - 🧠 denotes predominantly works pertaining to protocol spec / subgraph
