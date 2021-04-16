@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import blockies from 'ethereum-blockies';
 import { ethers } from 'ethers';
+import { GiftIcon } from '@heroicons/react/solid'
 
 import CryptopunkAbi from '../../contract/Cryptopunks.json';
 // TODO: bad, read the todo comment below
@@ -100,7 +101,7 @@ export default function ModalCard({ children }) {
       transaction,
       toAddress
     );
-  }, []);
+  }, [signer, transaction, toAddress]);
 
   useEffect(() => {
     if (!activePunk) return;
@@ -242,14 +243,17 @@ export default function ModalCard({ children }) {
                               <Input />
                             </div>
                           </div>
-                          <div className="mt-5 sm:mt-6 sm:grid grid-cols-3 sm:grid-flow-row-dense" onClick={giftTenantRights}>
+                          <div className="mt-5 sm:mt-6 sm:grid grid-cols-3 sm:grid-flow-row-dense">
                             <div className="col-span-1 col-start-2">
-                              <button
-                                type="button"
-                                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
-                              >
-                                Gift Tenant Rights
-                              </button>
+                            <button
+                              onClick={giftTenantRights}
+                              type="button"
+                              className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            >
+                              <GiftIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+                              {signer && 'Gift Tenant Rights'}
+                              {!signer && 'Close Modal and Sign In'}
+                            </button>
                             </div>
                           </div>
                         </div>

@@ -571,6 +571,11 @@
   resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-0.3.2.tgz#fa8600fa669fe704b84e9256855fb39092b6e233"
   integrity sha512-N8XpYJNEP1jH5V8qq2cX8pnipOd93UJNKky1B7Ac3/yFFehB/0C4k5kOHt8ShHsmcohrZUB4sOl4+m0CjQpXng==
 
+"@heroicons/react@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@heroicons/react/-/react-1.0.1.tgz#66d25f6441920bd5c2146ea27fd33995885452dd"
+  integrity sha512-uikw2gKCmqnvjVxitecWfFLMOKyL9BTFcU4VM3hHj9OMwpkCr5Ke+MRMyY2/aQVmsYs4VTq7NCFX05MYwAHi3g==
+
 "@next/env@10.1.3":
   version "10.1.3"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-10.1.3.tgz#29e5d62919b4a7b1859f8d36169848dc3f5ddebe"
