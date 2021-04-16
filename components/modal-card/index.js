@@ -84,7 +84,7 @@ export default function ModalCard({ children }) {
     PunkContext
   );
   const [punkProvenance, setPunkProvenance] = useState([]);
-  const { signer, address } = useContext(UserContext);
+  const { signer } = useContext(UserContext);
   const { transaction, toAddress } = useContext(InputContext);
 
   const giftTenantRights = useCallback(async () => {
@@ -225,8 +225,7 @@ export default function ModalCard({ children }) {
                     </div>
                   </>
                   {activeFilter.toLowerCase() ===
-                    FILTERS.OWNED_BY_ME.toLowerCase &&
-                    address === activePunk.owner.toLowerCase() && (
+                    FILTERS.OWNED_BY_ME.toLowerCase() && (
                       <div className="mt-8 p-8">
                         <div className="mt-8 p-8">
                           <div className="mb-4">
@@ -245,7 +244,7 @@ export default function ModalCard({ children }) {
                           <div className="mt-5 sm:mt-6 sm:grid grid-cols-3 sm:grid-flow-row-dense">
                             <div className="col-span-1 col-start-2">
                               <button
-                                onClick={() => giftTenantRights()}
+                                onClick={giftTenantRights}
                                 type="button"
                                 className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
                               >

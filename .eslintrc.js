@@ -15,6 +15,7 @@ module.exports = {
   rules: {
     semi: 'off',
     'space-before-function-paren': 'off',
-    'comma-dangle': 'off'
+    'comma-dangle': 'off',
+    indent: 'off'
   }
 };
