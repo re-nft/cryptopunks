@@ -87,8 +87,9 @@ export default function ModalCard({ children }) {
   const { signer } = useContext(UserContext);
   const { transaction, toAddress } = useContext(InputContext);
 
-  const giftTenantRights = useCallback(async () => {
+  const giftTenantRights = useCallback(async (e) => {
     if (!signer) return;
+    e.preventDefault();
     const contract = new ethers.Contract(
       '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb',
       CryptopunkAbi,
@@ -241,10 +242,9 @@ export default function ModalCard({ children }) {
                               <Input />
                             </div>
                           </div>
-                          <div className="mt-5 sm:mt-6 sm:grid grid-cols-3 sm:grid-flow-row-dense">
+                          <div className="mt-5 sm:mt-6 sm:grid grid-cols-3 sm:grid-flow-row-dense" onClick={giftTenantRights}>
                             <div className="col-span-1 col-start-2">
                               <button
-                                onClick={giftTenantRights}
                                 type="button"
                                 className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
                               >
