@@ -52,7 +52,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://github.com/re-nft"
+              href="https://github.com/re-nft/cryptopunks"
               target="_"
               className="text-gray-400 hover:text-gray-500"
             >
