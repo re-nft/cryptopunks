@@ -33,7 +33,8 @@ class Cryptopunk {
     this.owner = owner;
     this.tenant = tenant;
     this.tenantIcon = tenant
-      ? blockies.create({
+      ? blockies
+          .create({
             seed: tenant,
             color: '#dfe',
             bgcolor: '#aaa',

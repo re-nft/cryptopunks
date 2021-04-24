@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import blockies from 'ethereum-blockies';
 import { ethers } from 'ethers';
-import { GiftIcon } from '@heroicons/react/solid'
+import { GiftIcon } from '@heroicons/react/solid';
 
 import CryptopunkAbi from '../../contract/Cryptopunks.json';
 // TODO: bad, read the todo comment below
@@ -90,20 +90,23 @@ export default function ModalCard({ children }) {
   const { signer } = useContext(UserContext);
   const { transaction, toAddress } = useContext(InputContext);
 
-  const giftTenantRights = useCallback(async (e) => {
-    if (!signer) return;
-    e.preventDefault();
-    const contract = new ethers.Contract(
-      '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb',
-      CryptopunkAbi,
-      signer
-    );
-    await contract.offerPunkForSaleToAddress(
-      activePunk.punkID,
-      transaction,
-      toAddress
-    );
-  }, [signer, transaction, toAddress]);
+  const giftTenantRights = useCallback(
+    async (e) => {
+      if (!signer) return;
+      e.preventDefault();
+      const contract = new ethers.Contract(
+        '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb',
+        CryptopunkAbi,
+        signer
+      );
+      await contract.offerPunkForSaleToAddress(
+        activePunk.punkID,
+        transaction,
+        toAddress
+      );
+    },
+    [signer, transaction, toAddress]
+  );
 
   useEffect(() => {
     if (!activePunk) return;
@@ -238,8 +241,15 @@ export default function ModalCard({ children }) {
                         </div>
                         <div className="mb-4 text-center truncate md:w-50">
                           <>
-                            <span>minSalePriceInWei hex form</span><br/>
-                            <span className="font-medium">{transaction}</span>
+                            {transaction && (
+                              <>
+                                <span>minSalePriceInWei hex form</span>
+                                <br />
+                                <span className="font-medium">
+                                  {transaction}
+                                </span>
+                              </>
+                            )}
                           </>
                         </div>
                         <div className="sm:grid grid-cols-3 sm:grid-flow-row-dense">
