@@ -57,7 +57,7 @@ export default function Filters() {
                 }`}
                 onClick={() => setActiveFilter(FILTERS.ALL_EVER_GIFTED)}
               >
-                All Ever Gifted
+                All Currently Gifted
               </span>
               <span
                 className={`cursor-pointer ${
