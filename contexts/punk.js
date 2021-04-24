@@ -32,10 +32,8 @@ class Cryptopunk {
     this.punkID = punkID;
     this.owner = owner;
     this.tenant = tenant;
-    /* eslint-disable */
     this.tenantIcon = tenant
-      ? blockies
-          .create({
+      ? blockies.create({
             seed: tenant,
             color: '#dfe',
             bgcolor: '#aaa',
@@ -45,7 +43,6 @@ class Cryptopunk {
           })
           .toDataURL()
       : '';
-    /* eslint-enable */
     this.provenance = [];
     this.start = start || '';
 
@@ -78,9 +75,6 @@ class Cryptopunk {
 }
 
 export function PunkProvider({ children }) {
-  // const [giftedPunks, setGiftedPunks] = useState(mockAllGiftedPunks);
-  // const [iGiftedPunks] = useState(mockIGiftedPunks);
-  // const [giftedToMePunks] = useState(mockGiftedToMePunks);
   const { address } = useContext(UserContext);
   const [giftedPunks, setGiftedPunks] = useState([]);
   const [iGiftedPunks, setIGiftedPunks] = useState([]);
@@ -139,6 +133,18 @@ export function PunkProvider({ children }) {
       );
 
   useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      setOwnedPunks([
+        new Cryptopunk(
+          1138,
+          '0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE',
+          '0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE',
+          1619277539,
+          '0xff3600000f000000000000000000000000000000000000000000000000000000'
+        ),
+      ]);
+    }
+
     // TODO: only pulls this once. add a poller
     request(ENDPOINT, queryAllGiftedPunks)
       .then((d) => {
