@@ -9,6 +9,7 @@ import CryptopunkAbi from '../../contract/Cryptopunks.json';
 import Steps from '../steps';
 // TODO: bad, read the todo comment below
 import Input from '../input';
+import ModalSocialContract from '../modal-social-contract';
 
 import InputContext from '../../contexts/inputs';
 import UserContext from '../../contexts/user';
@@ -17,6 +18,7 @@ import FilterContext, { FILTERS } from '../../contexts/filters';
 import useComponentVisible from '../../hooks/useComponentVisible';
 import { short } from '../../utils/';
 
+// TODO
 // import { Transition } from '@headlessui/react';
 
 // TODO: to save the time, I have smacked in the steps component into this. Making this a composed component.
@@ -226,39 +228,44 @@ export default function ModalCard({ children }) {
                       </div>
                     </div>
                   </>
-                  {activeFilter.toLowerCase() ===
-                    FILTERS.OWNED_BY_ME.toLowerCase() && (
+                  {(process.env.ENVIRONMENT === 'dev' ||
+                    activeFilter.toLowerCase() ===
+                      FILTERS.OWNED_BY_ME.toLowerCase()) && (
+                    <div className="mt-8 p-8">
                       <div className="mt-8 p-8">
-                        <div className="mt-8 p-8">
-                          <div className="mb-4">
-                            <Steps />
+                        <div className="mb-4">
+                          <Steps />
+                        </div>
+                        <div className="mb-4 text-center truncate md:w-50">
+                          <>
+                            <span>minSalePriceInWei hex form</span><br/>
+                            <span className="font-medium">{transaction}</span>
+                          </>
+                        </div>
+                        <div className="sm:grid grid-cols-3 sm:grid-flow-row-dense">
+                          <div className="col-span-1 col-start-2">
+                            <Input />
                           </div>
-                          <div className="mb-4 text-center truncate md:w-50">
-                            <>
-                              <span>{transaction}</span>
-                            </>
-                          </div>
-                          <div className="sm:grid grid-cols-3 sm:grid-flow-row-dense">
-                            <div className="col-span-1 col-start-2">
-                              <Input />
-                            </div>
-                          </div>
-                          <div className="mt-5 sm:mt-6 sm:grid grid-cols-3 sm:grid-flow-row-dense">
-                            <div className="col-span-1 col-start-2">
+                        </div>
+                        <div className="mt-5 sm:mt-6 sm:grid grid-cols-3 sm:grid-flow-row-dense">
+                          <div className="col-span-1 col-start-2">
                             <button
                               onClick={giftTenantRights}
                               type="button"
                               className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
-                              <GiftIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+                              <GiftIcon
+                                className="-ml-1 mr-2 h-5 w-5"
+                                aria-hidden="true"
+                              />
                               {signer && 'Gift Tenant Rights'}
                               {!signer && 'Close Modal and Sign In'}
                             </button>
-                            </div>
                           </div>
                         </div>
                       </div>
-                    )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

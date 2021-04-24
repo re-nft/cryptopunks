@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 
 import InputsContext from '../../contexts/inputs';
 import { checksum, toBN } from '../../utils';
+import ModalSocialContract from '../modal-social-contract';
 
 export default function Steps() {
   const { giftingRentLength, transaction } = useContext(InputsContext);
 
   return (
     <>
-      {/* This example requires Tailwind CSS v2.0+ */}
       <nav aria-label="Progress">
         <ol className="space-y-4 md:flex md:space-y-0 md:space-x-8">
           <li className="md:flex-1">
@@ -62,6 +62,7 @@ export default function Steps() {
           </li>
         </ol>
       </nav>
+      <ModalSocialContract />
     </>
   );
 }
