@@ -28,7 +28,7 @@ export default function Grid({ setModalOpen }) {
     switch (activeFilter) {
       case FILTERS.I_GIFTED_TENANT_RIGHTS:
         return iGiftedPunks;
-      case FILTERS.ALL_EVER_GIFTED:
+      case FILTERS.ALL_CURRENTLY_GIFTED:
         return giftedPunks;
       case FILTERS.GIFTED_TO_ME:
         return giftedToMePunks;

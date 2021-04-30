@@ -2,14 +2,14 @@ import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
 export const FILTERS = {
-  ALL_EVER_GIFTED: 'ALL_EVER_GIFTED',
+  ALL_CURRENTLY_GIFTED: 'ALL_CURRENTLY_GIFTED',
   I_GIFTED_TENANT_RIGHTS: 'I_GIFTED_TENANT_RIGHTS',
   GIFTED_TO_ME: 'GIFTED_TO_ME',
   OWNED_BY_ME: 'OWNED_BY_ME',
 };
 
 const DefaultFilters = {
-  activeFilter: FILTERS.ALL_EVER_GIFTED,
+  activeFilter: FILTERS.ALL_CURRENTLY_GIFTED,
 };
 
 const FiltersContext = createContext(DefaultFilters);

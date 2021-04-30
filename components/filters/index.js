@@ -12,7 +12,7 @@ export default function Filters() {
   const onChange = useCallback((e) => {
     switch (e.target.value.toLowerCase()) {
       case 'all ever gifted':
-        return FILTERS.ALL_EVER_GIFTED;
+        return FILTERS.ALL_CURRENTLY_GIFTED;
       case 'gifted to me':
         return FILTERS.GIFTED_TO_ME;
       case 'gifted by me':
@@ -51,11 +51,11 @@ export default function Filters() {
             <nav className="-mb-px flex space-x-8" aria-label="Tabs">
               <span
                 className={`cursor-pointer ${
-                  activeFilter === FILTERS.ALL_EVER_GIFTED
+                  activeFilter === FILTERS.ALL_CURRENTLY_GIFTED
                     ? activeClassName
                     : defaultClassName
                 }`}
-                onClick={() => setActiveFilter(FILTERS.ALL_EVER_GIFTED)}
+                onClick={() => setActiveFilter(FILTERS.ALL_CURRENTLY_GIFTED)}
               >
                 All Currently Gifted
               </span>

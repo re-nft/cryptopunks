@@ -5,7 +5,7 @@ import { request } from 'graphql-request';
 
 import { parsePackedRentData } from '../utils';
 import {
-  queryAllGiftedPunks,
+  queryAllCurrentlyGiftedPunks,
   queryProvenancyOfPunk,
   queryCryptopunksOfOwner,
 } from './utils/queries';
@@ -147,7 +147,7 @@ export function PunkProvider({ children }) {
     }
 
     // TODO: only pulls this once. add a poller
-    request(ENDPOINT, queryAllGiftedPunks)
+    request(ENDPOINT, queryAllCurrentlyGiftedPunks)
       .then((d) => {
         const { provenances } = d;
         const parsedProvenances = parseProvenances(provenances || []);
