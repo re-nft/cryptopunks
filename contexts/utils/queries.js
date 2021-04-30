@@ -43,7 +43,7 @@ export const queryCryptopunksOfOwner = (ownerAddress) => `
 `;
 
 export const queryProvenancyOfPunk = (punkID) => `{
-  provenances(where: {id: ${punkID.toLowerCase()}}) {
+  provenances(where: {id: ${punkID.toString().toLowerCase()}}) {
     cryptopunk {
       owner {
         id
