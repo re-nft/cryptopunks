@@ -5,7 +5,7 @@ import { request } from 'graphql-request';
 
 import { parsePackedRentData } from '../utils';
 import {
-  queryAllCurrentlyGiftedPunks,
+  queryAllPunks,
   queryProvenancyOfPunk,
   queryCryptopunksOfOwner,
 } from './utils/queries';
@@ -78,6 +78,7 @@ class Cryptopunk {
 export function PunkProvider({ children }) {
   const { address } = useContext(UserContext);
   const [giftedPunks, setGiftedPunks] = useState([]);
+  const [allGiftedPunks, setAllGiftedPunks] = useState([]);
   const [iGiftedPunks, setIGiftedPunks] = useState([]);
   const [giftedToMePunks, setGiftedToMePunks] = useState([]);
   const [ownedPunks, setOwnedPunks] = useState([]);
@@ -133,6 +134,30 @@ export function PunkProvider({ children }) {
           )
       );
 
+  //
+  // Dependant effects on value changes through API updating values
+  //
+  useEffect(() => {
+    const now = Date.now()
+    setGiftedPunks(allGiftedPunks.filter(
+      (pp) => pp.start >= now && pp.end <= now
+    ));
+  }, [allGiftedPunks]);
+
+  useEffect(() => {
+    if (address) {
+      setIGiftedPunks(
+        giftedPunks.filter((pp) => pp.owner.toLowerCase() === address)
+      );
+      setGiftedToMePunks(
+        giftedPunks.filter((pp) => pp.tenant.toLowerCase() === address)
+      );
+    }
+  }, [address, giftedPunks]);
+
+  //
+  // API requests
+  //
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
       setOwnedPunks([
@@ -147,29 +172,17 @@ export function PunkProvider({ children }) {
     }
 
     // TODO: only pulls this once. add a poller
-    request(ENDPOINT, queryAllCurrentlyGiftedPunks)
+    request(ENDPOINT, queryAllPunks)
       .then((d) => {
         const { provenances } = d;
         const parsedProvenances = parseProvenances(provenances || []);
-
-        /* eslint-disable */
-        setGiftedPunks(parsedProvenances);
-
-        if (address) {
-          setIGiftedPunks(
-            parsedProvenances.filter((pp) => pp.owner.toLowerCase() === address)
-          );
-          setGiftedToMePunks(
-            parsedProvenances.filter(
-              (pp) => pp.tenant.toLowerCase() === address
-            )
-          );
-        }
+        setAllGiftedPunks(parsedProvenances);
       })
-      /* eslint-enable */
       .catch((e) => {
-        console.warn('issue pulling gifted punks');
+        console.warn('issue pulling punks');
         console.warn(e);
+        // TODO if network request fails, it best to keep the previous fetched values
+        // TODO recommend to remove this
         setGiftedPunks([]);
       });
 
@@ -213,6 +226,7 @@ export function PunkProvider({ children }) {
         activePunk,
         setActivePunk,
         provenanceOfPunk,
+        allGiftedPunks,
       }}
     >
       {children}

@@ -1,8 +1,7 @@
-export const queryAllCurrentlyGiftedPunks = `
+// TODO add timestamp
+export const queryAllPunks = `
   {
-    provenances(
-      where: { tenant_not: "0x0000000000000000000000000000000000000000" }
-    ) {
+    provenances( where: { tenant_not: "0x0000000000000000000000000000000000000000" }) {
       id
       cryptopunk {
         id
@@ -21,28 +20,6 @@ export const queryAllCurrentlyGiftedPunks = `
   }
 `;
 
-export const queryAllEverGiftedPunks = `
-  {
-    provenances(
-      where: { tenant: "0x0000000000000000000000000000000000000000" }
-    ) {
-      id
-      cryptopunk {
-        id
-        owner {
-          id
-        }
-      }
-      tenant {
-        id
-      }
-      minSalePriceInWei
-      tenancyDates {
-        start
-      }
-    }
-  }
-`;
 export const queryCryptopunksOfOwner = (ownerAddress) => `
   {
     userAddresses(

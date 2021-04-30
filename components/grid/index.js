@@ -19,7 +19,7 @@ ListItemPunk.propTypes = {
 };
 
 export default function Grid({ setModalOpen }) {
-  const { giftedPunks, iGiftedPunks, giftedToMePunks, ownedPunks } = useContext(
+  const { giftedPunks, iGiftedPunks, giftedToMePunks, ownedPunks, allGiftedPunks } = useContext(
     PunkContext
   );
   const { activeFilter } = useContext(FiltersContext);
@@ -30,6 +30,8 @@ export default function Grid({ setModalOpen }) {
         return iGiftedPunks;
       case FILTERS.ALL_CURRENTLY_GIFTED:
         return giftedPunks;
+      case FILTERS.ALL_EVER_GIFTED:
+        return allGiftedPunks;
       case FILTERS.GIFTED_TO_ME:
         return giftedToMePunks;
       case FILTERS.OWNED_BY_ME:

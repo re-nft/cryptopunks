@@ -12,6 +12,32 @@ const defaultClassName =
 const activeClassName =
   'ring-2 ring-offset-2 ring-purple-500 cursor-not-allowed ' + baseClassName;
 
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+function formatAMPM(date) {
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  const ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours || 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  const strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
+
 export default function Punk({ punk, setModalOpen }) {
   const { activePunk, setActivePunk } = useContext(PunkContext);
 
@@ -19,7 +45,8 @@ export default function Punk({ punk, setModalOpen }) {
     setActivePunk(punk);
     setModalOpen(true);
   }, [setActivePunk]);
-
+  const startDate = new Date(punk.start * 1000);
+  const endDate = new Date(punk.end * 1000);
   return (
     <div>
       <div
@@ -37,20 +64,48 @@ export default function Punk({ punk, setModalOpen }) {
           className="group-hover:opacity-75 object-cover pointer-events-none"
         />
       </div>
-      <p className="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">
+      <p className="mt-4 pb-2 mb-4 block text-2xl font-medium text-gray-900 truncate pointer-events-none flex justify-center border-b-2 border-gray-500">
         #{punk.punkID}
       </p>
       {punk.tenant && (
         <>
-          <p className="block text-sm font-medium text-gray-500 pointer-events-none">
-            Offered to {short(punk.tenant)} for {punk.rentLengthInDays} days
+          <p className="block text-sm font-medium pointer-events-none lg:grid grid-cols-2">
+            <span className="cols-1 text-gray-500  text-sm lg:flex items-center justify-start">Offered to </span>
+            <span className="cols-1 text-sm lg:flex items-center justify-end font-bold">{short(punk.tenant)}</span>
           </p>
-          <p className="block text-sm font-medium text-gray-500 pointer-events-none">
-            Tenant occupied on {String(new Date(punk.start * 1000))}
-          </p>
-          <p className="block text-sm font-medium text-gray-500 pointer-events-none">
-            Lease expires on {String(new Date(punk.end * 1000))}
-          </p>
+          <div className="mt-4 grid grid-cols-3 gap-1">
+            <p className="cols-1 pointer-events-none">
+              <span className="flex items-start justify-start flex-col">
+                <span className="font-semibold">
+                  {monthNames[startDate.getMonth()]}
+                </span>
+                <span className="text-xl font-bold">
+                  {startDate.getFullYear()}
+                </span>
+                <span className="font-medium">
+                  {formatAMPM(startDate)}
+                </span>
+              </span>
+            </p>
+            <p className='cols-1 flex justify-center items-center pointer-events-none'>-</p>
+            <p className="cols-1 pointer-events-none">
+
+              <span className="flex items-end justify-end flex-col">
+                <span className="font-semibold">
+                  {monthNames[endDate.getMonth()]}
+                </span>
+                <span className="text-xl font-bold">
+                  {endDate.getFullYear()}
+                </span>
+                <span className="font-medium">
+                  {formatAMPM(endDate)}
+                </span>
+              </span>
+            </p>
+          </div>
+          <div className="flex justify-center items-center mt-2 font-medium flex-col">
+            <p className='pointer-events-none'>{punk.rentLengthInDays} days</p>
+          </div>
         </>
       )}
     </div>

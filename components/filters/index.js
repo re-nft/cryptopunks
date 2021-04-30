@@ -61,6 +61,16 @@ export default function Filters() {
               </span>
               <span
                 className={`cursor-pointer ${
+                  activeFilter === FILTERS.ALL_EVER_GIFTED
+                    ? activeClassName
+                    : defaultClassName
+                }`}
+                onClick={() => setActiveFilter(FILTERS.ALL_EVER_GIFTED)}
+              >
+                All Ever Gifted
+              </span>
+              <span
+                className={`cursor-pointer ${
                   activeFilter === FILTERS.GIFTED_TO_ME
                     ? activeClassName
                     : defaultClassName
