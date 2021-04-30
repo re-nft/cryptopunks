@@ -139,9 +139,9 @@ export function PunkProvider({ children }) {
   //
   useEffect(() => {
     const now = Date.now()
-    setGiftedPunks(allGiftedPunks.filter(
-      (pp) => pp.start >= now && pp.end <= now
-    ));
+    setGiftedPunks([...allGiftedPunks.filter(
+      (pp) => pp.end <= now
+    )]);
   }, [allGiftedPunks]);
 
   useEffect(() => {
