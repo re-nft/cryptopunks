@@ -72,13 +72,6 @@ export const formatAMPM = (date) => {
   return strTime;
 };
 
-function sortByTimestamp (a, b) {
+export function sortByTimestamp (a, b) {
   return a.timestamp > b.timestamp
-}
-
-export function sortByLatestTransaction(a, b) {
-  // TODO needs timestamp of transactions
-  const alatestProvence = a.provences.sort(sortByTimestamp)
-  const blatestProvence = a.provences.sort(sortByTimestamp)
-  return alatestProvence - blatestProvence
 }

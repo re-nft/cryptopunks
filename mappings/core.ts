@@ -176,6 +176,7 @@ export function handlePunkOffered(e: PunkOffered): void {
   provenance.tenant = UserAddress.load(newTenantID).id;
   provenance.tenancyDates = tenancyDates.id;
   provenance.minSalePriceInWei = hexPackedRentData;
+  provenance.timestamp = e.block.timestamp;
   provenance.save();
 }
 

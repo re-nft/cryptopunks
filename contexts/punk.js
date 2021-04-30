@@ -10,7 +10,7 @@ import blockies from 'ethereum-blockies';
 import { request } from 'graphql-request';
 import { ethers } from 'ethers';
 
-import { parsePackedRentData } from '../utils';
+import { parsePackedRentData, sortByTimestamp } from '../utils';
 import {
   queryAllPunks,
   queryProvenancyOfPunk,
@@ -133,7 +133,7 @@ export function PunkProvider({ children }) {
       queryProvenancyOfPunk(punk.punkID),
       'issue fetching punk"s provenance'
     ).then((result) => {
-      if (result) return result.map(mapToPunk);
+      if (result) return result.sort(sortByTimestamp).map(mapToPunk);
       return [];
     });
   }, []);
@@ -171,10 +171,11 @@ export function PunkProvider({ children }) {
     // TODO: only pulls this once. add a poller
     getProvenances(queryAllPunks, 'issue fetching all punks').then((result) => {
       if (result) {
-        setAllGiftedPunks(result.filter(filterNonZeroTenant).map(mapToPunk));
+        const sortedResult = result.sort(sortByTimestamp);
+        setAllGiftedPunks(sortedResult.filter(filterNonZeroTenant).map(mapToPunk));
         // todo: create punks and then filter. that way we will not perform
         // todo: the end computation twice
-        setGiftedPunks(result.filter(filterCurrentPunk).map(mapToPunk));
+        setGiftedPunks(sortedResult.filter(filterCurrentPunk).map(mapToPunk));
       }
     });
 
@@ -221,7 +222,7 @@ export function PunkProvider({ children }) {
   );
 }
 
-PunkContext.propTypes = {
+PunkProvider.propTypes = {
   children: PropTypes.node,
 };
 
