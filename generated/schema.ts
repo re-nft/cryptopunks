@@ -232,14 +232,4 @@ export class Provenance extends Entity {
     this.set("tenancyDates", Value.fromString(value));
   }
 
-
-  get timestamp(): i32 {
-    let value = this.get("tenancyDates");
-    return value.toString();
-  }
-
-  set timestamp(value: i32) {
-    this.set("timestamp", Value.fromString(value));
-  }
-
 }

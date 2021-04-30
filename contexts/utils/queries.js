@@ -55,6 +55,5 @@ export const queryProvenancyOfPunk = (punkID) => `{
     tenancyDates {
       start
     }
-    timestamp
   }
 }`;

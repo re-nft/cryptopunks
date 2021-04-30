@@ -73,5 +73,5 @@ export const formatAMPM = (date) => {
 };
 
 export function sortByTimestamp (a, b) {
-  return a.timestamp > b.timestamp
+  return a.tenancyDates.start > b.tenancyDates.start
 }
