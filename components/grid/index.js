@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Punk from '../punk-item';
 import PunkContext from '../../contexts/punk';
 import FiltersContext, { FILTERS } from '../../contexts/filters';
+import { sortByLatestTransaction } from '../../utils'
 
 const ListItemPunk = ({ punk, setModalOpen }) => {
   return (
@@ -31,15 +32,15 @@ export default function Grid({ setModalOpen }) {
   const punks = useMemo(() => {
     switch (activeFilter) {
       case FILTERS.I_GIFTED_TENANT_RIGHTS:
-        return iGiftedPunks;
+        return iGiftedPunks.sort(sortByLatestTransaction);
       case FILTERS.ALL_CURRENTLY_GIFTED:
-        return giftedPunks;
+        return giftedPunks.sort(sortByLatestTransaction);
       case FILTERS.ALL_EVER_GIFTED:
-        return allGiftedPunks;
+        return allGiftedPunks.sort(sortByLatestTransaction);
       case FILTERS.GIFTED_TO_ME:
-        return giftedToMePunks;
+        return giftedToMePunks.sort(sortByLatestTransaction);
       case FILTERS.OWNED_BY_ME:
-        return ownedPunks;
+        return ownedPunks.sort(sortByLatestTransaction);
       default:
         console.warn('unknown filter, not returning any punks');
         return [];
