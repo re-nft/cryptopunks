@@ -105,7 +105,7 @@ export default function ModalCard({ children }) {
         toAddress
       );
     },
-    [signer, transaction, toAddress]
+    [signer, transaction, toAddress, activePunk]
   );
 
   useEffect(() => {
@@ -273,6 +273,20 @@ export default function ModalCard({ children }) {
                             </button>
                           </div>
                         </div>
+                        {signer && (
+                          <div className="grid-cols-3 mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense">
+                            <div className="col-span-1 col-start-2">
+                              <h3 className="text-base font-semibold text-gray-900">
+                                Disclaimer
+                              </h3>
+                              <p className="mt-2 text-sm font-normal text-red-600">
+                                Whilst the utmost care has been taken in
+                                developing the protocol, the full responsibility
+                                of any loss/damages resides with the user.
+                              </p>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}

@@ -21,7 +21,16 @@ export default function FAQ() {
                 </a>{' '}
                 team.
               </p>
+              <h3 className="mt-6 text-2xl font-bold text-gray-900">
+                Disclaimer
+              </h3>
+              <p className="mt-4 text-base font-bold text-red-500">
+                Whilst the utmost care has been taken in developing the
+                protocol, the full responsibility of any loss/damages resides
+                with the user.
+              </p>
             </div>
+
             <div className="mt-12 lg:mt-0 lg:col-span-2">
               <dl className="space-y-12">
                 <div>
