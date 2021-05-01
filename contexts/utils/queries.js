@@ -1,7 +1,7 @@
 // TODO add timestamp
 export const queryAllPunks = `
   {
-    provenances( where: { tenant_not: "0x0000000000000000000000000000000000000000" }) {
+    provenances {
       id
       cryptopunk {
         id

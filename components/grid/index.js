@@ -19,9 +19,13 @@ ListItemPunk.propTypes = {
 };
 
 export default function Grid({ setModalOpen }) {
-  const { giftedPunks, iGiftedPunks, giftedToMePunks, ownedPunks, allGiftedPunks } = useContext(
-    PunkContext
-  );
+  const {
+    giftedPunks,
+    iGiftedPunks,
+    giftedToMePunks,
+    ownedPunks,
+    allGiftedPunks,
+  } = useContext(PunkContext);
   const { activeFilter } = useContext(FiltersContext);
 
   const punks = useMemo(() => {

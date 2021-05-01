@@ -70,8 +70,12 @@ export default function Punk({ punk, setModalOpen }) {
       {punk.tenant && (
         <>
           <p className="block text-sm font-medium pointer-events-none lg:grid grid-cols-2">
-            <span className="cols-1 text-gray-500  text-sm lg:flex items-center justify-start">Offered to </span>
-            <span className="cols-1 text-sm lg:flex items-center justify-end font-bold">{short(punk.tenant)}</span>
+            <span className="cols-1 text-gray-500  text-sm lg:flex items-center justify-start">
+              Offered to{' '}
+            </span>
+            <span className="cols-1 text-sm lg:flex items-center justify-end font-bold">
+              {short(punk.tenant)}
+            </span>
           </p>
           <div className="mt-4 grid grid-cols-3 gap-1">
             <p className="cols-1 pointer-events-none">
@@ -82,14 +86,13 @@ export default function Punk({ punk, setModalOpen }) {
                 <span className="text-xl font-bold">
                   {startDate.getFullYear()}
                 </span>
-                <span className="font-medium">
-                  {formatAMPM(startDate)}
-                </span>
+                <span className="font-medium">{formatAMPM(startDate)}</span>
               </span>
             </p>
-            <p className='cols-1 flex justify-center items-center pointer-events-none'>-</p>
+            <p className="cols-1 flex justify-center items-center pointer-events-none">
+              -
+            </p>
             <p className="cols-1 pointer-events-none">
-
               <span className="flex items-end justify-end flex-col">
                 <span className="font-semibold">
                   {monthNames[endDate.getMonth()]}
@@ -97,14 +100,12 @@ export default function Punk({ punk, setModalOpen }) {
                 <span className="text-xl font-bold">
                   {endDate.getFullYear()}
                 </span>
-                <span className="font-medium">
-                  {formatAMPM(endDate)}
-                </span>
+                <span className="font-medium">{formatAMPM(endDate)}</span>
               </span>
             </p>
           </div>
           <div className="flex justify-center items-center mt-2 font-medium flex-col">
-            <p className='pointer-events-none'>{punk.rentLengthInDays} days</p>
+            <p className="pointer-events-none">{punk.rentLengthInDays} days</p>
           </div>
         </>
       )}
