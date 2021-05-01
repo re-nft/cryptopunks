@@ -12,6 +12,8 @@ export default function Filters() {
   const onChange = useCallback((e) => {
     switch (e.target.value.toLowerCase()) {
       case 'all ever gifted':
+        return FILTERS.ALL_EVER_GIFTED;
+      case 'all currently gifted':
         return FILTERS.ALL_CURRENTLY_GIFTED;
       case 'gifted to me':
         return FILTERS.GIFTED_TO_ME;
@@ -40,7 +42,8 @@ export default function Filters() {
             name="tabs"
             className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
           >
-            <option defaultValue>All Ever Gifted</option>
+            <option>All Ever Gifted</option>
+            <option defaultValue>All Currently Gifted</option>
             <option>Gifted To Me</option>
             <option>Gifted By Me</option>
             <option>Owned By Me</option>
