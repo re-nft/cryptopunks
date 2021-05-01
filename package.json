@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "format": "yarn prettier --write scripts hooks contexts components composed-components pages",
-    "check": "yarn prettier --check scripts hooks contexts components composed-components pages"
+    "check": "yarn prettier --check scripts hooks contexts components composed-components pages",
+    "graph:gen": "yarn graph codegen && yarn graph build",
+    "graph:deploy": "yarn graph:gen && yarn graph deploy --debug re-nft/cryptopunks-rent --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/"
   },
   "dependencies": {
     "@headlessui/react": "^0.3.2",

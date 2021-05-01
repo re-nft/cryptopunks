@@ -1,11 +1,18 @@
-import React, { createContext, useEffect, useState, useContext } from 'react';
+import React, {
+  createContext,
+  useEffect,
+  useState,
+  useContext,
+  useCallback,
+} from 'react';
 import PropTypes from 'prop-types';
 import blockies from 'ethereum-blockies';
 import { request } from 'graphql-request';
+import { ethers } from 'ethers';
 
 import { parsePackedRentData } from '../utils';
 import {
-  queryAllGiftedPunks,
+  queryAllPunks,
   queryProvenancyOfPunk,
   queryCryptopunksOfOwner,
 } from './utils/queries';
@@ -23,10 +30,6 @@ const PunkContext = createContext({
 });
 
 // 'https://api.thegraph.com/subgraphs/id/QmYf71puLa7q67Kztmpxv6ZxmahAgbm7PLiiRePNwhGXdW';
-
-const ENDPOINT =
-  'https://api.thegraph.com/subgraphs/id/QmVUpW3EEa6mkPJWdEGxe24ZvvS8cxfhZqfn3iccX4TSTP';
-
 class Cryptopunk {
   constructor(punkID, owner, tenant, start, minSalePriceInWei) {
     this.punkID = punkID;
@@ -75,9 +78,43 @@ class Cryptopunk {
   }
 }
 
+export const mapToPunk = (p) =>
+  new Cryptopunk(
+    p.cryptopunk.id,
+    p.cryptopunk.owner.id,
+    p.tenant.id,
+    p.tenancyDates.start,
+    p.minSalePriceInWei
+  );
+
+export const filterNonZeroTenant = (p) => {
+  return p.tenant.id !== ethers.constants.AddressZero;
+};
+
+export const filterCurrentPunk = (p) => {
+  const { rentLength } = parsePackedRentData(p.minSalePriceInWei);
+  const end = p.tenancyDates.start + rentLength * 86400;
+  const now = Math.round(Date.now() / 1000);
+  return end > now && filterNonZeroTenant(p);
+};
+
+const errorFromRequest = (errorText) => (e) => {
+  console.warn(errorText);
+  console.warn(e);
+};
+
+const getProvenances = (query, errorText) => {
+  return request(process.env.GRAPH_ENDPOINT, query)
+    .then(({ provenances }) => {
+      return provenances || [];
+    })
+    .catch(errorFromRequest(errorText));
+};
+
 export function PunkProvider({ children }) {
   const { address } = useContext(UserContext);
   const [giftedPunks, setGiftedPunks] = useState([]);
+  const [allGiftedPunks, setAllGiftedPunks] = useState([]);
   const [iGiftedPunks, setIGiftedPunks] = useState([]);
   const [giftedToMePunks, setGiftedToMePunks] = useState([]);
   const [ownedPunks, setOwnedPunks] = useState([]);
@@ -89,50 +126,36 @@ export function PunkProvider({ children }) {
   };
 
   // TODO: rename class Provenance to Punk and define it as per initial spec
-  // TODO: there should be no need for two queries to punks! just one
-  const provenanceOfPunk = (punk) => {
-    // TODO: not dry. repeated below
-    return request(ENDPOINT, queryProvenancyOfPunk(punk.punkID))
-      .then((d) => {
-        const { provenances } = d;
-        return provenances.map(
-          (p) =>
-            new Cryptopunk(
-              p.cryptopunk.id,
-              p.cryptopunk.owner.id,
-              p.tenant.id,
-              p.tenancyDates.start,
-              p.minSalePriceInWei
-            )
-        );
-      })
-      .catch((e) => {
-        console.warn('issue fetching punk"s provenance');
-        return [];
-      });
-  };
+  // as in context, usecallback is necessary so the function won't be recreated
+  // and doesn't cause unnessarcy rerenders
+  const provenanceOfPunk = useCallback((punk) => {
+    return getProvenances(
+      queryProvenancyOfPunk(punk.punkID),
+      'issue fetching punk"s provenance'
+    ).then((result) => {
+      if (result) return result.map(mapToPunk);
+      return [];
+    });
+  }, []);
 
-  // todo: create punks and then filter. that way we will not perform
-  // todo: the end computation twice
-  const parseProvenances = (provenances) =>
-    provenances
-      .filter((p) => {
-        const { rentLength } = parsePackedRentData(p.minSalePriceInWei);
-        const end = p.tenancyDates.start + rentLength * 86400;
-        const now = Math.round(Date.now() / 1000);
-        return end > now;
-      })
-      .map(
-        (p) =>
-          new Cryptopunk(
-            p.cryptopunk.id,
-            p.cryptopunk.owner.id,
-            p.tenant.id,
-            p.tenancyDates.start,
-            p.minSalePriceInWei
-          )
+  //
+  // Dependant effects on value changes through API updating values
+  //
+
+  useEffect(() => {
+    if (address) {
+      setIGiftedPunks(
+        giftedPunks.filter((pp) => pp.owner.toLowerCase() === address)
       );
+      setGiftedToMePunks(
+        giftedPunks.filter((pp) => pp.tenant.toLowerCase() === address)
+      );
+    }
+  }, [address, giftedPunks]);
 
+  //
+  // API requests
+  //
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
       setOwnedPunks([
@@ -145,61 +168,38 @@ export function PunkProvider({ children }) {
         ),
       ]);
     }
-
     // TODO: only pulls this once. add a poller
-    request(ENDPOINT, queryAllGiftedPunks)
-      .then((d) => {
-        const { provenances } = d;
-        const parsedProvenances = parseProvenances(provenances || []);
-
-        /* eslint-disable */
-        setGiftedPunks(parsedProvenances);
-
-        if (address) {
-          setIGiftedPunks(
-            parsedProvenances.filter((pp) => pp.owner.toLowerCase() === address)
-          );
-          setGiftedToMePunks(
-            parsedProvenances.filter(
-              (pp) => pp.tenant.toLowerCase() === address
-            )
-          );
-        }
-      })
-      /* eslint-enable */
-      .catch((e) => {
-        console.warn('issue pulling gifted punks');
-        console.warn(e);
-        setGiftedPunks([]);
-      });
+    getProvenances(queryAllPunks, 'issue fetching all punks').then((result) => {
+      if (result) {
+        setAllGiftedPunks(result.filter(filterNonZeroTenant).map(mapToPunk));
+        // todo: create punks and then filter. that way we will not perform
+        // todo: the end computation twice
+        setGiftedPunks(result.filter(filterCurrentPunk).map(mapToPunk));
+      }
+    });
 
     if (address) {
-      request(ENDPOINT, queryCryptopunksOfOwner(address)).then(
-        ({ userAddresses }) => {
-          if (!userAddresses.length) return;
+      request(process.env.GRAPH_ENDPOINT, queryCryptopunksOfOwner(address))
+        .then(({ userAddresses }) => {
+          if (!userAddresses.length && userAddresses.length > 0) return;
           const { cryptopunks } = userAddresses[0];
-          const punks = [];
-          cryptopunks.forEach((punk) => {
-            if (!punk.provenance) {
-              punks.push(new Cryptopunk(punk.id, address, '', '', ''));
-            } else {
-              // TODO: provenance should be an array!
-              punks.push(
-                new Cryptopunk(
-                  punk.id,
-                  address,
-                  punk.provenance.tenant ? punk.provenance.tenant.id : '',
-                  punk.provenance.tenancyDates
-                    ? punk.provenance.tenancyDates.start
-                    : '',
-                  punk.provenance.minSalePriceInWei
-                )
-              );
-            }
+          const punks = cryptopunks.map((punk) => {
+            // TODO: provenance should be an array!
+            return new Cryptopunk(
+              punk.id,
+              address,
+              punk.provenance && punk.provenance.tenant
+                ? punk.provenance.tenant.id
+                : '',
+              punk.provenance && punk.provenance.tenancyDates
+                ? punk.provenance.tenancyDates.start
+                : '',
+              punk.provenance ? punk.provenance.minSalePriceInWei : ''
+            );
           });
           setOwnedPunks(punks);
-        }
-      );
+        })
+        .catch(errorFromRequest('Could not fetch the cryptopunks of owner'));
     }
   }, [address]);
 
@@ -213,6 +213,7 @@ export function PunkProvider({ children }) {
         activePunk,
         setActivePunk,
         provenanceOfPunk,
+        allGiftedPunks,
       }}
     >
       {children}
@@ -220,7 +221,7 @@ export function PunkProvider({ children }) {
   );
 }
 
-PunkProvider.propTypes = {
+PunkContext.propTypes = {
   children: PropTypes.node,
 };
 

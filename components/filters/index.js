@@ -13,6 +13,8 @@ export default function Filters() {
     switch (e.target.value.toLowerCase()) {
       case 'all ever gifted':
         return FILTERS.ALL_EVER_GIFTED;
+      case 'all currently gifted':
+        return FILTERS.ALL_CURRENTLY_GIFTED;
       case 'gifted to me':
         return FILTERS.GIFTED_TO_ME;
       case 'gifted by me':
@@ -40,7 +42,8 @@ export default function Filters() {
             name="tabs"
             className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
           >
-            <option defaultValue>All Ever Gifted</option>
+            <option>All Ever Gifted</option>
+            <option defaultValue>All Currently Gifted</option>
             <option>Gifted To Me</option>
             <option>Gifted By Me</option>
             <option>Owned By Me</option>
@@ -51,13 +54,23 @@ export default function Filters() {
             <nav className="-mb-px flex space-x-8" aria-label="Tabs">
               <span
                 className={`cursor-pointer ${
+                  activeFilter === FILTERS.ALL_CURRENTLY_GIFTED
+                    ? activeClassName
+                    : defaultClassName
+                }`}
+                onClick={() => setActiveFilter(FILTERS.ALL_CURRENTLY_GIFTED)}
+              >
+                All Currently Gifted
+              </span>
+              <span
+                className={`cursor-pointer ${
                   activeFilter === FILTERS.ALL_EVER_GIFTED
                     ? activeClassName
                     : defaultClassName
                 }`}
                 onClick={() => setActiveFilter(FILTERS.ALL_EVER_GIFTED)}
               >
-                All Currently Gifted
+                All Ever Gifted
               </span>
               <span
                 className={`cursor-pointer ${
