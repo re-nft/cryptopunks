@@ -42,7 +42,7 @@ export const UserProvider = ({ children }) => {
       setSigner(_signer);
       setAddress((await _signer.getAddress()).toLowerCase());
       setProvider(provider);
-      setWeb3Provider(web3Provider)
+      setWeb3Provider(web3Provider);
       return Promise.resolve(web3provider);
     }
   }, [web3Modal]);
@@ -65,8 +65,10 @@ export const UserProvider = ({ children }) => {
       provider.on('accountsChanged', connect);
     }
     return () => {
-      if (provider) { provider.off('accountsChanged', connect) }
-    }
+      if (provider) {
+        provider.off('accountsChanged', connect);
+      }
+    };
   }, [provider]);
 
   return (
