@@ -8,6 +8,7 @@ import React, {
 import PropTypes from 'prop-types';
 import blockies from 'ethereum-blockies';
 import { request } from 'graphql-request';
+import { ethers } from 'ethers';
 
 import { parsePackedRentData } from '../utils';
 import {
@@ -86,13 +87,15 @@ export const mapToPunk = (p) =>
     p.minSalePriceInWei
   );
 
+export const filterNonZeroTenant = (p) => {
+  return p.tenant.id !== ethers.constants.AddressZero;
+};
+
 export const filterCurrentPunk = (p) => {
   const { rentLength } = parsePackedRentData(p.minSalePriceInWei);
   const end = p.tenancyDates.start + rentLength * 86400;
   const now = Math.round(Date.now() / 1000);
-  return (
-    end > now && p.tenant.id !== '0x0000000000000000000000000000000000000000'
-  );
+  return end > now && filterNonZeroTenant(p);
 };
 
 const errorFromRequest = (errorText) => (e) => {
@@ -168,7 +171,7 @@ export function PunkProvider({ children }) {
     // TODO: only pulls this once. add a poller
     getProvenances(queryAllPunks, 'issue fetching all punks').then((result) => {
       if (result) {
-        setAllGiftedPunks(result.map(mapToPunk));
+        setAllGiftedPunks(result.filter(filterNonZeroTenant).map(mapToPunk));
         // todo: create punks and then filter. that way we will not perform
         // todo: the end computation twice
         setGiftedPunks(result.filter(filterCurrentPunk).map(mapToPunk));
