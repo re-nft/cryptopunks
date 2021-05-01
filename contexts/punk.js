@@ -1,4 +1,10 @@
-import React, { createContext, useEffect, useState, useContext } from 'react';
+import React, {
+  createContext,
+  useEffect,
+  useState,
+  useContext,
+  useCallback,
+} from 'react';
 import PropTypes from 'prop-types';
 import blockies from 'ethereum-blockies';
 import { request } from 'graphql-request';
@@ -23,7 +29,6 @@ const PunkContext = createContext({
 });
 
 // 'https://api.thegraph.com/subgraphs/id/QmYf71puLa7q67Kztmpxv6ZxmahAgbm7PLiiRePNwhGXdW';
-
 class Cryptopunk {
   constructor(punkID, owner, tenant, start, minSalePriceInWei) {
     this.punkID = punkID;
@@ -90,13 +95,18 @@ export const filterCurrentPunk = (p) => {
   );
 };
 
-const examplePunk = new Cryptopunk(
-  1138,
-  '0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE',
-  '0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE',
-  1619277539,
-  '0xff3600000f000000000000000000000000000000000000000000000000000000'
-);
+const errorFromRequest = (errorText) => (e) => {
+  console.warn(errorText);
+  console.warn(e);
+};
+
+const getProvenances = (query, errorText) => {
+  return request(process.env.GRAPH_ENDPOINT, query)
+    .then(({ provenances }) => {
+      return provenances || [];
+    })
+    .catch(errorFromRequest(errorText));
+};
 
 export function PunkProvider({ children }) {
   const { address } = useContext(UserContext);
@@ -111,19 +121,11 @@ export function PunkProvider({ children }) {
   const setActivePunk = (punk) => {
     _setActivePunk(punk);
   };
-  const errorFromRequest = (errorText) => (e) => {
-    console.warn(errorText);
-    console.warn(e);
-  };
-  const getProvenances = (query, errorText) => {
-    return request(process.env.GRAPH_ENDPOINT, query)
-      .then(({ provenances }) => {
-        return provenances || [];
-      })
-      .catch(errorFromRequest(errorText));
-  };
+
   // TODO: rename class Provenance to Punk and define it as per initial spec
-  const provenanceOfPunk = (punk) => {
+  // as in context, usecallback is necessary so the function won't be recreated
+  // and doesn't cause unnessarcy rerenders
+  const provenanceOfPunk = useCallback((punk) => {
     return getProvenances(
       queryProvenancyOfPunk(punk.punkID),
       'issue fetching punk"s provenance'
@@ -131,7 +133,7 @@ export function PunkProvider({ children }) {
       if (result) return result.map(mapToPunk);
       return [];
     });
-  };
+  }, []);
 
   //
   // Dependant effects on value changes through API updating values
@@ -153,7 +155,15 @@ export function PunkProvider({ children }) {
   //
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
-      setOwnedPunks([examplePunk]);
+      setOwnedPunks([
+        new Cryptopunk(
+          1138,
+          '0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE',
+          '0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE',
+          1619277539,
+          '0xff3600000f000000000000000000000000000000000000000000000000000000'
+        ),
+      ]);
     }
     // TODO: only pulls this once. add a poller
     getProvenances(queryAllPunks, 'issue fetching all punks').then((result) => {
@@ -207,9 +217,5 @@ export function PunkProvider({ children }) {
     </PunkContext.Provider>
   );
 }
-
-PunkProvider.propTypes = {
-  children: PropTypes.node,
-};
 
 export default PunkContext;
