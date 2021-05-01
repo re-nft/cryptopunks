@@ -218,4 +218,8 @@ export function PunkProvider({ children }) {
   );
 }
 
+PunkContext.propTypes = {
+  children: PropTypes.node,
+};
+
 export default PunkContext;
