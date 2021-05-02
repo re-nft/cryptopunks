@@ -172,7 +172,9 @@ export function PunkProvider({ children }) {
     getProvenances(queryAllPunks, 'issue fetching all punks').then((result) => {
       if (result) {
         const sortedResult = result.sort(sortByTimestamp);
-        setAllGiftedPunks(sortedResult.filter(filterNonZeroTenant).map(mapToPunk));
+        setAllGiftedPunks(
+          sortedResult.filter(filterNonZeroTenant).map(mapToPunk)
+        );
         // todo: create punks and then filter. that way we will not perform
         // todo: the end computation twice
         setGiftedPunks(sortedResult.filter(filterCurrentPunk).map(mapToPunk));

@@ -86,7 +86,12 @@ export default function Punk({ punk, setModalOpen }) {
                 <span className="text-xl font-bold">
                   {startDate.getFullYear()}
                 </span>
-                <span className="font-medium text-left text-xs lg:text-base" style={{ minWidth: '4rem' }}>{formatAMPM(startDate)}</span>
+                <span
+                  className="font-medium text-left text-xs lg:text-base"
+                  style={{ minWidth: '4rem' }}
+                >
+                  {formatAMPM(startDate)}
+                </span>
               </span>
             </p>
             <p className="cols-1 flex justify-center items-center pointer-events-none">
@@ -100,7 +105,12 @@ export default function Punk({ punk, setModalOpen }) {
                 <span className="text-xl font-bold">
                   {endDate.getFullYear()}
                 </span>
-                <span className="font-medium text-xs lg:text-base text-right" style={{ minWidth: '4rem' }}>{formatAMPM(endDate)}</span>
+                <span
+                  className="font-medium text-xs lg:text-base text-right"
+                  style={{ minWidth: '4rem' }}
+                >
+                  {formatAMPM(endDate)}
+                </span>
               </span>
             </p>
           </div>
