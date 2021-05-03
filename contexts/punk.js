@@ -58,23 +58,7 @@ class Cryptopunk {
       this.end = '';
       this.rentLengthInDays = '';
     }
-    this.src = `punks/punk${this.getPunkID(this.punkID)}.png`;
-  }
-
-  // TODO: complete retardedness. Rename those downloaded files to follow the same naming pattern
-  getPunkID(punkID) {
-    const intID = parseInt(punkID);
-    if (intID > 1000) {
-      return punkID;
-    } else {
-      if (intID < 10) {
-        return '00' + punkID;
-      } else if (intID < 100) {
-        return '0' + punkID;
-      } else {
-        return punkID;
-      }
-    }
+    this.src = `punks/punk-${this.punkID}.png`;
   }
 }
 
