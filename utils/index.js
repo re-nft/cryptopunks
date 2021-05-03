@@ -71,3 +71,10 @@ export const formatAMPM = (date) => {
   const strTime = hours + ':' + minutes + ' ' + ampm;
   return strTime;
 };
+
+export function sortByTimestamp(a, b, asc = false) {
+  if (asc) {
+    return a.tenancyDates.start - b.tenancyDates.start;
+  }
+  return b.tenancyDates.start - a.tenancyDates.start;
+}
