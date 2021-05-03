@@ -72,9 +72,9 @@ export const formatAMPM = (date) => {
   return strTime;
 };
 
-export function sortByTimestamp (a, b, asc = false) {
+export function sortByTimestamp(a, b, asc = false) {
   if (asc) {
-    return a.tenancyDates.start > b.tenancyDates.start
+    return a.tenancyDates.start - b.tenancyDates.start;
   }
-  return a.tenancyDates.start < b.tenancyDates.start
+  return b.tenancyDates.start - a.tenancyDates.start;
 }

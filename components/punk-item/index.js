@@ -81,7 +81,7 @@ export default function Punk({ punk, setModalOpen }) {
             <p className="cols-1 pointer-events-none">
               <span className="flex items-start justify-start flex-col">
                 <span className="font-semibold">
-                  {monthNames[startDate.getMonth()]}
+                  {startDate.getDate()} {monthNames[startDate.getMonth()]}
                 </span>
                 <span className="text-xl font-bold">
                   {startDate.getFullYear()}
@@ -100,7 +100,7 @@ export default function Punk({ punk, setModalOpen }) {
             <p className="cols-1 pointer-events-none">
               <span className="flex items-end justify-end flex-col">
                 <span className="font-semibold">
-                  {monthNames[endDate.getMonth()]}
+                  {endDate.getDate()} {monthNames[endDate.getMonth()]}
                 </span>
                 <span className="text-xl font-bold">
                   {endDate.getFullYear()}
