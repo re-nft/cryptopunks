@@ -231,5 +231,4 @@ export class Provenance extends Entity {
   set tenancyDates(value: string) {
     this.set("tenancyDates", Value.fromString(value));
   }
-
 }

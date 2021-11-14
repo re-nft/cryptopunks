@@ -74,12 +74,12 @@ function getCryptopunkID(cryptopunkID: BigInt): string {
   return cryptopunkID.toString();
 }
 
-function getTenancyDatesID(cryptopunkID: BigInt, transaction: ethereum.Transaction): string {
-  return getCryptopunkID(cryptopunkID) + "::" + transaction.hash.toHex() + "::" + transaction.index.toHex();
+function getTenancyDatesID(cryptopunkID: BigInt, transaction: ethereum.Transaction, event: ethereum.Event): string {
+  return getCryptopunkID(cryptopunkID) + "::" + transaction.hash.toHex() + "::" + transaction.index.toHex() + "::" + event.logIndex.toString();
 }
 
-function getProvenanceID(cryptopunkID: BigInt): string {
-  return getCryptopunkID(cryptopunkID);
+function getProvenanceID(cryptopunkID: BigInt, transaction: ethereum.Transaction, event: ethereum.Event): string {
+  return getCryptopunkID(cryptopunkID) + "::" + transaction.hash.toHex() + "::" + transaction.index.toHex() + "::" + event.logIndex.toString();
 }
 // --- * ---
 
@@ -150,8 +150,8 @@ export function handlePunkOffered(e: PunkOffered): void {
   let newTenantID = getAddressID(newTenant);
   let rentLength = unpackRentLength(hexPackedRentData);
   let cryptopunkID = getCryptopunkID(e.params.punkIndex);
-  let tenancyDatesID = getTenancyDatesID(e.params.punkIndex, e.transaction);
-  let provenanceID = getProvenanceID(e.params.punkIndex);
+  let tenancyDatesID = getTenancyDatesID(e.params.punkIndex, e.transaction, e);
+  let provenanceID = getProvenanceID(e.params.punkIndex, e.transaction, e);
 
   createUserAddress(ownerID);
   createUserAddress(newTenantID);
@@ -159,7 +159,6 @@ export function handlePunkOffered(e: PunkOffered): void {
   createTenancyDates(tenancyDatesID);
   createProvenance(provenanceID, cryptopunkID, tenancyDatesID);
 
-  // ? redundant loading. I am scared of subgraph, so extra caution is warranted
   let cryptopunk = Cryptopunk.load(cryptopunkID);
   cryptopunk.owner = UserAddress.load(ownerID).id;
   cryptopunk.save();
