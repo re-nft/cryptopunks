@@ -109,9 +109,6 @@ export function PunkProvider({ children }) {
     _setActivePunk(punk);
   };
 
-  // TODO: rename class Provenance to Punk and define it as per initial spec
-  // as in context, usecallback is necessary so the function won't be recreated
-  // and doesn't cause unnessarcy rerenders
   const provenanceOfPunk = useCallback((punk) => {
     return getProvenances(
       queryProvenancyOfPunk(punk.punkID),
@@ -121,10 +118,6 @@ export function PunkProvider({ children }) {
       return [];
     });
   }, []);
-
-  //
-  // Dependant effects on value changes through API updating values
-  //
 
   useEffect(() => {
     if (address) {
@@ -137,9 +130,6 @@ export function PunkProvider({ children }) {
     }
   }, [address, giftedPunks]);
 
-  //
-  // API requests
-  //
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
       setOwnedPunks([
@@ -152,6 +142,7 @@ export function PunkProvider({ children }) {
         ),
       ]);
     }
+
     // TODO: only pulls this once. add a poller
     getProvenances(queryAllPunks, 'issue fetching all punks').then((result) => {
       if (result) {
